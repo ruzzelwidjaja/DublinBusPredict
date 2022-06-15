@@ -3,7 +3,7 @@ import "./Navbar.css";
 
 const Navbar = () => {
   return (
-    <div id="navbar">
+    <div>
       <div className="header">
         <h1 className="text-4xl font-sans tracking-wider ">Dublin Bus</h1>
       </div>
