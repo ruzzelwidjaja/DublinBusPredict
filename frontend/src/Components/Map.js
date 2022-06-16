@@ -7,9 +7,11 @@ const center = { lat: 53.3434634, lng: -6.2749724 };
 const mapContainerStyle = { width: "100%", height: "100%" };
 const options = {
   styles: MapStyles,
+  disableDefaultUI: true,
 };
 
-const Map = () => {
+const Map = (props) => {
+  console.log(props.stops);
   return (
     <GoogleMap
       center={center}
