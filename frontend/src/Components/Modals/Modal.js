@@ -1,11 +1,14 @@
 import React from "react";
+import JourneyPlannerModal from "./JourneyPlannerModal";
+import RoutesModal from "./RoutesModal";
 import "./Modal.css";
 
-const Modal = () => {
+const Modal = (props) => {
   return (
     <div className="modal">
-      <div class="p-4 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md sm:p-6 lg:p-8 dark:bg-gray-800 dark:border-gray-700">
-        Pop Up Window
+      <div className="p-4 rounded-lg border shadow-md bg-gray-800 border-gray-700">
+        {props.modalType === "journeyPlanner" && <JourneyPlannerModal />}
+        {props.modalType === "routes" && <RoutesModal />}
       </div>
     </div>
   );
