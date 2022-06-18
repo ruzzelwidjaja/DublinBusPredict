@@ -1,8 +1,8 @@
 from django.contrib import admin
-from .models import BusStation
+from .models import Stops
 
 # Register your models here.
-class BusStationAdmin(admin.ModelAdmin):
+class StopsAdmin(admin.ModelAdmin):
     list = ('stop_id', 'stop_name', 'stop_lat', 'stop_lon')
 
-admin.site.register(BusStation, BusStationAdmin)
+admin.site.register(Stops, StopsAdmin)
