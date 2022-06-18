@@ -19,7 +19,7 @@ from rest_framework import routers
 from dublinbusapp import views
 
 router = routers.DefaultRouter()
-router.register(r'dublinbusstops', views.BusStationView, 'dublinbusstops')
+router.register(r'stops', views.StopsView, 'stops')
 
 urlpatterns = [
     path('admin/', admin.site.urls),

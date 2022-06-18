@@ -1,9 +1,9 @@
 from django.shortcuts import render
-from .serializers import BusStationSerializer
+from .serializers import StopsSerializer
 from rest_framework import viewsets
-from .models import BusStation
+from .models import Stops
 
 # Create your views here.
-class BusStationView(viewsets.ModelViewSet):
-    serializer_class = BusStationSerializer
-    queryset = BusStation.objects.all()
+class StopsView(viewsets.ModelViewSet):
+    serializer_class = StopsSerializer
+    queryset = Stops.objects.all()
