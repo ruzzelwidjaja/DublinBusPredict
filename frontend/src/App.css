@@ -2,15 +2,17 @@
   position: absolute;
   width: 100%;
   height: 100%;
+  text-align: center;
 }
 
 #navbar {
   z-index: 1;
   position: absolute;
   bottom: 0;
+  left: 50%;
   height: 100px;
-  width: 100%;
   text-align: center;
+  transform: translate(-50%, -0%);
 }
 
 /* For larger screens */
@@ -18,17 +20,18 @@
   #mapCanvas {
     position: absolute;
     height: 100%;
-    width: calc(100% - 300px);
-    left: 300px;
+    width: calc(100% - 270px);
+    left: 270px;
   }
 
   #navbar {
     position: absolute;
     left: 0;
     height: 100%;
-    width: 300px;
+    width: 270px;
     text-align: center;
     background-color: black;
     border-right: solid white 1px;
+    transform: translate(0, 0);
   }
 }
