@@ -14,6 +14,8 @@ const App = () => {
   // Modal state
   const [openModal, setOpenModal] = useState(false);
 
+  const [modalType, setModalType] = useState("none");
+
   // Function to get data from backend API
   const fetchData = async () => {
     const response = await fetch("http://localhost:8000/api/stops/");
@@ -47,11 +49,16 @@ const App = () => {
   return (
     <div>
       <div id="mapCanvas">
-        {openModal && <Modal />}
+        {openModal && <Modal modalType={modalType} />}
         <Map stops={stops} />
       </div>
       <div id="navbar">
-        <Navbar setOpenModal={setOpenModal} openModal={openModal} />
+        <Navbar
+          setOpenModal={setOpenModal}
+          openModal={openModal}
+          modalType={modalType}
+          setModalType={setModalType}
+        />
       </div>
     </div>
   );

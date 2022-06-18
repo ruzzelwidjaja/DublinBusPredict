@@ -12,9 +12,13 @@ const Navbar = (props) => {
       <div className="webbuttons">
         <button
           onClick={() => {
-            props.openModal
-              ? props.setOpenModal(false)
-              : props.setOpenModal(true);
+            if (props.openModal && props.ModalType === "none") {
+              props.setOpenModal(false);
+              props.setModalType("none");
+            } else {
+              props.setOpenModal(true);
+              props.setModalType("journeyPlanner");
+            }
           }}
           className="webbutton bg-zinc-900 hover:bg-gray-800 text-slate-100 font-medium py-5 px-4 border-t border-zinc-500"
         >
@@ -22,9 +26,13 @@ const Navbar = (props) => {
         </button>
         <button
           onClick={() => {
-            props.openModal
-              ? props.setOpenModal(false)
-              : props.setOpenModal(true);
+            if (props.openModal && props.ModalType === "none") {
+              props.setOpenModal(false);
+              props.setModalType("none");
+            } else {
+              props.setOpenModal(true);
+              props.setModalType("routes");
+            }
           }}
           className="webbutton bg-zinc-900 hover:bg-gray-800 text-slate-100 font-medium py-5 px-4 border-t border-b border-zinc-500"
         >
@@ -36,9 +44,13 @@ const Navbar = (props) => {
       <div className="phonebuttons inline-flex">
         <button
           onClick={() => {
-            props.openModal
-              ? props.setOpenModal(false)
-              : props.setOpenModal(true);
+            if (props.openModal) {
+              props.setOpenModal(false);
+              props.setModalType("none");
+            } else {
+              props.setOpenModal(true);
+              props.setModalType("journeyPlanner");
+            }
           }}
           className="bg-zinc-900 hover:bg-zinc-800 text-slate-100 font-medium py-2 px-6 rounded-l"
         >
@@ -47,9 +59,13 @@ const Navbar = (props) => {
         </button>
         <button
           onClick={() => {
-            props.openModal
-              ? props.setOpenModal(false)
-              : props.setOpenModal(true);
+            if (props.openModal) {
+              props.setOpenModal(false);
+              props.setModalType("none");
+            } else {
+              props.setOpenModal(true);
+              props.setModalType("routes");
+            }
           }}
           className="bg-zinc-900 hover:bg-zinc-800 text-slate-100 font-medium py-2 px-6 border-l border-r border-zinc-500"
         >
