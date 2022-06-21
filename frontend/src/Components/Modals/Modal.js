@@ -7,7 +7,13 @@ const Modal = (props) => {
   return (
     <div className="modal">
       <div className="p-4 rounded-lg border shadow-md bg-gray-800 border-gray-700">
-        {props.modalType === "journeyPlanner" && <JourneyPlannerModal />}
+        {props.modalType === "journeyPlanner" && (
+          <JourneyPlannerModal
+            setDirections={props.setDirections}
+            setOpenModal={props.setOpenModal}
+            setModalType={props.setModalType}
+          />
+        )}
         {props.modalType === "routes" && <RoutesModal />}
       </div>
     </div>

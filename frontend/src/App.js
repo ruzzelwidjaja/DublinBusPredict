@@ -5,7 +5,7 @@ import Map from "./Components/Map";
 import Navbar from "./Components/Navbar";
 import Modal from "./Components/Modals/Modal";
 
-const libraries = [];
+const libraries = ["places"];
 
 const App = () => {
   // Declare initial state for stop data
@@ -13,8 +13,10 @@ const App = () => {
 
   // Modal state
   const [openModal, setOpenModal] = useState(false);
-
   const [modalType, setModalType] = useState("none");
+
+  // Directions
+  const [directions, setDirections] = useState(null);
 
   // Function to get data from backend API
   const fetchData = async () => {
@@ -44,13 +46,26 @@ const App = () => {
 
   // If map has not loaded display loading..
   if (!isLoaded) {
-    return <>Loading</>;
+    return <>Loading...</>;
   }
+
   return (
     <div>
       <div id="mapCanvas">
-        {openModal && <Modal modalType={modalType} />}
-        <Map stops={stops} />
+        {openModal && (
+          <Modal
+            modalType={modalType}
+            setOpenModal={setOpenModal}
+            setModalType={setModalType}
+            setDirections={setDirections}
+          />
+        )}
+        <Map
+          stops={stops}
+          directions={directions}
+          setOpenModal={setOpenModal}
+          setModalType={setModalType}
+        />
       </div>
       <div id="navbar">
         <Navbar
