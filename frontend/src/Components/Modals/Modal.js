@@ -16,7 +16,13 @@ const Modal = (props) => {
           />
         )}
         {props.modalType === "directionsOptions" && (
-          <DirectionsOptions directions={props.directions} />
+          <DirectionsOptions
+            directions={props.directions}
+            setDirections={props.setDirections}
+            setOpenModal={props.setOpenModal}
+            setModalType={props.setModalType}
+            setRouteIndex={props.setRouteIndex}
+          />
         )}
         {props.modalType === "routes" && <RoutesModal />}
       </div>

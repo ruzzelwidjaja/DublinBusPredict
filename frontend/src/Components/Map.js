@@ -11,7 +11,7 @@ const options = {
   clickableIcons: false,
 };
 
-const Map = ({ directions, setOpenModal, setModalType }) => {
+const Map = ({ directions, setOpenModal, setModalType, routeIndex }) => {
   const [map, setMap] = useState(null);
   return (
     <GoogleMap
@@ -27,7 +27,9 @@ const Map = ({ directions, setOpenModal, setModalType }) => {
         setOpenModal(false);
       }}
     >
-      {/* {directions && <DirectionsRenderer directions={directions} />} */}
+      {directions && routeIndex !== null && (
+        <DirectionsRenderer directions={directions} routeIndex={routeIndex} />
+      )}
 
       {/* Log the bus number and stop names */}
       {/* {directions &&

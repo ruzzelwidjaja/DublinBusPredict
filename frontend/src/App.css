@@ -20,15 +20,15 @@
   #mapCanvas {
     position: absolute;
     height: 100%;
-    width: calc(100% - 270px);
-    left: 270px;
+    width: calc(100% - 250px);
+    left: 250px;
   }
 
   #navbar {
     position: absolute;
     left: 0;
     height: 100%;
-    width: 270px;
+    width: 250px;
     text-align: center;
     background-color: black;
     border-right: solid white 1px;

@@ -10,7 +10,7 @@ const libraries = ["places"];
 const App = () => {
   // Declare initial state for stop data
   const [stops, setStops] = useState([]);
-
+  const [routeIndex, setRouteIndex] = useState(null);
   // Modal state
   const [openModal, setOpenModal] = useState(false);
   const [modalType, setModalType] = useState("none");
@@ -59,6 +59,7 @@ const App = () => {
             setModalType={setModalType}
             setDirections={setDirections}
             directions={directions}
+            setRouteIndex={setRouteIndex}
           />
         )}
         <Map
@@ -66,6 +67,7 @@ const App = () => {
           directions={directions}
           setOpenModal={setOpenModal}
           setModalType={setModalType}
+          routeIndex={routeIndex}
         />
       </div>
       <div id="navbar">

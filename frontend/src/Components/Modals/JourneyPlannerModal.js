@@ -10,6 +10,10 @@ const JourneyPlannerModal = (props) => {
   const originRef = useRef("");
   const destinationRef = useRef("");
 
+  const options = {
+    componentRestrictions: { country: ["ie"] },
+  };
+
   // Async function to get route based off origin and dest
   const getRoute = async () => {
     if (originRef.current.value === "" || destinationRef.current.value === "") {
@@ -48,6 +52,8 @@ const JourneyPlannerModal = (props) => {
       if (directionsAvailable) {
         props.setDirections(results);
         console.log(results);
+      } else {
+        props.setDirections("none");
       }
     } catch {
       console.log("No results for that journey error");
@@ -85,7 +91,7 @@ const JourneyPlannerModal = (props) => {
         >
           Start:
         </label>
-        <Autocomplete>
+        <Autocomplete options={options}>
           <input
             name="start"
             className="border text-sm rounded-lg block w-full p-1.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
@@ -101,7 +107,7 @@ const JourneyPlannerModal = (props) => {
         >
           Stop:
         </label>
-        <Autocomplete>
+        <Autocomplete options={options}>
           <input
             name="stop"
             className="border text-sm rounded-lg block w-full p-1.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
