@@ -1,6 +1,7 @@
 import React from "react";
 import JourneyPlannerModal from "./JourneyPlannerModal";
 import RoutesModal from "./RoutesModal";
+import DirectionsOptions from "./DirectionsOptions";
 import "./Modal.css";
 
 const Modal = (props) => {
@@ -13,6 +14,9 @@ const Modal = (props) => {
             setOpenModal={props.setOpenModal}
             setModalType={props.setModalType}
           />
+        )}
+        {props.modalType === "directionsOptions" && (
+          <DirectionsOptions directions={props.directions} />
         )}
         {props.modalType === "routes" && <RoutesModal />}
       </div>

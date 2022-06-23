@@ -11,9 +11,8 @@ const options = {
   clickableIcons: false,
 };
 
-const Map = (props) => {
+const Map = ({ directions, setOpenModal, setModalType }) => {
   const [map, setMap] = useState(null);
-  // console.log(props.stops);
   return (
     <GoogleMap
       center={center}
@@ -24,11 +23,29 @@ const Map = (props) => {
         setMap(map);
       }}
       onClick={() => {
-        props.setModalType("none");
-        props.setOpenModal(false);
+        setModalType("none");
+        setOpenModal(false);
       }}
     >
-      {props.directions && <DirectionsRenderer directions={props.directions} />}
+      {/* {directions && <DirectionsRenderer directions={directions} />} */}
+
+      {/* Log the bus number and stop names */}
+      {/* {directions &&
+        console.log(
+          "Bus:",
+          directions.routes[0].legs[0].steps[1].transit.line.short_name
+        )} */}
+      {/* {directions &&
+        console.log(
+          "Depart from",
+          directions.routes[0].legs[0].steps[1].transit.departure_stop.name
+        )} */}
+
+      {/* {directions &&
+        console.log(
+          "Get off after:",
+          directions.routes[0].legs[0].steps[1].transit.num_stops
+        )} */}
     </GoogleMap>
   );
 };

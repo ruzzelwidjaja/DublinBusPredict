@@ -58,6 +58,7 @@ const App = () => {
             setOpenModal={setOpenModal}
             setModalType={setModalType}
             setDirections={setDirections}
+            directions={directions}
           />
         )}
         <Map

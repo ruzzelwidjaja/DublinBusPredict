@@ -16,18 +16,50 @@ const JourneyPlannerModal = (props) => {
       return;
     }
 
-    // Use google maps js directions service
+    // Create google maps js directions service object
     // eslint-disable-next-line no-undef
     const directionsService = new google.maps.DirectionsService();
-    const results = await directionsService.route({
+
+    // Declare request format
+    const directionsRequest = {
+      // Set origin and destination
       origin: originRef.current.value,
       destination: destinationRef.current.value,
+
+      // Specify transit mode and bus as mode of transport
+      travelMode: "TRANSIT",
+      transitOptions: { modes: ["BUS"] },
+      provideRouteAlternatives: true,
       // eslint-disable-next-line no-undef
-      travelMode: google.maps.TravelMode.DRIVING,
-      // eslint-disable-next-line no-undef
-      // transitMode: google.maps.TransitMode.BUS,
-    });
-    props.setDirections(results);
+      unitSystem: google.maps.UnitSystem.METRIC,
+    };
+    let directionsAvailable = false;
+    // Call route function, passing it a directions request object
+    try {
+      const results = await directionsService.route(
+        directionsRequest,
+        function (result, status) {
+          if (status === "OK") {
+            directionsAvailable = true;
+            return;
+          }
+        }
+      );
+      if (directionsAvailable) {
+        props.setDirections(results);
+        console.log(results);
+      }
+    } catch {
+      console.log("No results for that journey error");
+    }
+
+    // props.setDirections(results);
+    // for (var i = 0; i < results.routes.length; i++) {
+    //   console.log(results.routes[i]);
+    // }
+
+    // console.log(results);
+
     // setDuration(results.routes[0].legs[0].duration.text);
   };
 
@@ -83,8 +115,8 @@ const JourneyPlannerModal = (props) => {
         <button
           onClick={() => {
             getRoute();
-            props.setOpenModal(false);
-            props.setModalType("none");
+            // props.setOpenModal(false);
+            props.setModalType("directionsOptions");
           }}
           type="submit"
           className="text-white focus:outline-none font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800"
