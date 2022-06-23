@@ -5,36 +5,43 @@ const Navbar = (props) => {
   return (
     <div>
       <div className="header">
-        <h1 className="text-4xl font-sans tracking-wider py-2">Dublin Bus</h1>
+        <h1 className="text-4xl font-sans tracking-wider pt-6">Dublin Bus</h1>
       </div>
 
       {/* Web Buttons */}
       <div className="webbuttons">
         <button
           onClick={() => {
-            if (props.openModal && props.ModalType === "none") {
-              props.setOpenModal(false);
-              props.setModalType("none");
-            } else {
+            if (!props.openModal) {
               props.setOpenModal(true);
               props.setModalType("journeyPlanner");
+            } else if (
+              props.openModal &&
+              props.modalType !== "journeyPlanner"
+            ) {
+              props.setModalType("journeyPlanner");
+            } else {
+              props.setOpenModal(false);
+              props.setModalType("none");
             }
           }}
-          className="webbutton bg-zinc-900 hover:bg-gray-800 text-slate-100 font-medium py-5 px-4 border-t border-zinc-500"
+          className="text-left text-sm webbutton bg-zinc-900 hover:bg-gray-800 text-slate-100 font-medium py-3 px-7 mt-6"
         >
           Journey Planner
         </button>
         <button
           onClick={() => {
-            if (props.openModal && props.ModalType === "none") {
-              props.setOpenModal(false);
-              props.setModalType("none");
-            } else {
+            if (!props.openModal) {
               props.setOpenModal(true);
               props.setModalType("routes");
+            } else if (props.openModal && props.modalType !== "routes") {
+              props.setModalType("routes");
+            } else {
+              props.setOpenModal(false);
+              props.setModalType("none");
             }
           }}
-          className="webbutton bg-zinc-900 hover:bg-gray-800 text-slate-100 font-medium py-5 px-4 border-t border-b border-zinc-500"
+          className="text-left text-sm webbutton bg-zinc-900 hover:bg-gray-800 text-slate-100 font-medium py-3 px-7"
         >
           Routes
         </button>
@@ -44,52 +51,45 @@ const Navbar = (props) => {
       <div className="phonebuttons inline-flex">
         <button
           onClick={() => {
-            if (props.openModal) {
-              props.setOpenModal(false);
-              props.setModalType("none");
-            } else {
+            if (!props.openModal) {
               props.setOpenModal(true);
               props.setModalType("journeyPlanner");
+            } else if (
+              props.openModal &&
+              props.modalType !== "journeyPlanner"
+            ) {
+              props.setModalType("journeyPlanner");
+            } else {
+              props.setOpenModal(false);
+              props.setModalType("none");
             }
           }}
-          className="bg-zinc-900 hover:bg-zinc-800 text-slate-100 font-medium py-2 px-6 rounded-l"
+          className="text-sm bg-zinc-900 hover:bg-zinc-800 text-slate-100 font-medium py-2 px-6 rounded-l-2xl"
         >
           Journey <br />
           Planner
         </button>
         <button
           onClick={() => {
-            if (props.openModal) {
-              props.setOpenModal(false);
-              props.setModalType("none");
-            } else {
+            if (!props.openModal) {
               props.setOpenModal(true);
               props.setModalType("routes");
+            } else if (props.openModal && props.modalType !== "routes") {
+              props.setModalType("routes");
+            } else {
+              props.setOpenModal(false);
+              props.setModalType("none");
             }
           }}
-          className="bg-zinc-900 hover:bg-zinc-800 text-slate-100 font-medium py-2 px-6 border-l border-r border-zinc-500"
+          className="bg-zinc-900 text-sm hover:bg-zinc-800 text-slate-100 font-medium py-2 px-6 border-l border-r border-zinc-500"
         >
           Routes
         </button>
-        <button
-          onClick={() => {
-            props.openModal
-              ? props.setOpenModal(false)
-              : props.setOpenModal(true);
-          }}
-          className="bg-zinc-900 hover:bg-zinc-800 text-slate-100 font-medium py-2 px-6 rounded-r"
-        >
+        <button className="bg-zinc-900 text-sm hover:bg-zinc-800 text-slate-100 font-medium py-2 px-6 rounded-r-2xl">
           Sign In
         </button>
       </div>
-      <button
-        onClick={() => {
-          props.openModal
-            ? props.setOpenModal(false)
-            : props.setOpenModal(true);
-        }}
-        className="webbutton webbutton-bottom bg-zinc-900 hover:bg-gray-800 text-slate-100 font-medium py-5 px-4 border-t border-zinc-500"
-      >
+      <button className="webbutton text-left text-sm webbutton-bottom bg-zinc-900 hover:bg-gray-800 text-slate-100 font-medium py-4 px-7 mb-4">
         Sign In
       </button>
     </div>

@@ -1,5 +1,5 @@
-import React from "react";
-import { GoogleMap } from "@react-google-maps/api";
+import React, { useState } from "react";
+import { GoogleMap, DirectionsRenderer } from "@react-google-maps/api";
 import "./Map.css";
 import MapStyles from "./MapStyles";
 
@@ -8,18 +8,47 @@ const mapContainerStyle = { width: "100%", height: "100%" };
 const options = {
   styles: MapStyles,
   disableDefaultUI: true,
-  zoomControl: true,
+  clickableIcons: false,
 };
 
-const Map = (props) => {
-  console.log(props.stops);
+const Map = ({ directions, setOpenModal, setModalType, routeIndex }) => {
+  const [map, setMap] = useState(null);
   return (
     <GoogleMap
       center={center}
       zoom={14}
       mapContainerStyle={mapContainerStyle}
       options={options}
-    ></GoogleMap>
+      onLoad={(map) => {
+        setMap(map);
+      }}
+      onClick={() => {
+        setModalType("none");
+        setOpenModal(false);
+      }}
+    >
+      {directions && routeIndex !== null && (
+        <DirectionsRenderer directions={directions} routeIndex={routeIndex} />
+      )}
+
+      {/* Log the bus number and stop names */}
+      {/* {directions &&
+        console.log(
+          "Bus:",
+          directions.routes[0].legs[0].steps[1].transit.line.short_name
+        )} */}
+      {/* {directions &&
+        console.log(
+          "Depart from",
+          directions.routes[0].legs[0].steps[1].transit.departure_stop.name
+        )} */}
+
+      {/* {directions &&
+        console.log(
+          "Get off after:",
+          directions.routes[0].legs[0].steps[1].transit.num_stops
+        )} */}
+    </GoogleMap>
   );
 };
 
