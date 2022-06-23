@@ -70,7 +70,7 @@ const App = () => {
           routeIndex={routeIndex}
         />
       </div>
-      <div id="navbar">
+      <div id="navbar" className="bg-zinc-900">
         <Navbar
           setOpenModal={setOpenModal}
           openModal={openModal}

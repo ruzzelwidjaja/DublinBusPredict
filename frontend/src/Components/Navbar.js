@@ -5,7 +5,7 @@ const Navbar = (props) => {
   return (
     <div>
       <div className="header">
-        <h1 className="text-4xl font-sans tracking-wider pt-3">Dublin Bus</h1>
+        <h1 className="text-4xl font-sans tracking-wider pt-6">Dublin Bus</h1>
       </div>
 
       {/* Web Buttons */}
@@ -25,7 +25,7 @@ const Navbar = (props) => {
               props.setModalType("none");
             }
           }}
-          className="text-sm webbutton bg-zinc-900 hover:bg-gray-800 text-slate-100 font-medium py-5 px-4 border-t border-zinc-500"
+          className="text-left text-sm webbutton bg-zinc-900 hover:bg-gray-800 text-slate-100 font-medium py-3 px-7 mt-6"
         >
           Journey Planner
         </button>
@@ -41,7 +41,7 @@ const Navbar = (props) => {
               props.setModalType("none");
             }
           }}
-          className="text-sm webbutton bg-zinc-900 hover:bg-gray-800 text-slate-100 font-medium py-5 px-4 border-t border-b border-zinc-500"
+          className="text-left text-sm webbutton bg-zinc-900 hover:bg-gray-800 text-slate-100 font-medium py-3 px-7"
         >
           Routes
         </button>
@@ -89,7 +89,7 @@ const Navbar = (props) => {
           Sign In
         </button>
       </div>
-      <button className="webbutton text-sm webbutton-bottom bg-zinc-900 hover:bg-gray-800 text-slate-100 font-medium py-5 px-4 border-t border-zinc-500">
+      <button className="webbutton text-left text-sm webbutton-bottom bg-zinc-900 hover:bg-gray-800 text-slate-100 font-medium py-4 px-7 mb-4">
         Sign In
       </button>
     </div>
