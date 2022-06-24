@@ -53,7 +53,7 @@ const JourneyPlannerModal = (props) => {
         props.setDirections(results);
         console.log(results);
       } else {
-        props.setDirections("none");
+        props.setDirections(null);
       }
     } catch {
       console.log("No results for that journey error");
@@ -94,7 +94,7 @@ const JourneyPlannerModal = (props) => {
         <Autocomplete options={options}>
           <input
             name="start"
-            className="border text-sm rounded-lg block w-full p-1.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+            className="border text-sm rounded-lg block w-full p-1.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-amber-500 focus:border-amber-500"
             type="text"
             placeholder="origin"
             ref={originRef}
@@ -110,7 +110,7 @@ const JourneyPlannerModal = (props) => {
         <Autocomplete options={options}>
           <input
             name="stop"
-            className="border text-sm rounded-lg block w-full p-1.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+            className="border text-sm rounded-lg block w-full p-1.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-amber-500 focus:border-amber-500"
             type="text"
             placeholder="destination"
             ref={destinationRef}
@@ -125,7 +125,7 @@ const JourneyPlannerModal = (props) => {
             props.setModalType("directionsOptions");
           }}
           type="submit"
-          className="text-white focus:outline-none font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800"
+          className="text-amber-600 focus:outline-none font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center hover:bg-amber-800 focus:ring-amber-800 hover:text-white border border-amber-700"
         >
           Go
         </button>

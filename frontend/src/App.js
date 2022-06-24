@@ -11,12 +11,14 @@ const App = () => {
   // Declare initial state for stop data
   const [stops, setStops] = useState([]);
   const [routeIndex, setRouteIndex] = useState(null);
+
   // Modal state
   const [openModal, setOpenModal] = useState(false);
   const [modalType, setModalType] = useState("none");
 
-  // Directions
+  // Directions and coords
   const [directions, setDirections] = useState(null);
+  const [routeCoords, setRouteCoords] = useState(null);
 
   // Function to get data from backend API
   const fetchData = async () => {
@@ -60,6 +62,7 @@ const App = () => {
             setDirections={setDirections}
             directions={directions}
             setRouteIndex={setRouteIndex}
+            setRouteCoords={setRouteCoords}
           />
         )}
         <Map
@@ -68,6 +71,7 @@ const App = () => {
           setOpenModal={setOpenModal}
           setModalType={setModalType}
           routeIndex={routeIndex}
+          routeCoords={routeCoords}
         />
       </div>
       <div id="navbar">

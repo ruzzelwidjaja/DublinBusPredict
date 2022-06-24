@@ -1,5 +1,9 @@
 import React, { useState } from "react";
-import { GoogleMap, DirectionsRenderer } from "@react-google-maps/api";
+import {
+  GoogleMap,
+  DirectionsRenderer,
+  Polyline,
+} from "@react-google-maps/api";
 import "./Map.css";
 import MapStyles from "./MapStyles";
 
@@ -11,7 +15,13 @@ const options = {
   clickableIcons: false,
 };
 
-const Map = ({ directions, setOpenModal, setModalType, routeIndex }) => {
+const Map = ({
+  directions,
+  setOpenModal,
+  setModalType,
+  routeIndex,
+  routeCoords,
+}) => {
   const [map, setMap] = useState(null);
   return (
     <GoogleMap
@@ -27,9 +37,20 @@ const Map = ({ directions, setOpenModal, setModalType, routeIndex }) => {
         setOpenModal(false);
       }}
     >
-      {directions && routeIndex !== null && (
-        <DirectionsRenderer directions={directions} routeIndex={routeIndex} />
+      {routeCoords && (
+        <Polyline
+          path={routeCoords}
+          geodesic={false}
+          options={{
+            strokeColor: "#38B44F",
+            strokeOpacity: 1,
+            strokeWeight: 7,
+          }}
+        />
       )}
+      {/* {directions && routeIndex !== null && (
+        <DirectionsRenderer directions={directions} routeIndex={routeIndex} />
+      )} */}
 
       {/* Log the bus number and stop names */}
       {/* {directions &&

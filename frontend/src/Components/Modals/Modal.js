@@ -7,7 +7,7 @@ import "./Modal.css";
 const Modal = (props) => {
   return (
     <div className="modal">
-      <div className="p-4 rounded-lg border shadow-md bg-gray-800 border-gray-700">
+      <div className="p-4 rounded-lg border shadow-md bg-zinc-900 border-gray-700">
         {props.modalType === "journeyPlanner" && (
           <JourneyPlannerModal
             setDirections={props.setDirections}
@@ -22,6 +22,7 @@ const Modal = (props) => {
             setOpenModal={props.setOpenModal}
             setModalType={props.setModalType}
             setRouteIndex={props.setRouteIndex}
+            setRouteCoords={props.setRouteCoords}
           />
         )}
         {props.modalType === "routes" && <RoutesModal />}
