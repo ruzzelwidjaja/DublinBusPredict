@@ -2,23 +2,22 @@ import React from "react";
 
 const DirectionsOptions = ({
   directions,
-  setDirections,
   setOpenModal,
   setModalType,
-  setRouteIndex,
-  setRouteCoords,
+  setRoute,
 }) => {
   let resultsArray = [];
 
   // If directions are returned, break the directions into segments, for each route provided
   if (directions) {
-    directions.routes.map((route, index) => {
+    directions.routes.forEach((route, index) => {
       // Create a sub array for each route that is returned
       resultsArray.push([]);
       let resultNumber = index;
 
       let legs = route.legs[0];
       let overview_path = route.overview_path;
+
       // For each route, get distance, duration and steps
       let routeDistance = legs.distance.text;
       let routeDuration = legs.duration.text;
@@ -30,11 +29,12 @@ const DirectionsOptions = ({
       resultsArray[index].routeCoordinates = overview_path;
 
       // For each step of the journey, get relevant info
-      steps.map((step, index) => {
+      steps.forEach((step, index) => {
         let stepDistance = step.distance.text;
         let stepDuration = step.duration.text;
         let stepInstructions = step.instructions;
         let stepTravelMode = step.travel_mode;
+        let stepCoords = step.lat_lngs;
 
         // Create a sub array for each step of the route
         resultsArray[resultNumber].push([]);
@@ -44,6 +44,7 @@ const DirectionsOptions = ({
         resultsArray[resultNumber][index].stepDuration = stepDuration;
         resultsArray[resultNumber][index].stepInstructions = stepInstructions;
         resultsArray[resultNumber][index].stepTravelMode = stepTravelMode;
+        resultsArray[resultNumber][index].stepCoords = stepCoords;
 
         // If the step involves taking the bus
         if (stepTravelMode === "TRANSIT") {
@@ -52,6 +53,7 @@ const DirectionsOptions = ({
 
           // Prepare the result if it is a bus we use
           if (bus_type === "Go-Ahead" || bus_type === "Dublin Bus") {
+            resultsArray[resultNumber].contains_non_dublin_bus = "NO";
             let arrival_stop = step.transit.arrival_stop;
             let departure_stop = step.transit.departure_stop;
             let bus_number = line.short_name;
@@ -69,6 +71,13 @@ const DirectionsOptions = ({
     });
   }
 
+  const handleOnClick = (route) => {
+    setOpenModal(false);
+    setModalType("none");
+    setRoute(route);
+  };
+
+  console.log(resultsArray);
   return (
     <div>
       <div>
@@ -77,28 +86,30 @@ const DirectionsOptions = ({
       <div className="relative overflow-x-auto shadow-md rounded-lg">
         <table className="text-sm text-left text-white">
           <tbody>
-            <tr
-              onClick={() => {
-                setOpenModal(false);
-                setModalType("none");
-                setDirections(directions);
-                setRouteIndex(index);
-                const routeCoordinates = directions.routes[index].overview_path;
-                setRouteCoords(routeCoordinates);
-              }}
-              key={index}
-              className="text-xs rounded-2xl bg-slate-700 whitespace-pre hover:bg-slate-600"
-            >
-              <td className="px-6 py-4">
-                {route.legs[0].steps[1].transit.line.short_name}
-              </td>
-              <td className="px-6 py-4">
-                {route.legs[0].steps[1].transit.departure_stop.name}
-              </td>
-              <td className="px-6 py-4">
-                {route.legs[0].steps[1].transit.num_stops}
-              </td>
-            </tr>
+            {resultsArray.length !== 0 &&
+              resultsArray.map((route, index) => {
+                if (route.contains_non_dublin_bus === "NO") {
+                  return (
+                    <tr
+                      key={index}
+                      onClick={() => {
+                        handleOnClick(route);
+                      }}
+                      className="text-xs rounded-2xl bg-slate-700 whitespace-pre hover:bg-slate-600"
+                    >
+                      {/* Fix this step here */}
+                      <td className="px-6 py-4">
+                        Step 1: {route[0].stepInstructions}
+                      </td>
+                      <td className="px-6 py-4">{route.totalDistance}</td>
+                      <td className="px-6 py-4">{route.totalDuration}</td>
+                    </tr>
+                  );
+                } else {
+                  return <></>;
+                }
+              })}
+
             {/* If there are no directions for the route */}
             {directions === null && (
               <tr>

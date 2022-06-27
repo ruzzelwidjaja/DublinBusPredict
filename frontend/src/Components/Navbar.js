@@ -1,16 +1,22 @@
 import React from "react";
 import "./Navbar.css";
-import dublin_bus_logo from "../Assets/dublin_bus_logo.png";
+import dublin_bus_logo from "../Assets/Dublin_Bus_Logo.png";
 
 const Navbar = (props) => {
   return (
     <div>
-      <div className="header text-white">
-        <h1 className="text-4xl font-sans tracking-wider pt-6 pb-2">
-          Dublin Bus
-        </h1>
-        {/* <img src={dublin_bus_logo} /> */}
-        <h2 className="text-l font-sans tracking-wider">Journey Planner App</h2>
+      <div className="header text-white pt-4">
+        <div className="mb-4 mt-3 ml-3">
+          <img
+            src={dublin_bus_logo}
+            className="inline-block w-1/3 h-14 object-scale-down"
+          />
+
+          <h1 className="font-sans inline-block w-2/3 text-2xl pt-4">
+            Dublin Bus
+          </h1>
+        </div>
+        <h2 className="text-m font-sans tracking-wider">Journey Planner App</h2>
       </div>
 
       {/* Web Buttons */}

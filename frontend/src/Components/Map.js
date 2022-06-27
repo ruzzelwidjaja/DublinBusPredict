@@ -15,13 +15,7 @@ const options = {
   clickableIcons: false,
 };
 
-const Map = ({
-  directions,
-  setOpenModal,
-  setModalType,
-  routeIndex,
-  routeCoords,
-}) => {
+const Map = ({ directions, setOpenModal, setModalType, routeIndex, route }) => {
   const [map, setMap] = useState(null);
   return (
     <GoogleMap
@@ -37,38 +31,18 @@ const Map = ({
         setOpenModal(false);
       }}
     >
-      {routeCoords && (
-        <Polyline
-          path={routeCoords}
-          geodesic={false}
-          options={{
-            strokeColor: "#38B44F",
-            strokeOpacity: 1,
-            strokeWeight: 7,
-          }}
-        />
-      )}
-      {/* {directions && routeIndex !== null && (
-        <DirectionsRenderer directions={directions} routeIndex={routeIndex} />
-      )} */}
-
-      {/* Log the bus number and stop names */}
-      {/* {directions &&
-        console.log(
-          "Bus:",
-          directions.routes[0].legs[0].steps[1].transit.line.short_name
-        )} */}
-      {/* {directions &&
-        console.log(
-          "Depart from",
-          directions.routes[0].legs[0].steps[1].transit.departure_stop.name
-        )} */}
-
-      {/* {directions &&
-        console.log(
-          "Get off after:",
-          directions.routes[0].legs[0].steps[1].transit.num_stops
-        )} */}
+      {route &&
+        route.map((step, stepIndex) => (
+          <Polyline
+            geodesic={false}
+            path={step.stepCoords}
+            options={{
+              strokeColor: step.stepTravelMode === "WALKING" ? "blue" : "red",
+              strokeOpacity: 0.8,
+              strokeWeight: 4,
+            }}
+          />
+        ))}
     </GoogleMap>
   );
 };

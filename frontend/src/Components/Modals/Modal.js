@@ -22,7 +22,7 @@ const Modal = (props) => {
             setOpenModal={props.setOpenModal}
             setModalType={props.setModalType}
             setRouteIndex={props.setRouteIndex}
-            setRouteCoords={props.setRouteCoords}
+            setRoute={props.setRoute}
           />
         )}
         {props.modalType === "routes" && <RoutesModal />}

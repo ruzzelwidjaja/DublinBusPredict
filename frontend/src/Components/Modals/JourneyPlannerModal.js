@@ -58,24 +58,7 @@ const JourneyPlannerModal = (props) => {
     } catch {
       console.log("No results for that journey error");
     }
-
-    // props.setDirections(results);
-    // for (var i = 0; i < results.routes.length; i++) {
-    //   console.log(results.routes[i]);
-    // }
-
-    // console.log(results);
-
-    // setDuration(results.routes[0].legs[0].duration.text);
   };
-
-  // Function to clear route if we need it
-  // const clearRoute = () => {
-  //   props.setDirections(null);
-  //   // setDuration("");
-  //   originRef.current.value = "";
-  //   destinationRef.current.value = "";
-  // };
 
   return (
     <div>
@@ -135,3 +118,20 @@ const JourneyPlannerModal = (props) => {
 };
 
 export default JourneyPlannerModal;
+
+// props.setDirections(results);
+// for (var i = 0; i < results.routes.length; i++) {
+//   console.log(results.routes[i]);
+// }
+
+// console.log(results);
+
+// setDuration(results.routes[0].legs[0].duration.text);
+
+// Function to clear route if we need it
+// const clearRoute = () => {
+//   props.setDirections(null);
+//   // setDuration("");
+//   originRef.current.value = "";
+//   destinationRef.current.value = "";
+// };
