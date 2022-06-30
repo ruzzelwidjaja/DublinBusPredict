@@ -51,6 +51,11 @@ const Map = ({
     >
       {directionsOutput && (
         <DirectionsRenderer
+          options={{
+            suppressMarkers: true,
+            suppressInfoWindows: true,
+            polylineOptions: { strokeColor: "#d97706" },
+          }}
           directions={directionsOutput}
           routeIndex={selectRouteIndex()}
         />

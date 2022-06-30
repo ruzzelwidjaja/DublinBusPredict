@@ -92,6 +92,7 @@ const App = () => {
         cleanObject(results);
         console.log(results);
         setDirectionsOutput(results);
+        setChosenIndex(0);
         prepareRouteOptions(results.routes);
       }
     } catch {
@@ -129,6 +130,7 @@ const App = () => {
         }
       });
     });
+    // Need to remove these and may also need to get rid of duplicate routes
     console.log("routes to remove: ", routes_to_remove);
   };
 
