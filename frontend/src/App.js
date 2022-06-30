@@ -148,6 +148,8 @@ const App = () => {
   //   fetchData();
   // }, []);
 
+ 
+
   return (
     <div>
       <div id="mapCanvas">
