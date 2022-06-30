@@ -1,31 +1,44 @@
 import React from "react";
 import JourneyPlannerModal from "./JourneyPlannerModal";
 import RoutesModal from "./RoutesModal";
-import DirectionsOptions from "./DirectionsOptions";
 import "./Modal.css";
+import ChooseRouteModal from "./ChooseRouteModal";
 
-const Modal = (props) => {
+const Modal = ({
+  modalType,
+  setModalType,
+  originRef,
+  destinationRef,
+  getRoutes,
+  routeOptions,
+  selectRoute,
+  chosenIndex,
+  directionsOutput,
+}) => {
   return (
     <div className="modal">
       <div className="p-4 rounded-lg border shadow-md bg-zinc-900 border-gray-700">
-        {props.modalType === "journeyPlanner" && (
+        {modalType === "journeyPlanner" && (
           <JourneyPlannerModal
-            setDirections={props.setDirections}
-            setOpenModal={props.setOpenModal}
-            setModalType={props.setModalType}
+            setModalType={setModalType}
+            originRef={originRef}
+            destinationRef={destinationRef}
+            getRoutes={getRoutes}
+            routeOptions={routeOptions}
+            selectRoute={selectRoute}
+            chosenIndex={chosenIndex}
+            directionsOutput={directionsOutput}
           />
         )}
-        {props.modalType === "directionsOptions" && (
-          <DirectionsOptions
-            directions={props.directions}
-            setDirections={props.setDirections}
-            setOpenModal={props.setOpenModal}
-            setModalType={props.setModalType}
-            setRouteIndex={props.setRouteIndex}
-            setRoute={props.setRoute}
+        {modalType === "chooseRoutes" && directionsOutput && (
+          <ChooseRouteModal
+            chosenIndex={chosenIndex}
+            routeOptions={routeOptions}
+            selectRoute={selectRoute}
           />
         )}
-        {props.modalType === "routes" && <RoutesModal />}
+
+        {modalType === "routes" && <RoutesModal />}
       </div>
     </div>
   );

@@ -2,7 +2,7 @@ import React from "react";
 import "./Navbar.css";
 import dublin_bus_logo from "../Assets/Dublin_Bus_Logo.png";
 
-const Navbar = (props) => {
+const Navbar = ({ modalType, setModalType }) => {
   return (
     <div>
       <div className="header text-white pt-4">
@@ -10,6 +10,7 @@ const Navbar = (props) => {
           <img
             src={dublin_bus_logo}
             className="inline-block w-1/3 h-14 object-scale-down"
+            alt="Dublin Bus Logo"
           />
 
           <h1 className="font-sans inline-block w-2/3 text-2xl pt-4">
@@ -23,17 +24,15 @@ const Navbar = (props) => {
       <div className="webbuttons">
         <button
           onClick={() => {
-            if (!props.openModal) {
-              props.setOpenModal(true);
-              props.setModalType("journeyPlanner");
+            if (modalType === "CLOSED") {
+              setModalType("journeyPlanner");
             } else if (
-              props.openModal &&
-              props.modalType !== "journeyPlanner"
+              modalType !== "CLOSED" &&
+              modalType !== "journeyPlanner"
             ) {
-              props.setModalType("journeyPlanner");
+              setModalType("journeyPlanner");
             } else {
-              props.setOpenModal(false);
-              props.setModalType("none");
+              setModalType("CLOSED");
             }
           }}
           className="text-left text-sm webbutton bg-zinc-900 hover:bg-amber-800 text-slate-100 font-medium py-3 px-7 mt-6"
@@ -42,14 +41,12 @@ const Navbar = (props) => {
         </button>
         <button
           onClick={() => {
-            if (!props.openModal) {
-              props.setOpenModal(true);
-              props.setModalType("routes");
-            } else if (props.openModal && props.modalType !== "routes") {
-              props.setModalType("routes");
+            if (modalType === "CLOSED") {
+              setModalType("routes");
+            } else if (modalType !== "CLOSED" && modalType !== "routes") {
+              setModalType("routes");
             } else {
-              props.setOpenModal(false);
-              props.setModalType("none");
+              setModalType("CLOSED");
             }
           }}
           className="text-left text-sm webbutton bg-zinc-900 hover:bg-amber-800 text-slate-100 font-medium py-3 px-7"
@@ -62,17 +59,15 @@ const Navbar = (props) => {
       <div className="phonebuttons inline-flex">
         <button
           onClick={() => {
-            if (!props.openModal) {
-              props.setOpenModal(true);
-              props.setModalType("journeyPlanner");
+            if (modalType === "CLOSED") {
+              setModalType("journeyPlanner");
             } else if (
-              props.openModal &&
-              props.modalType !== "journeyPlanner"
+              modalType !== "CLOSED" &&
+              modalType !== "journeyPlanner"
             ) {
-              props.setModalType("journeyPlanner");
+              setModalType("journeyPlanner");
             } else {
-              props.setOpenModal(false);
-              props.setModalType("none");
+              setModalType("CLOSED");
             }
           }}
           className="text-sm bg-zinc-900 hover:bg-amber-800 text-slate-100 font-medium py-2 px-6 rounded-l-2xl"
@@ -82,14 +77,12 @@ const Navbar = (props) => {
         </button>
         <button
           onClick={() => {
-            if (!props.openModal) {
-              props.setOpenModal(true);
-              props.setModalType("routes");
-            } else if (props.openModal && props.modalType !== "routes") {
-              props.setModalType("routes");
+            if (modalType === "CLOSED") {
+              setModalType("routes");
+            } else if (modalType !== "CLOSED" && modalType !== "routes") {
+              setModalType("routes");
             } else {
-              props.setOpenModal(false);
-              props.setModalType("none");
+              setModalType("CLOSED");
             }
           }}
           className="bg-zinc-900 text-sm hover:bg-amber-800 text-slate-100 font-medium py-2 px-6 border-l border-r border-zinc-500"

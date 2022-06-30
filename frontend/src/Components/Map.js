@@ -1,10 +1,5 @@
 import React, { useState } from "react";
-import {
-  GoogleMap,
-  DirectionsRenderer,
-  Polyline,
-} from "@react-google-maps/api";
-import "./Map.css";
+import { GoogleMap, DirectionsRenderer } from "@react-google-maps/api";
 import MapStyles from "./MapStyles";
 
 const center = { lat: 53.3434634, lng: -6.2749724 };
@@ -15,34 +10,51 @@ const options = {
   clickableIcons: false,
 };
 
-const Map = ({ directions, setOpenModal, setModalType, routeIndex, route }) => {
-  const [map, setMap] = useState(null);
+const Map = ({
+  setModalType,
+  chosenIndex,
+  directionsOutput,
+  isLoaded,
+  loadError,
+}) => {
+  const [mapLoaded, setMapLoaded] = useState(null);
+
+  // Error loading Map
+  if (loadError) {
+    return <div>Map cannot be loaded right now, sorry.</div>;
+  }
+
+  // If map has not loaded display loading..
+  if (!isLoaded) {
+    return <>Loading...</>;
+  }
+
+  // Function to select route index
+  const selectRouteIndex = () => {
+    // Choose 0 unless another index specified
+    if (chosenIndex) {
+      return parseInt(chosenIndex);
+    }
+    return 0;
+  };
+
   return (
     <GoogleMap
       center={center}
       zoom={14}
       mapContainerStyle={mapContainerStyle}
       options={options}
-      onLoad={(map) => {
-        setMap(map);
-      }}
+      onLoad={(mapLoaded) => setMapLoaded(mapLoaded)}
       onClick={() => {
-        setModalType("none");
-        setOpenModal(false);
+        setModalType("CLOSED");
       }}
     >
-      {route &&
-        route.map((step, stepIndex) => (
-          <Polyline
-            geodesic={false}
-            path={step.stepCoords}
-            options={{
-              strokeColor: step.stepTravelMode === "WALKING" ? "blue" : "red",
-              strokeOpacity: 0.8,
-              strokeWeight: 4,
-            }}
-          />
-        ))}
+      {directionsOutput && (
+        <DirectionsRenderer
+          directions={directionsOutput}
+          routeIndex={selectRouteIndex()}
+        />
+      )}
     </GoogleMap>
   );
 };

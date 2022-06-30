@@ -1,63 +1,21 @@
-import React, { useRef } from "react";
-import "./JourneyPlannerModal.css";
+import React from "react";
 import { Autocomplete } from "@react-google-maps/api";
+import "./JourneyPlannerModal.css";
+import ChooseRouteModal from "./ChooseRouteModal";
 
-const JourneyPlannerModal = (props) => {
-  // Duration info for trip
-  // const [duration, setDuration] = useState("");
-
-  // References for origin and destination input
-  const originRef = useRef("");
-  const destinationRef = useRef("");
-
+const JourneyPlannerModal = ({
+  originRef,
+  destinationRef,
+  chosenIndex,
+  routeOptions,
+  selectRoute,
+  directionsOutput,
+  getRoutes,
+  setModalType,
+}) => {
+  // Autocomplete options
   const options = {
     componentRestrictions: { country: ["ie"] },
-  };
-
-  // Async function to get route based off origin and dest
-  const getRoute = async () => {
-    if (originRef.current.value === "" || destinationRef.current.value === "") {
-      return;
-    }
-
-    // Create google maps js directions service object
-    // eslint-disable-next-line no-undef
-    const directionsService = new google.maps.DirectionsService();
-
-    // Declare request format
-    const directionsRequest = {
-      // Set origin and destination
-      origin: originRef.current.value,
-      destination: destinationRef.current.value,
-
-      // Specify transit mode and bus as mode of transport
-      travelMode: "TRANSIT",
-      transitOptions: { modes: ["BUS"] },
-      provideRouteAlternatives: true,
-      // eslint-disable-next-line no-undef
-      unitSystem: google.maps.UnitSystem.METRIC,
-    };
-    let directionsAvailable = false;
-    // Call route function, passing it a directions request object
-    try {
-      const results = await directionsService.route(
-        directionsRequest,
-        function (result, status) {
-          if (status === "OK") {
-            directionsAvailable = true;
-            return;
-          }
-        }
-      );
-      if (directionsAvailable) {
-        props.setDirections(results);
-        console.log(results);
-      } else {
-        props.setDirections(null);
-      }
-    } catch {
-      console.log("No results for that journey error");
-    }
   };
 
   return (
@@ -103,35 +61,24 @@ const JourneyPlannerModal = (props) => {
       <div className="pt-5 px-2">
         <button
           onClick={() => {
-            getRoute();
-            // props.setOpenModal(false);
-            props.setModalType("directionsOptions");
+            getRoutes();
+            setModalType("chooseRoutes");
           }}
-          type="submit"
+          // type="submit"
           className="text-amber-600 focus:outline-none font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center hover:bg-amber-800 focus:ring-amber-800 hover:text-white border border-amber-700"
         >
           Go
         </button>
+        {/* {directionsOutput && (
+          <ChooseRouteModal
+            chosenIndex={chosenIndex}
+            routeOptions={routeOptions}
+            selectRoute={selectRoute}
+          />
+        )} */}
       </div>
     </div>
   );
 };
 
 export default JourneyPlannerModal;
-
-// props.setDirections(results);
-// for (var i = 0; i < results.routes.length; i++) {
-//   console.log(results.routes[i]);
-// }
-
-// console.log(results);
-
-// setDuration(results.routes[0].legs[0].duration.text);
-
-// Function to clear route if we need it
-// const clearRoute = () => {
-//   props.setDirections(null);
-//   // setDuration("");
-//   originRef.current.value = "";
-//   destinationRef.current.value = "";
-// };
