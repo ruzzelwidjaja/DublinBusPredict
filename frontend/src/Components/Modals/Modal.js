@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import JourneyPlannerModal from "./JourneyPlannerModal";
 import RoutesModal from "./RoutesModal";
-import "./Modal.css";
 import ChooseRouteModal from "./ChooseRouteModal";
 
 const Modal = ({
@@ -15,26 +14,46 @@ const Modal = ({
   chosenIndex,
   directionsOutput,
 }) => {
-  return (
-    <div className="modal">
-      <div className="p-4 rounded-lg border shadow-md bg-zinc-900 border-gray-700">
-        {modalType === "journeyPlanner" && (
-          <JourneyPlannerModal
-            setModalType={setModalType}
-            originRef={originRef}
-            destinationRef={destinationRef}
-            getRoutes={getRoutes}
-          />
-        )}
-        {modalType === "chooseRoutes" && directionsOutput && (
-          <ChooseRouteModal
-            chosenIndex={chosenIndex}
-            routeOptions={routeOptions}
-            selectRoute={selectRoute}
-          />
-        )}
+  const [modalHeight, setModalHeight] = useState("max-content");
 
-        {modalType === "routes" && <RoutesModal />}
+  return (
+    <div>
+      <div
+        className="z-10 absolute -translate-y-2/4 -translate-x-2/4 left-2/4 top-32 md:top-52 overflow-hidden"
+        style={{ height: modalHeight }}
+      >
+        <div className="p-4 rounded-lg border shadow-md bg-zinc-900 border-gray-700 overflow-y-scroll	max-h-full">
+          {modalType === "journeyPlanner" && (
+            <JourneyPlannerModal
+              setModalType={setModalType}
+              originRef={originRef}
+              destinationRef={destinationRef}
+              getRoutes={getRoutes}
+            />
+          )}
+          {modalType === "chooseRoutes" && directionsOutput && (
+            <div>
+              <ChooseRouteModal
+                chosenIndex={chosenIndex}
+                routeOptions={routeOptions}
+                selectRoute={selectRoute}
+              />
+            </div>
+          )}
+
+          {modalType === "routes" && <RoutesModal />}
+        </div>
+        {modalType === "chooseRoutes" && directionsOutput && (
+          <button
+            onClick={() => {
+              modalHeight === "max-content"
+                ? setModalHeight("15%")
+                : setModalHeight("max-content");
+            }}
+          >
+            TEST BUTTON
+          </button>
+        )}
       </div>
     </div>
   );

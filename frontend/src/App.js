@@ -42,8 +42,33 @@ const App = () => {
   // View for route options, will decide how button looks
   const prepareRouteOptions = (option) => {
     const options = option.map((route, index) => {
+      // Arrays for instructions and bus numbers
+      let instructionsArray = [];
+      let busesArray = [];
+
+      // Loop through each step and fill the arrays with instruction and bus info
+      route.legs[0].steps.forEach((step) => {
+        instructionsArray.push(step.instructions);
+        let stepTravelMode = step.travel_mode;
+
+        // If the step involves taking the bus
+        if (stepTravelMode === "TRANSIT") {
+          let line = step.transit.line;
+          let bus_type = line.agencies[0].name;
+
+          // Prepare the result if it is a bus we use
+          if (bus_type === "Go-Ahead" || bus_type === "Dublin Bus") {
+            busesArray.push(line.short_name);
+          }
+        }
+      });
+
       return {
         id: index,
+        instructions: instructionsArray,
+        buses: busesArray,
+        distance: route.legs[0].distance.text,
+        duration: route.legs[0].duration.text,
       };
     });
     setRouteOptions(options);
@@ -107,7 +132,6 @@ const App = () => {
     response.routes.forEach((route, index) => {
       // Route index
       let routeIndex = index;
-      response.routes.id = index;
 
       let legs = route.legs[0];
       let steps = legs.steps;
@@ -147,8 +171,6 @@ const App = () => {
   // useEffect(() => {
   //   fetchData();
   // }, []);
-
- 
 
   return (
     <div>
