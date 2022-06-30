@@ -1,15 +1,10 @@
 import React from "react";
 import { Autocomplete } from "@react-google-maps/api";
 import "./JourneyPlannerModal.css";
-import ChooseRouteModal from "./ChooseRouteModal";
 
 const JourneyPlannerModal = ({
   originRef,
   destinationRef,
-  chosenIndex,
-  routeOptions,
-  selectRoute,
-  directionsOutput,
   getRoutes,
   setModalType,
 }) => {

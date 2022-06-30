@@ -24,10 +24,6 @@ const Modal = ({
             originRef={originRef}
             destinationRef={destinationRef}
             getRoutes={getRoutes}
-            routeOptions={routeOptions}
-            selectRoute={selectRoute}
-            chosenIndex={chosenIndex}
-            directionsOutput={directionsOutput}
           />
         )}
         {modalType === "chooseRoutes" && directionsOutput && (

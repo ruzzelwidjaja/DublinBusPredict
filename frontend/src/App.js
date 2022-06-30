@@ -93,7 +93,6 @@ const App = () => {
         console.log(results);
         setDirectionsOutput(results);
         prepareRouteOptions(results.routes);
-        // setChosenIndex(0);
       }
     } catch {
       console.log("No results for that journey error");
