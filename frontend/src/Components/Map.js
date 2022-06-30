@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { GoogleMap, DirectionsRenderer } from "@react-google-maps/api";
 import MapStyles from "./MapStyles";
+import ReactLoading from "react-loading";
 
 const center = { lat: 53.3434634, lng: -6.2749724 };
 const mapContainerStyle = { width: "100%", height: "100%" };
@@ -26,7 +27,16 @@ const Map = ({
 
   // If map has not loaded display loading..
   if (!isLoaded) {
-    return <>Loading...</>;
+    return (
+      <div className="absolute h-full w-full bg-zinc-900 ">
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+          <ReactLoading type={"spin"} color="#475569" />
+        </div>
+        <div className="text-center absolute top-2/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+          <p className="text-slate-500">Loading..</p>
+        </div>
+      </div>
+    );
   }
 
   // Function to select route index

@@ -144,9 +144,9 @@ const App = () => {
   };
 
   // Get API data
-  useEffect(() => {
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
 
   return (
     <div>
