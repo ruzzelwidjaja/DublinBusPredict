@@ -1,7 +1,6 @@
 .form-inputs {
   display: grid;
-  grid-template-columns: max-content max-content;
-  grid-gap: 16px;
+  grid-gap: 10px;
 }
 
 .center {
