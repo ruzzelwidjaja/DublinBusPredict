@@ -113,12 +113,11 @@ const App = () => {
       if (directionsAvailable) {
         // Clean results for non Dublin bus responses
         console.log(results);
-
         cleanObject(results);
-        console.log(results);
-        setDirectionsOutput(results);
-        setChosenIndex(0);
         prepareRouteOptions(results.routes);
+        setDirectionsOutput(results);
+
+        setChosenIndex(0);
       }
     } catch {
       console.log("No results for that journey error");
