@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import JourneyPlannerModal from "./JourneyPlannerModal";
 import RoutesModal from "./RoutesModal";
 import ChooseRouteModal from "./ChooseRouteModal";
@@ -14,14 +14,9 @@ const Modal = ({
   chosenIndex,
   directionsOutput,
 }) => {
-  const [modalHeight, setModalHeight] = useState("max-content");
-
   return (
     <div>
-      <div
-        className="z-10 absolute -translate-y-2/4 -translate-x-2/4 left-2/4 top-40 md:top-52 overflow-hidden w-8/12 md:w-6/12"
-        style={{ height: modalHeight }}
-      >
+      <div className="z-10 max-h-64 overflow-y-scroll absolute -translate-y-2/4 -translate-x-2/4 left-2/4 top-28 md:top-40 mt-6 overflow-hidden w-8/12 md:w-6/12 md:max-w-sm">
         <div className="p-4 rounded-lg border shadow-md bg-zinc-900 border-gray-700 overflow-y-scroll	max-h-full">
           {modalType === "journeyPlanner" && (
             <JourneyPlannerModal
@@ -43,17 +38,6 @@ const Modal = ({
 
           {modalType === "routes" && <RoutesModal />}
         </div>
-        {/* {modalType === "chooseRoutes" && directionsOutput && (
-          <button
-            onClick={() => {
-              modalHeight === "max-content"
-                ? setModalHeight("15%")
-                : setModalHeight("max-content");
-            }}
-          >
-            TEST BUTTON
-          </button>
-        )} */}
       </div>
     </div>
   );

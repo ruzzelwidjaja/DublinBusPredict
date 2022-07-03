@@ -48,6 +48,12 @@ const Map = ({
     return 0;
   };
 
+  // Function to pan the map down below route info
+  // const panDown = (map, directions) => {
+  //   map.panTo(directions);
+  //   map.panBy(0, 20);
+  // };
+
   return (
     <GoogleMap
       center={center}
