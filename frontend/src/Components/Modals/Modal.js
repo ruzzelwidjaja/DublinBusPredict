@@ -19,7 +19,7 @@ const Modal = ({
   return (
     <div>
       <div
-        className="z-10 absolute -translate-y-2/4 -translate-x-2/4 left-2/4 top-52 md:top-52 overflow-hidden w-8/12 md:w-6/12"
+        className="z-10 absolute -translate-y-2/4 -translate-x-2/4 left-2/4 top-40 md:top-52 overflow-hidden w-8/12 md:w-6/12"
         style={{ height: modalHeight }}
       >
         <div className="p-4 rounded-lg border shadow-md bg-zinc-900 border-gray-700 overflow-y-scroll	max-h-full">

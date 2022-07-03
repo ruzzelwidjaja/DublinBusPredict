@@ -21,7 +21,7 @@ const Option = ({ option, chosenIndex, selectRoute }) => {
       <li
         key={option.id}
         style={selectedColour(option.id)}
-        className="px-6 py-0.5 text-left text-sm rounded-lg bg-zinc-900 hover:bg-amber-800 text-slate-100 border border-gray-700 my-2"
+        className="px-6 py-0.5 text-left text-xs md:text-sm rounded-lg bg-zinc-900 hover:bg-amber-800 text-slate-100 border border-gray-700 my-2"
       >
         <button
           {...getToggleProps({
@@ -36,7 +36,9 @@ const Option = ({ option, chosenIndex, selectRoute }) => {
           {isExpanded ? "Collapse" : "Expand"}
         </button>
       </li>
-      <section {...getCollapseProps()}>{option.instructions}</section>
+      <section {...getCollapseProps()} className="text-xs md:text-sm">
+        {option.instructions}
+      </section>
     </div>
   );
 };

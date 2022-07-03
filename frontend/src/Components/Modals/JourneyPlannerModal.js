@@ -16,21 +16,21 @@ const JourneyPlannerModal = ({
   return (
     <div>
       <div className="head">
-        <h5 className="text-xl font-medium text-white pb-4">
+        <h5 className="text-md md:text-xl font-medium text-white pb-2 md:pb-4">
           Plan Your Journey
         </h5>
       </div>
       <div className="form-inputs">
         <label
           htmlFor="start"
-          className="block text-sm font-medium text-gray-300 center"
+          className="block text-xs md:text-sm font-medium text-gray-300 center"
         >
           Start:
         </label>
         <Autocomplete options={options}>
           <input
             name="start"
-            className="border text-sm rounded-lg block w-full p-1.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-amber-500 focus:border-amber-500"
+            className="border text-xs md:text-sm rounded-lg block w-full p-1.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-amber-500 focus:border-amber-500"
             type="text"
             placeholder="origin"
             ref={originRef}
@@ -39,14 +39,14 @@ const JourneyPlannerModal = ({
 
         <label
           htmlFor="stop"
-          className="block text-sm font-medium text-gray-300 center"
+          className="block text-xs md:text-sm font-medium text-gray-300 center"
         >
           Stop:
         </label>
         <Autocomplete options={options}>
           <input
             name="stop"
-            className="border text-sm rounded-lg block w-full p-1.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-amber-500 focus:border-amber-500"
+            className="border text-xs md:text-sm rounded-lg block w-full p-1.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-amber-500 focus:border-amber-500"
             type="text"
             placeholder="destination"
             ref={destinationRef}
@@ -60,7 +60,7 @@ const JourneyPlannerModal = ({
             setModalType("chooseRoutes");
           }}
           // type="submit"
-          className="text-amber-600 focus:outline-none font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center hover:bg-amber-800 focus:ring-amber-800 hover:text-white border border-amber-700"
+          className="text-amber-600 focus:outline-none font-medium rounded-lg text-xs md:text-sm w-full px-5 py-2.5 text-center hover:bg-amber-800 focus:ring-amber-800 hover:text-white border border-amber-700"
         >
           Go
         </button>

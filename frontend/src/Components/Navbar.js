@@ -70,7 +70,7 @@ const Navbar = ({ modalType, setModalType }) => {
               setModalType("CLOSED");
             }
           }}
-          className="text-sm bg-zinc-900 hover:bg-amber-800 text-slate-100 font-medium py-2 px-6 rounded-l-2xl"
+          className="text-xs bg-zinc-900 hover:bg-amber-800 text-slate-100 font-medium py-2 px-6 rounded-l-2xl"
         >
           Journey <br />
           Planner
@@ -89,11 +89,11 @@ const Navbar = ({ modalType, setModalType }) => {
         >
           Routes
         </button>
-        <button className="bg-zinc-900 text-sm hover:bg-amber-800 text-slate-100 font-medium py-2 px-6 rounded-r-2xl">
+        <button className="bg-zinc-900 text-xs hover:bg-amber-800 text-slate-100 font-medium py-2 px-6 rounded-r-2xl">
           Sign In
         </button>
       </div>
-      <button className="webbutton text-left text-sm webbutton-bottom bg-zinc-900 hover:bg-amber-800 text-slate-100 font-medium py-4 px-7 mb-4">
+      <button className="webbutton text-left text-xs webbutton-bottom bg-zinc-900 hover:bg-amber-800 text-slate-100 font-medium py-4 px-7 mb-4">
         Sign In
       </button>
     </div>
