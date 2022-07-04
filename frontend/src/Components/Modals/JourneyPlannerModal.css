@@ -1,9 +1,3 @@
-.form-inputs {
-  display: grid;
-  grid-template-columns: max-content max-content;
-  grid-gap: 16px;
-}
-
 .center {
   display: flex;
   align-items: center;

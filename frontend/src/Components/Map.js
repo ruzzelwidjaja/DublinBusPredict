@@ -28,7 +28,7 @@ const Map = ({
   // If map has not loaded display loading..
   if (!isLoaded) {
     return (
-      <div className="absolute h-full w-full bg-zinc-900 ">
+      <div className="h-full w-full bg-zinc-900 ">
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
           <ReactLoading type={"spin"} color="#475569" />
         </div>
@@ -47,6 +47,12 @@ const Map = ({
     }
     return 0;
   };
+
+  // Function to pan the map down below route info
+  // const panDown = (map, directions) => {
+  //   map.panTo(directions);
+  //   map.panBy(0, 20);
+  // };
 
   return (
     <GoogleMap

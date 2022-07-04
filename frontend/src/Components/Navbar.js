@@ -5,19 +5,19 @@ import dublin_bus_logo from "../Assets/Dublin_Bus_Logo.png";
 const Navbar = ({ modalType, setModalType }) => {
   return (
     <div>
-      <div className="header text-white pt-4">
-        <div className="mb-4 mt-3 ml-3">
+      <div className="header text-white pt-4 pl-7">
+        <div className="mb-4 mt-4 ml-3">
           <img
             src={dublin_bus_logo}
-            className="inline-block w-1/3 h-14 object-scale-down"
+            className="w-8 mr-4 pb-2 inline-block"
             alt="Dublin Bus Logo"
           />
 
-          <h1 className="font-sans inline-block w-2/3 text-2xl pt-4">
-            Dublin Bus
-          </h1>
+          <h1 className="font-sans inline-block text-3xl mr-3">Dublin Bus</h1>
         </div>
-        <h2 className="text-m font-sans tracking-wider">Journey Planner App</h2>
+        <h2 className="text-xl text-left font-light font-sans tracking-wider">
+          Journey Planner App
+        </h2>
       </div>
 
       {/* Web Buttons */}
@@ -35,7 +35,7 @@ const Navbar = ({ modalType, setModalType }) => {
               setModalType("CLOSED");
             }
           }}
-          className="text-left text-sm webbutton bg-zinc-900 hover:bg-amber-800 text-slate-100 font-medium py-3 px-7 mt-6"
+          className="text-left text-base font-light	tracking-wider webbutton bg-zinc-900 hover:bg-amber-800 text-slate-100 font-medium py-3 px-7 mt-6"
         >
           Journey Planner
         </button>
@@ -49,7 +49,7 @@ const Navbar = ({ modalType, setModalType }) => {
               setModalType("CLOSED");
             }
           }}
-          className="text-left text-sm webbutton bg-zinc-900 hover:bg-amber-800 text-slate-100 font-medium py-3 px-7"
+          className="text-left text-base font-light	tracking-wider webbutton bg-zinc-900 hover:bg-amber-800 text-slate-100 font-medium py-3 px-7"
         >
           Routes
         </button>
@@ -70,7 +70,7 @@ const Navbar = ({ modalType, setModalType }) => {
               setModalType("CLOSED");
             }
           }}
-          className="text-sm bg-zinc-900 hover:bg-amber-800 text-slate-100 font-medium py-2 px-6 rounded-l-2xl"
+          className="text-md font-light bg-zinc-900 hover:bg-amber-800 text-slate-100 font-medium py-2 px-6 rounded-l-2xl"
         >
           Journey <br />
           Planner
@@ -85,15 +85,15 @@ const Navbar = ({ modalType, setModalType }) => {
               setModalType("CLOSED");
             }
           }}
-          className="bg-zinc-900 text-sm hover:bg-amber-800 text-slate-100 font-medium py-2 px-6 border-l border-r border-zinc-500"
+          className="bg-zinc-900 text-md font-light hover:bg-amber-800 text-slate-100 font-medium py-2 px-6 border-l border-r border-zinc-500"
         >
           Routes
         </button>
-        <button className="bg-zinc-900 text-sm hover:bg-amber-800 text-slate-100 font-medium py-2 px-6 rounded-r-2xl">
+        <button className="bg-zinc-900 text-md font-light hover:bg-amber-800 text-slate-100 font-medium py-2 px-6 rounded-r-2xl">
           Sign In
         </button>
       </div>
-      <button className="webbutton text-left text-sm webbutton-bottom bg-zinc-900 hover:bg-amber-800 text-slate-100 font-medium py-4 px-7 mb-4">
+      <button className="webbutton font-light	tracking-wider text-left text-base webbutton-bottom bg-zinc-900 hover:bg-amber-800 text-slate-100 font-medium py-4 px-7 mb-4">
         Sign In
       </button>
     </div>
