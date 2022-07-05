@@ -54,10 +54,10 @@
   cursor: pointer;
 }
 .search {
-  position: relative;
+  position: absolute;
   margin: 0;
   top: 1rem;
-  left: 25%;
+  left: 50%;
   transform: translateX(-50%);
   width: 100%;
   max-width: 400px;

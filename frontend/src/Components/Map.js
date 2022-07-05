@@ -147,9 +147,9 @@ const panTo = (lat, lng) => {
   return (
     <div id='GoogleMap'>
     <Locate panTo={panTo} />
-    <center>
-    <button onClick={PanTo1} class='search'>Show stop locations</button>̦
-    </center>
+    <div>
+    <button onClick={PanTo1} className='search'>Show stop locations</button>
+    </div>
     <GoogleMap
       center={center}
       zoom={14}
