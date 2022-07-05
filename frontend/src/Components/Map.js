@@ -17,9 +17,13 @@ const Map = ({
   directionsOutput,
   isLoaded,
   loadError,
+  stops,
 }) => {
-  const [mapLoaded, setMapLoaded] = useState(null);
-
+  const [map, setMap] = useState(null);  
+  const mapRef = React.useRef();
+  // const onMapLoad = React.useCallback((map) => {
+  mapRef.current = map;
+  const google = window.google
   // Error loading Map
   if (loadError) {
     return <div>Map cannot be loaded right now, sorry.</div>;
@@ -47,7 +51,41 @@ const Map = ({
     }
     return 0;
   };
+const panTo = (lat, lng) => {
+    console.log("lat,lng")
+    // find_closest_marker(lat,lng)
 
+
+    console.log('here 2',lat,lng);
+    mapRef.current.panTo({ lat, lng });
+    mapRef.current.setZoom(14);
+    var circle = new google.maps.Circle({
+      strokeColor: 'Blue',
+      strokeOpacity: '0.8',
+      strokeWeight: 0,
+      fillColor: 'Blue',
+      fillOpacity: 0.55,
+      map,
+      radius: 175,
+      clickable: true,
+      center: {
+          lat: lat,
+          lng: lng
+      },
+  })
+  var point = { lat, lng }
+  var marker = new google.maps.Marker({
+    position: point,
+    map: map
+      });
+      
+      var html = 'CURRENT LOCATION';
+      var infoWindow = new google.maps.InfoWindow();
+      google.maps.event.addListener(marker, 'click', function() {
+        infoWindow.setContent(html);
+        infoWindow.open(map, marker);
+      })
+  };
   // Function to pan the map down below route info
   // const panDown = (map, directions) => {
   //   map.panTo(directions);
@@ -55,12 +93,17 @@ const Map = ({
   // };
 
   return (
+    <div id='GoogleMap'>
+    <Locate panTo={panTo} />
     <GoogleMap
       center={center}
       zoom={14}
       mapContainerStyle={mapContainerStyle}
       options={options}
-      onLoad={(mapLoaded) => setMapLoaded(mapLoaded)}
+      onLoad={(map) => {
+        setMap(map);
+      }}
+      
       onClick={() => {
         setModalType("CLOSED");
       }}
@@ -77,7 +120,34 @@ const Map = ({
         />
       )}
     </GoogleMap>
+    </div>
   );
 };
+function Locate({ panTo }) {
+  const [lat, setLat] = useState(null);
+  const [lng, setLng] = useState(null);
+  // 
+  return (
+    <button
+      className="locate"
+      onClick={() => {
+        navigator.geolocation.getCurrentPosition(
+          
+          (position) => {
+            console.log(position.coords.latitude)
+            var lat = position.coords.latitude;
+            var lng =  position.coords.longitude
+            panTo(lat,lng);
+            setLat(position.coords.latitude);
+            setLng(position.coords.longitude);
+          },
+          () => null
+        );
+      }}
+    >
+      <img src="/compass.svg" alt="compass" />
+    </button>
+  );
+}
 
 export default Map;
