@@ -86,6 +86,58 @@ const panTo = (lat, lng) => {
         infoWindow.open(map, marker);
       })
   };
+
+  const PanTo1 = () => {
+
+    var stops1 = stops
+    var markers = [];
+    console.log('here 2',stops);
+    // const [map, setMap] = useState(null);
+    const google = window.google
+    // Code for referencing the map
+    // const mapRef = React.useRef();
+    // // const onMapLoad = React.useCallback((map) => {
+    // mapRef.current = map;
+    // mapRef.current.panTo({ lat, lng });
+    // mapRef.current.setZoom(14);
+    // console.log(stops)
+    
+    for (var key in stops1) {
+      if (stops1.hasOwnProperty(key)) {
+        
+        var stop = stops1[key].stop_name
+        var lat = stops1[key].stop_lat;
+        var log = stops1[key].stop_long;
+        // console.log(lat)
+        var location_place = {lat:parseFloat(lat), lng:parseFloat(log)};
+        var infoWindow = new google.maps.InfoWindow();
+        // console.log('Inside the maps')
+      }
+
+      var marker = new google.maps.Marker({
+        position: location_place,
+        map: map,
+          });
+          var html = stop;
+      
+      google.maps.event.addListener(marker, 'click', function() {
+        infoWindow.setContent(html);
+        map.panTo(this.getPosition());
+        
+      })
+      }   
+    }
+
+
+
+
+
+
+
+
+
+
+
   // Function to pan the map down below route info
   // const panDown = (map, directions) => {
   //   map.panTo(directions);
@@ -95,6 +147,9 @@ const panTo = (lat, lng) => {
   return (
     <div id='GoogleMap'>
     <Locate panTo={panTo} />
+    <center>
+    <button onClick={PanTo1} class='search'>Show stop locations</button>̦
+    </center>
     <GoogleMap
       center={center}
       zoom={14}
