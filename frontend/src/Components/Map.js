@@ -19,6 +19,7 @@ const Map = ({
   loadError,
   stops,
 }) => {
+  var markers = [];
   const [map, setMap] = useState(null);  
   const mapRef = React.useRef();
   // const onMapLoad = React.useCallback((map) => {
@@ -78,7 +79,7 @@ const panTo = (lat, lng) => {
     position: point,
     map: map
       });
-      
+      setMapOnAll()
       var html = 'CURRENT LOCATION';
       var infoWindow = new google.maps.InfoWindow();
       google.maps.event.addListener(marker, 'click', function() {
@@ -86,11 +87,44 @@ const panTo = (lat, lng) => {
         infoWindow.open(map, marker);
       })
   };
+  var state = true;
 
+  function setMapOnAll() {
+    for (let i = 0; i < markers.length; i++) {
+      markers[i].setMap(null);
+    }
+  }
+
+
+
+var state = true;
   const PanTo1 = () => {
 
+   
+
+    
+    console.log('ELSE')
+      // stuff for 'stop' action
+      if (state == false) {
+        // stuff for 'playnow' action
+        setMapOnAll()
+        state = true;
+        return;
+    }
+
+    else {
+        // stuff for 'stop' action
+
+        
+      
+
+
+
+
+
+
     var stops1 = stops
-    var markers = [];
+    
     console.log('here 2',stops);
     // const [map, setMap] = useState(null);
     const google = window.google
@@ -118,6 +152,7 @@ const panTo = (lat, lng) => {
         position: location_place,
         map: map,
           });
+      markers.push(marker);
           var html = stop;
       
       google.maps.event.addListener(marker, 'click', function() {
@@ -125,8 +160,12 @@ const panTo = (lat, lng) => {
         map.panTo(this.getPosition());
         
       })
-      }   
+      }
+      state = false;
+        return;
+    }   
     }
+    
 
 
 
@@ -151,6 +190,7 @@ const panTo = (lat, lng) => {
     <button onClick={PanTo1} className='search'>Show stop locations</button>
     </div>
     <GoogleMap
+      
       center={center}
       zoom={14}
       mapContainerStyle={mapContainerStyle}
