@@ -161,6 +161,7 @@ var state = true;
         marker.addListener("click", () => {
           infoWindow.setContent(stop);
           infoWindow.open(map, marker);
+          map.panTo(this.getPosition());
         });
         return marker;
       });
