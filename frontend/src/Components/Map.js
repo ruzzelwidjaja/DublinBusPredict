@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { GoogleMap, DirectionsRenderer } from "@react-google-maps/api";
 import MapStyles from "./MapStyles";
 import ReactLoading from "react-loading";
+import { MarkerClusterer } from "@googlemaps/markerclusterer";
+
 
 const center = { lat: 53.3434634, lng: -6.2749724 };
 const mapContainerStyle = { width: "100%", height: "100%" };
@@ -42,7 +44,7 @@ const Map = ({
       </div>
     );
   }
-
+  console.log("STOPS:", stops)
   // Function to select route index
   const selectRouteIndex = () => {
     // Choose 0 unless another index specified
@@ -91,7 +93,7 @@ const panTo = (lat, lng) => {
 
     var stops1 = stops
     var markers = [];
-    console.log('here 2',stops);
+    // console.log('here 2',stops);
     // const [map, setMap] = useState(null);
     const google = window.google
     // Code for referencing the map
@@ -128,7 +130,54 @@ const panTo = (lat, lng) => {
       }   
     }
 
+    const PanTo2 = () => {
+      
+      // Stops data
+      var stops2 = stops
+      var locations = []
+      var stopsDict = []
 
+      for (var key in stops2) {
+        if (stops2.hasOwnProperty(key)) {
+          // console.log(json)
+    
+          var stop = stops2[key].stop_name
+          var lat = stops2[key].stop_lat;
+          var lng = stops2[key].stop_long;
+    
+          var pos = {lat: lat, lng: lng}
+          locations.push(pos)
+          stops.push(stop)
+          
+          var infoWindow = new google.maps.InfoWindow();
+
+          //PanTo1(lat,log,stop);
+          
+          // console.log(stops2[key].stop_lng)
+          // console.log('Inside the maps')
+        }
+        }
+      
+      // Add some markers to the map.
+      const markers = locations.map((position, i) => {
+        const stop = stopsDict[i];
+        const marker = new google.maps.Marker({
+          position,
+          stop,
+        });
+    
+        // markers can only be keyboard focusable when they have click listeners
+        // open info window when marker is clicked
+        marker.addListener("click", () => {
+          infoWindow.setContent(stop);
+          infoWindow.open(map, marker);
+        });
+        return marker;
+      });
+    
+      // Add a marker clusterer to manage the markers.
+      new MarkerClusterer({ markers, map });
+    }
 
 
 
@@ -148,11 +197,11 @@ const panTo = (lat, lng) => {
     <div id='GoogleMap'>
     <Locate panTo={panTo} />
     <div>
-    <button onClick={PanTo1} className='search'>Show stop locations</button>
+    <button onClick={PanTo2} className='search'>Show stop locations</button>
     </div>
     <GoogleMap
       center={center}
-      zoom={14}
+      zoom={8}
       mapContainerStyle={mapContainerStyle}
       options={options}
       onLoad={(map) => {
