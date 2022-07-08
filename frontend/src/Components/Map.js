@@ -100,12 +100,11 @@ const panTo = (lat, lng) => {
 
 
 var state = true;
+
+
   const PanTo1 = () => {
 
-   
-
-    
-    console.log('ELSE')
+    // console.log('ELSE')
       // stuff for 'stop' action
       if (state == false) {
         // stuff for 'playnow' action
@@ -115,93 +114,40 @@ var state = true;
     }
 
     else {
-        // stuff for 'stop' action
-
-        
-      
-
-
-
-
-
-
-    var stops1 = stops
-<<<<<<< HEAD
-    var markers = [];
-    // console.log('here 2',stops);
-=======
+      // stuff for 'stop' action
     
-    console.log('here 2',stops);
->>>>>>> 5e6ed6133b76dae375efbf070c203acd125fe5d6
-    // const [map, setMap] = useState(null);
-    const google = window.google
-    // Code for referencing the map
-    // const mapRef = React.useRef();
-    // // const onMapLoad = React.useCallback((map) => {
-    // mapRef.current = map;
-    // mapRef.current.panTo({ lat, lng });
-    // mapRef.current.setZoom(14);
-    // console.log(stops)
-    
-    for (var key in stops1) {
-      if (stops1.hasOwnProperty(key)) {
-        
-        var stop = stops1[key].stop_name
-        var lat = stops1[key].stop_lat;
-        var log = stops1[key].stop_long;
-        // console.log(lat)
-        var location_place = {lat:parseFloat(lat), lng:parseFloat(log)};
-        var infoWindow = new google.maps.InfoWindow();
-        // console.log('Inside the maps')
-      }
-
-      var marker = new google.maps.Marker({
-        position: location_place,
-        map: map,
-          });
-      markers.push(marker);
-          var html = stop;
-      
-      google.maps.event.addListener(marker, 'click', function() {
-        infoWindow.setContent(html);
-        map.panTo(this.getPosition());
-        
-      })
-      }
-      state = false;
-        return;
-    }   
-    }
-    
-
-    const PanTo2 = () => {
-      
       // Stops data
-      var stops2 = stops
+      var stops1 = stops
       var locations = []
       var stopsDict = []
+      // console.log('here 2',stops);
+      
+      // console.log('here 2',stops);
+      // const [map, setMap] = useState(null);
+      const google = window.google
+      // Code for referencing the map
+      // const mapRef = React.useRef();
+      // // const onMapLoad = React.useCallback((map) => {
+      // mapRef.current = map;
+      // mapRef.current.panTo({ lat, lng });
+      // mapRef.current.setZoom(14);
+      // console.log(stops)
+    
+      for (var key in stops1) {
+        if (stops1.hasOwnProperty(key)) {
+          
+          var stop = stops1[key].stop_name
+          var lat = stops1[key].stop_lat;
+          var lng = stops1[key].stop_long;
 
-      for (var key in stops2) {
-        if (stops2.hasOwnProperty(key)) {
-          // console.log(json)
-    
-          var stop = stops2[key].stop_name
-          var lat = stops2[key].stop_lat;
-          var lng = stops2[key].stop_long;
-    
           var pos = {lat: lat, lng: lng}
           locations.push(pos)
           stops.push(stop)
           
           var infoWindow = new google.maps.InfoWindow();
+        }
+      }
 
-          //PanTo1(lat,log,stop);
-          
-          // console.log(stops2[key].stop_lng)
-          // console.log('Inside the maps')
-        }
-        }
-      
       // Add some markers to the map.
       const markers = locations.map((position, i) => {
         const stop = stopsDict[i];
@@ -209,7 +155,7 @@ var state = true;
           position,
           stop,
         });
-    
+
         // markers can only be keyboard focusable when they have click listeners
         // open info window when marker is clicked
         marker.addListener("click", () => {
@@ -218,18 +164,31 @@ var state = true;
         });
         return marker;
       });
-    
+
       // Add a marker clusterer to manage the markers.
       new MarkerClusterer({ markers, map });
+
+
+      // Bryan's original panto1
+      // var marker = new google.maps.Marker({
+      //   position: location_place,
+      //   map: map,
+      //     });
+      // markers.push(marker);
+      //     var html = stop;
+      
+      // google.maps.event.addListener(marker, 'click', function() {
+      //   infoWindow.setContent(html);
+      //   map.panTo(this.getPosition());
+        
+      // })
+      
+
+      state = false;
+        return;
+    }   
     }
-
-
-
-
-
-
-
-
+    
 
   // Function to pan the map down below route info
   // const panDown = (map, directions) => {
@@ -241,7 +200,7 @@ var state = true;
     <div id='GoogleMap'>
     <Locate panTo={panTo} />
     <div>
-    <button onClick={PanTo2} className='search'>Show stop locations</button>
+    <button onClick={PanTo1} className='search'>Show stop locations</button>
     </div>
     <GoogleMap
       
