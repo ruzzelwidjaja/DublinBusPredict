@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import { GoogleMap, DirectionsRenderer } from "@react-google-maps/api";
+import { GoogleMap, DirectionsRenderer, Geometry } from "@react-google-maps/api";
 import MapStyles from "./MapStyles";
 import ReactLoading from "react-loading";
+
+<script src="https://maps.googleapis.com/maps/api/js?v=3&sensor=false&libraries=geometry"></script>
 
 const center = { lat: 53.3434634, lng: -6.2749724 };
 const mapContainerStyle = { width: "100%", height: "100%" };
@@ -55,8 +57,9 @@ const Map = ({
 const panTo = (lat, lng) => {
     console.log("lat,lng")
     // find_closest_marker(lat,lng)
-
-
+     
+    // lat = 53.339665308
+    // lng = -6.23749905
     console.log('here 2',lat,lng);
     mapRef.current.panTo({ lat, lng });
     mapRef.current.setZoom(14);
@@ -74,7 +77,9 @@ const panTo = (lat, lng) => {
           lng: lng
       },
   })
-  var point = { lat, lng }
+  // var point = { lat, lng }
+  var point = new google.maps.LatLng(lat,lng);
+  
   var marker = new google.maps.Marker({
     position: point,
     map: map
@@ -86,18 +91,93 @@ const panTo = (lat, lng) => {
         infoWindow.setContent(html);
         infoWindow.open(map, marker);
       })
-  };
-  var state = true;
 
+      var
+  searchArea,
+  searchAreaMarker,
+  searchAreaRadius = 500, // metres
+  startLat = 40.782827,
+  startLng = -73.966167;
+
+      searchArea = new google.maps.Circle({
+        strokeColor: '#FF0000',
+        strokeOpacity: 0.5,
+        strokeWeight: 2,
+        fillColor: '#FF0000',
+        fillOpacity: 0.2,
+        map: map,
+        center: point,
+        radius: searchAreaRadius
+      });
+      console.log(markers)
+      for (var i = 0; i < stops.length; i++) {
+        // console.log('Marker: , position: ' + stops[i].getPosition());
+        // console.log("marker["+i+"] posn="+stops[i].markers.getPosition().toUrlValue(6));
+        // console.log(markers[i].getPosition())
+        // console.log(searchArea.getCenter())
+        
+        var distance
+        var c = 0;
+        while (c < stops.length){
+          var location = stops[c];
+          // console.log(location)
+          var locationlatlng = new google.maps.LatLng(location.stop_lat,location.stop_long);
+          // console.log(location.stop_lat,location.stop_long)
+
+          var _kCord = new google.maps.LatLng(-36.874694, 174.735292);
+          var _pCord = new google.maps.LatLng(-36.858317, 174.782284);
+          // distance = new google.maps.geometry.spherical.computeDistanceBetween(point, locationlatlng);
+          distance = google.maps.geometry.spherical.computeDistanceBetween(point, locationlatlng)
+          
+          if (distance <= searchAreaRadius) {
+            html = location.stop_name;
+            var new_marker = new google.maps.Marker({
+              position: locationlatlng,
+              map: map,
+
+
+              
+            });
+            var infoWindow = new google.maps.InfoWindow();
+            google.maps.event.addListener(new_marker, 'click', function() {
+            infoWindow.setContent(html);
+            infoWindow.open(map, marker);
+      })
+
+          }
+
+
+
+
+
+          // console.log(distance);  // popup box says "[object, Object]"
+          c++;
+      }
+
+        // if (google.maps.geometry.spherical.computeDistanceBetween(markers[i].getPosition(), point) <= searchAreaRadius) {
+        //   console.log('=> is in searchArea');
+        // }
+        // else{
+        //   console.log('Not in')
+        // }
+
+
+
+
+
+
+
+
+  };
+}
+  var state = true;
+  
+  
   function setMapOnAll() {
     for (let i = 0; i < markers.length; i++) {
       markers[i].setMap(null);
     }
   }
-
-
-
-var state = true;
   const PanTo1 = () => {
 
    
@@ -142,6 +222,11 @@ var state = true;
         var stop = stops1[key].stop_name
         var lat = stops1[key].stop_lat;
         var log = stops1[key].stop_long;
+        var displayInfo = "<h3>" + stops1[key].stop_name + "</br>" + "</h3>Bikes Available : ";
+        
+
+        // Generate infoWindow
+        
         // console.log(lat)
         var location_place = {lat:parseFloat(lat), lng:parseFloat(log)};
         var infoWindow = new google.maps.InfoWindow();
@@ -152,7 +237,10 @@ var state = true;
         position: location_place,
         map: map,
           });
+
+      // makeClickable(map, marker, displayInfo);
       markers.push(marker);
+      
           var html = stop;
       
       google.maps.event.addListener(marker, 'click', function() {
@@ -165,6 +253,18 @@ var state = true;
         return;
     }   
     }
+
+    // function makeClickable(map, marker, info) {
+    //   console.log('In the make clickable')
+    //     var infowindow = new google.maps.InfoWindow({
+    //         content: info
+    //     });
+    
+    //     google.maps.event.addListener(marker, 'click', function (ev) {
+    //         infowindow.setPosition();
+    //         infowindow.open(map);
+    //     });
+    // }
     
 
 

@@ -6,7 +6,7 @@ import Navbar from "./Components/Navbar";
 import Modal from "./Components/Modals/Modal";
 
 // Places lib for maps
-const libraries = ["places"];
+const libraries = ["places","geometry"];
 
 const App = () => {
   // Backend API data
