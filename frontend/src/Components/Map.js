@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { GoogleMap, DirectionsRenderer, Geometry } from "@react-google-maps/api";
 import MapStyles from "./MapStyles";
 import ReactLoading from "react-loading";
+import { MarkerClusterer } from "@googlemaps/markerclusterer";
+
 
 <script src="https://maps.googleapis.com/maps/api/js?v=3&sensor=false&libraries=geometry"></script>
 
@@ -45,7 +47,7 @@ const Map = ({
       </div>
     );
   }
-
+  console.log("STOPS:", stops)
   // Function to select route index
   const selectRouteIndex = () => {
     // Choose 0 unless another index specified
@@ -178,12 +180,15 @@ const panTo = (lat, lng) => {
       markers[i].setMap(null);
     }
   }
+
+
+
+var state = true;
+
+
   const PanTo1 = () => {
 
-   
-
-    
-    console.log('ELSE')
+    // console.log('ELSE')
       // stuff for 'stop' action
       if (state == false) {
         // stuff for 'playnow' action
@@ -193,62 +198,77 @@ const panTo = (lat, lng) => {
     }
 
     else {
-        // stuff for 'stop' action
-
-        
+      // stuff for 'stop' action
+    
+      // Stops data
+      var stops1 = stops
+      var locations = []
+      var stopsDict = []
+      // console.log('here 2',stops);
       
-
-
-
-
-
-
-    var stops1 = stops
+      // console.log('here 2',stops);
+      // const [map, setMap] = useState(null);
+      const google = window.google
+      // Code for referencing the map
+      // const mapRef = React.useRef();
+      // // const onMapLoad = React.useCallback((map) => {
+      // mapRef.current = map;
+      // mapRef.current.panTo({ lat, lng });
+      // mapRef.current.setZoom(14);
+      // console.log(stops)
     
-    console.log('here 2',stops);
-    // const [map, setMap] = useState(null);
-    const google = window.google
-    // Code for referencing the map
-    // const mapRef = React.useRef();
-    // // const onMapLoad = React.useCallback((map) => {
-    // mapRef.current = map;
-    // mapRef.current.panTo({ lat, lng });
-    // mapRef.current.setZoom(14);
-    // console.log(stops)
-    
-    for (var key in stops1) {
-      if (stops1.hasOwnProperty(key)) {
-        
-        var stop = stops1[key].stop_name
-        var lat = stops1[key].stop_lat;
-        var log = stops1[key].stop_long;
-        var displayInfo = "<h3>" + stops1[key].stop_name + "</br>" + "</h3>Bikes Available : ";
-        
+      for (var key in stops1) {
+        if (stops1.hasOwnProperty(key)) {
+          
+          var stop = stops1[key].stop_name
+          var lat = stops1[key].stop_lat;
+          var lng = stops1[key].stop_long;
 
-        // Generate infoWindow
-        
-        // console.log(lat)
-        var location_place = {lat:parseFloat(lat), lng:parseFloat(log)};
-        var infoWindow = new google.maps.InfoWindow();
-        // console.log('Inside the maps')
+          var pos = {lat: lat, lng: lng}
+          locations.push(pos)
+          stops.push(stop)
+          
+          var infoWindow = new google.maps.InfoWindow();
+        }
       }
 
-      var marker = new google.maps.Marker({
-        position: location_place,
-        map: map,
-          });
+      // Add some markers to the map.
+      const markers = locations.map((position, i) => {
+        const stop = stopsDict[i];
+        const marker = new google.maps.Marker({
+          position,
+          stop,
+        });
 
-      // makeClickable(map, marker, displayInfo);
-      markers.push(marker);
+        // markers can only be keyboard focusable when they have click listeners
+        // open info window when marker is clicked
+        marker.addListener("click", () => {
+          infoWindow.setContent(stop);
+          infoWindow.open(map, marker);
+          map.panTo(this.getPosition());
+        });
+        return marker;
+      });
+
+      // Add a marker clusterer to manage the markers.
+      new MarkerClusterer({ markers, map });
+
+
+      // Bryan's original panto1
+      // var marker = new google.maps.Marker({
+      //   position: location_place,
+      //   map: map,
+      //     });
+      // markers.push(marker);
+      //     var html = stop;
       
-          var html = stop;
-      
-      google.maps.event.addListener(marker, 'click', function() {
-        infoWindow.setContent(html);
-        map.panTo(this.getPosition());
+      // google.maps.event.addListener(marker, 'click', function() {
+      //   infoWindow.setContent(html);
+      //   map.panTo(this.getPosition());
         
-      })
-      }
+      // })
+      
+
       state = false;
         return;
     }   
@@ -267,16 +287,6 @@ const panTo = (lat, lng) => {
     // }
     
 
-
-
-
-
-
-
-
-
-
-
   // Function to pan the map down below route info
   // const panDown = (map, directions) => {
   //   map.panTo(directions);
@@ -292,7 +302,7 @@ const panTo = (lat, lng) => {
     <GoogleMap
       
       center={center}
-      zoom={14}
+      zoom={8}
       mapContainerStyle={mapContainerStyle}
       options={options}
       onLoad={(map) => {
