@@ -54,7 +54,7 @@ const Option = ({ option, selectRoute }) => {
                     <>
                       <BusLogo
                         fill="#ffffff"
-                        className="h-12 flex-1 px-2"
+                        className="h-12 flex-1 px-2 self-center"
                         stroke="#ffffff"
                         alt="Bus Logo"
                       />
@@ -75,7 +75,7 @@ const Option = ({ option, selectRoute }) => {
                         className="h-8 flex-1 self-center "
                         alt="Walking Logo"
                       />
-                      <p className="text-left flex-1 text-xs md:text-s self-center py-1">
+                      <p className="text-left basis-2/12 text-xs md:text-s self-center py-1">
                         {option.duration}
                       </p>
                     </>
@@ -85,11 +85,11 @@ const Option = ({ option, selectRoute }) => {
                     <>
                       <BusLogo
                         fill="#ffffff"
-                        className="h-12 flex-1 px-2"
+                        className="h-12 flex-1 px-2 self-center"
                         stroke="#ffffff"
                         alt="Bus Logo"
                       />
-                      <p className="text-left flex-1 text-xs md:text-s self-center py-1">
+                      <p className="text-left basis-2/12 text-xs md:text-s self-center py-1">
                         {option.duration}
                       </p>
                     </>
