@@ -69,6 +69,7 @@ const App = () => {
         buses: busesArray,
         distance: route.legs[0].distance.text,
         duration: route.legs[0].duration.text,
+        steps: route.legs[0].steps.length,
       };
     });
     setRouteOptions(options);
