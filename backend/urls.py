@@ -20,6 +20,9 @@ from dublinbusapp import views
 
 router = routers.DefaultRouter()
 router.register(r'stops', views.StopsView, 'stops')
+router.register(r'trips', views.TripsView, 'trips')
+router.register(r'routes', views.RoutesView, 'routes')
+router.register(r'shapes', views.ShapesView, 'shapes')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
