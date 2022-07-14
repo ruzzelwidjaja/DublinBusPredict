@@ -6,7 +6,7 @@ import Navbar from "./Components/Navbar";
 import Modal from "./Components/Modals/Modal";
 
 // Places lib for maps
-const libraries = ["places"];
+const libraries = ["places","geometry"];
 
 const App = () => {
   // Backend API data
@@ -168,9 +168,9 @@ const App = () => {
   };
 
   // Get API data
-  // useEffect(() => {
-  //   fetchData();
-  // }, []);
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <div>
@@ -194,6 +194,7 @@ const App = () => {
           directionsOutput={directionsOutput}
           isLoaded={isLoaded}
           loadError={loadError}
+          stops={stops}
         />
       </div>
       <div id="navbar">
