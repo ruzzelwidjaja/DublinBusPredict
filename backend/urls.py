@@ -25,6 +25,6 @@ router.register(r'stops', views.StopsView, 'stops')
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
-    path('predict/<str:line_id>/', views.predict, name='predict')
+    path('api/prediction/<str:line_id>/', views.predict)
 ]
 
