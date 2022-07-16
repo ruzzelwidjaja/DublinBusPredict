@@ -10,4 +10,5 @@ class StopsView(viewsets.ModelViewSet):
     queryset = Stops.objects.all()
 
 def predict(request,line_id):
-    return JsonResponse({'prediction': 'testing json'})
+    return JsonResponse({'prediction': line_id})
+

@@ -20,10 +20,11 @@ from dublinbusapp import views
 
 router = routers.DefaultRouter()
 router.register(r'stops', views.StopsView, 'stops')
-router.register(r'predict', views.predict, 'predict')
+# router.register(r'predict', views.predict, 'predict')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
-    path('predict/<int:line_id>/', include(router.urls))
+    path('predict/<str:line_id>/', views.predict, name='predict')
 ]
+
