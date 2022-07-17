@@ -13,6 +13,9 @@ const Option = ({ option, selectRoute }) => {
   const selectIndex = (id) => {
     selectRoute(id);
   };
+  console.log(option);
+  let numOfBuses = option.buses.length;
+  let busIndex = -1;
   return (
     <div>
       <li
@@ -30,6 +33,7 @@ const Option = ({ option, selectRoute }) => {
         >
           <div className="flex">
             {option.instructions.map((instruction) => {
+              // If we are at the last element, don't show dots after otherwise do
               if (
                 instruction !==
                 option.instructions[option.instructions.length - 1]
@@ -50,6 +54,7 @@ const Option = ({ option, selectRoute }) => {
                     </>
                   );
                 } else {
+                  busIndex++;
                   return (
                     <>
                       <BusLogo
@@ -58,6 +63,9 @@ const Option = ({ option, selectRoute }) => {
                         stroke="#ffffff"
                         alt="Bus Logo"
                       />
+                      <p className="basis-1 text-xs self-center py-1">
+                        {option.buses[busIndex]}
+                      </p>
                       <DotsLogo
                         className="h-5 flex-1 self-center"
                         alt="Dots Logo"
@@ -89,6 +97,9 @@ const Option = ({ option, selectRoute }) => {
                         stroke="#ffffff"
                         alt="Bus Logo"
                       />
+                      <p className="basis-1 text-xs self-center py-1">
+                        {option.buses[option.buses.length - 1]}
+                      </p>
                       <p className="text-left basis-2/12 text-xs md:text-s self-center py-1">
                         {option.duration}
                       </p>
