@@ -13,8 +13,6 @@ const Option = ({ option, selectRoute }) => {
   const selectIndex = (id) => {
     selectRoute(id);
   };
-  console.log(option);
-  let numOfBuses = option.buses.length;
   let busIndex = -1;
   return (
     <div>
@@ -83,7 +81,7 @@ const Option = ({ option, selectRoute }) => {
                         className="h-8 flex-1 self-center "
                         alt="Walking Logo"
                       />
-                      <p className="text-left basis-2/12 text-xs md:text-s self-center py-1">
+                      <p className="text-right basis-2/12 text-xs md:text-s self-center">
                         {option.duration}
                       </p>
                     </>

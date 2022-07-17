@@ -16,6 +16,7 @@ const App = () => {
   // Modal setting
   const [modalType, setModalType] = useState("CLOSED");
 
+  // Options for different routes to destination
   const [routeOptions, setRouteOptions] = useState();
 
   // Route index chosen
@@ -83,7 +84,7 @@ const App = () => {
           let line = step.transit.line;
           let bus_type = line.agencies[0].name;
 
-          // Prepare the result if it is a bus we use
+          // Prepare the result if it is a bus we use - Don't need this anymore
           // if (bus_type === "Go-Ahead" || bus_type === "Dublin Bus") {
           //   busesArray.push(line.short_name);
           // }

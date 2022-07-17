@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { GoogleMap, DirectionsRenderer } from "@react-google-maps/api";
 import MapStyles from "./MapStyles";
-// import ReactLoading from "react-loading";
 
 const center = { lat: 53.3434634, lng: -6.2749724 };
 const mapContainerStyle = { width: "100%", height: "100%" };
@@ -23,10 +22,9 @@ const Map = ({ setModalType, chosenIndex, directionsOutput }) => {
     return 0;
   };
 
-  // Function to pan the map down below route info
-  // const panDown = (map, directions) => {
-  //   map.panTo(directions);
-  //   map.panBy(0, 20);
+  // const panToDirections = () => {
+  //   console.log("panning");
+  //   // map.panTo(center);
   // };
 
   return (
@@ -46,6 +44,7 @@ const Map = ({ setModalType, chosenIndex, directionsOutput }) => {
             suppressMarkers: true,
             suppressInfoWindows: true,
             polylineOptions: { strokeColor: "#d97706" },
+            preserveViewport: false,
           }}
           directions={directionsOutput}
           routeIndex={selectRouteIndex()}
