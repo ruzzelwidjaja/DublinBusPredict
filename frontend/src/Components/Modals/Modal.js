@@ -13,6 +13,7 @@ const Modal = ({
   selectRoute,
   chosenIndex,
   directionsOutput,
+  routes,
 }) => {
   return (
     <div>
@@ -36,7 +37,7 @@ const Modal = ({
             </div>
           )}
 
-          {modalType === "routes" && <RoutesModal />}
+          {modalType === "routes" && <RoutesModal routes={routes} />}
         </div>
       </div>
     </div>

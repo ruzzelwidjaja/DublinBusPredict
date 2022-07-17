@@ -1,10 +1,15 @@
 import React from "react";
+import BusRoute from "./BusRoute";
 
-const RoutesModal = () => {
+const RoutesModal = ({ routes }) => {
   return (
-    <div className="head">
-      <h5 className="text-xl font-medium text-white pb-4">Routes</h5>
-      <p>Route info goes here</p>
+    <div>
+      <h5 className="text-xl font-medium text-white pb-1">Bus Routes</h5>
+      {routes.map((route, index) => (
+        <div key={index}>
+          <BusRoute route={route} />
+        </div>
+      ))}
     </div>
   );
 };

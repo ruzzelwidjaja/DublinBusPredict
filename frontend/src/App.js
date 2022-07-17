@@ -11,6 +11,9 @@ const libraries = ["places"];
 const App = () => {
   // Backend API data
   const [stops, setStops] = useState([]);
+  const [trips, setTrips] = useState([]);
+  const [routes, setRoutes] = useState([]);
+  const [shapes, setShapes] = useState([]);
 
   // Modal setting
   const [modalType, setModalType] = useState("CLOSED");
@@ -159,17 +162,29 @@ const App = () => {
   };
 
   // Function to get data from backend API
-  const fetchData = async () => {
-    const response = await fetch("http://localhost:8000/api/stops/");
-    const data = await response.json();
+  const fetchAPIData = async () => {
+    const stopResponse = await fetch("http://localhost:8000/api/stops/");
+    const stopData = await stopResponse.json();
 
-    // Set stop data
-    setStops(data);
+    // const tripsResponse = await fetch("http://localhost:8000/api/trips/");
+    // const tripsData = await tripsResponse.json();
+
+    const routesResponse = await fetch("http://localhost:8000/api/routes/");
+    const routesData = await routesResponse.json();
+
+    // const shapesResponse = await fetch("http://localhost:8000/api/shapes/");
+    // const shapesData = await shapesResponse.json();
+
+    // Set relevant data
+    setStops(stopData);
+    // setTrips(tripsData);
+    setRoutes(routesData);
+    // setShapes(shapesData);
   };
 
   // Get API data
   useEffect(() => {
-    fetchData();
+    fetchAPIData();
   }, []);
 
   return (
@@ -186,6 +201,7 @@ const App = () => {
             selectRoute={selectRoute}
             chosenIndex={chosenIndex}
             directionsOutput={directionsOutput}
+            routes={routes}
           />
         )}
         <Map
