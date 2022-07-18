@@ -45,3 +45,13 @@ class Routes(models.Model):
     class Meta:
         managed = False
         db_table = 'routes'
+
+class NamesAndHeadsigns(models.Model):
+    route_short_name = models.CharField(max_length=10, blank=True, null=True)
+    route_id = models.CharField(primary_key=True,max_length=30)
+    trip_headsign = models.CharField(max_length=255, blank=True, null=True)
+    shape_id = models.CharField(max_length=30)
+
+    class Meta:
+        managed = False
+        db_table = 'names_and_headsigns'

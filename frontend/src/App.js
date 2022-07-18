@@ -12,6 +12,8 @@ const App = () => {
   // Backend API data
   const [stops, setStops] = useState([]);
   const [trips, setTrips] = useState([]);
+  const [nameHeadsign, setNameHeadsign] = useState([]);
+
   const [routes, setRoutes] = useState([]);
   const [shapes, setShapes] = useState([]);
 
@@ -169,8 +171,10 @@ const App = () => {
     // const tripsResponse = await fetch("http://localhost:8000/api/trips/");
     // const tripsData = await tripsResponse.json();
 
-    const routesResponse = await fetch("http://localhost:8000/api/routes/");
-    const routesData = await routesResponse.json();
+    const nameHeadsignResponse = await fetch(
+      "http://localhost:8000/api/namesandheadsigns/"
+    );
+    const nameHeadsignData = await nameHeadsignResponse.json();
 
     // const shapesResponse = await fetch("http://localhost:8000/api/shapes/");
     // const shapesData = await shapesResponse.json();
@@ -178,7 +182,7 @@ const App = () => {
     // Set relevant data
     setStops(stopData);
     // setTrips(tripsData);
-    setRoutes(routesData);
+    setNameHeadsign(nameHeadsignData);
     // setShapes(shapesData);
   };
 
@@ -201,7 +205,7 @@ const App = () => {
             selectRoute={selectRoute}
             chosenIndex={chosenIndex}
             directionsOutput={directionsOutput}
-            routes={routes}
+            nameHeadsign={nameHeadsign}
           />
         )}
         <Map

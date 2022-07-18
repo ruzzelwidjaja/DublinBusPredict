@@ -1,7 +1,7 @@
 from django.shortcuts import render
-from .serializers import StopsSerializer, RoutesSerializer, ShapesSerializer, TripsSerializer
+from .serializers import StopsSerializer, RoutesSerializer, ShapesSerializer, TripsSerializer, NamesAndHeadsignsSerializer
 from rest_framework import viewsets
-from .models import Stops, Trips, Routes, Shapes
+from .models import Stops, Trips, Routes, Shapes, NamesAndHeadsigns
 
 # Create your views here.
 class StopsView(viewsets.ModelViewSet):
@@ -19,3 +19,7 @@ class TripsView(viewsets.ModelViewSet):
 class RoutesView(viewsets.ModelViewSet):
     serializer_class = RoutesSerializer
     queryset = Routes.objects.all()
+
+class NamesAndHeadsignsView(viewsets.ModelViewSet):
+    serializer_class = NamesAndHeadsignsSerializer
+    queryset = NamesAndHeadsigns.objects.all()
