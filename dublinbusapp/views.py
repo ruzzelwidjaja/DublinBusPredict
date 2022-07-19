@@ -32,6 +32,9 @@ class NamesAndHeadsignsDetails(generics.RetrieveAPIView):
     queryset = NamesAndHeadsigns.objects.all()
     serializer_class = NamesAndHeadsignsSerializer
 
-class ShapeDetails(generics.RetrieveAPIView):
-    queryset = Shapes.objects.all()
+class ShapeDetails(generics.ListAPIView):
     serializer_class = ShapesSerializer
+
+    def get_queryset(self):
+        shape_id = self.kwargs['shape_id']
+        return Shapes.objects.filter(shape_id=shape_id)

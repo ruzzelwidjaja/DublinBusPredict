@@ -29,7 +29,6 @@ router.register(r'namesandheadsigns', views.NamesAndHeadsignsView, 'namesandhead
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
-    # path('api/shape<str:pk>/', views.NamesAndHeadsignsDetails.as_view()),
-    # path('api/shape<str:pk>/', views.ShapeDetails.as_view()),
-
+    path('api/shape<str:pk>/', views.NamesAndHeadsignsDetails.as_view()),
+    path('api/<str:shape_id>/', views.ShapeDetails.as_view()),
 ]
