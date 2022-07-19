@@ -25,4 +25,4 @@ class TripsSerializer(serializers.ModelSerializer):
 class NamesAndHeadsignsSerializer(serializers.ModelSerializer):
     class Meta:
         model = NamesAndHeadsigns
-        fields = ('route_short_name', 'route_id', 'trip_headsign', 'shape_id')
+        fields = ['route_short_name', 'route_id', 'trip_headsign', 'shape_id']

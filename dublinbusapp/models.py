@@ -1,3 +1,4 @@
+from dataclasses import fields
 from pyexpat import model
 from django.db import models
 
@@ -48,9 +49,9 @@ class Routes(models.Model):
 
 class NamesAndHeadsigns(models.Model):
     route_short_name = models.CharField(max_length=10, blank=True, null=True)
-    route_id = models.CharField(primary_key=True,max_length=30)
+    route_id = models.CharField(max_length=30)
     trip_headsign = models.CharField(max_length=255, blank=True, null=True)
-    shape_id = models.CharField(max_length=30)
+    shape_id = models.CharField(primary_key=True,max_length=30)
 
     class Meta:
         managed = False
