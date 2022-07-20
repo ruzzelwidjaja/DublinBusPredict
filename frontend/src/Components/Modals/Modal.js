@@ -15,6 +15,8 @@ const Modal = ({
   directionsOutput,
   nameHeadsign,
   setShapes,
+  setDirectionsOutput,
+  mapLoaded,
 }) => {
   return (
     <div>
@@ -26,6 +28,7 @@ const Modal = ({
               originRef={originRef}
               destinationRef={destinationRef}
               getRoutes={getRoutes}
+              setShapes={setShapes}
             />
           )}
           {modalType === "chooseRoutes" && directionsOutput && (
@@ -39,7 +42,12 @@ const Modal = ({
           )}
 
           {modalType === "routes" && (
-            <RoutesModal nameHeadsign={nameHeadsign} setShapes={setShapes} />
+            <RoutesModal
+              nameHeadsign={nameHeadsign}
+              setShapes={setShapes}
+              setDirectionsOutput={setDirectionsOutput}
+              mapLoaded={mapLoaded}
+            />
           )}
         </div>
       </div>

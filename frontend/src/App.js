@@ -9,6 +9,8 @@ import Modal from "./Components/Modals/Modal";
 const libraries = ["places"];
 
 const App = () => {
+  const [mapLoaded, setMapLoaded] = useState(null);
+
   // Backend API data
   const [stops, setStops] = useState([]);
   const [nameHeadsign, setNameHeadsign] = useState([]);
@@ -196,6 +198,8 @@ const App = () => {
             directionsOutput={directionsOutput}
             nameHeadsign={nameHeadsign}
             setShapes={setShapes}
+            setDirectionsOutput={setDirectionsOutput}
+            mapLoaded={mapLoaded}
           />
         )}
         <Map
@@ -205,6 +209,8 @@ const App = () => {
           isLoaded={isLoaded}
           loadError={loadError}
           shapes={shapes}
+          mapLoaded={mapLoaded}
+          setMapLoaded={setMapLoaded}
         />
       </div>
       <div id="navbar">

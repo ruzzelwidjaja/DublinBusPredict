@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   GoogleMap,
   DirectionsRenderer,
   Polyline,
+  Marker,
 } from "@react-google-maps/api";
 import MapStyles from "./MapStyles";
 import ReactLoading from "react-loading";
@@ -22,8 +23,10 @@ const Map = ({
   isLoaded,
   loadError,
   shapes,
+  mapLoaded,
+  setMapLoaded,
 }) => {
-  const [mapLoaded, setMapLoaded] = useState(null);
+  // const [mapLoaded, setMapLoaded] = useState(null);
 
   // Error loading Map
   if (loadError) {
@@ -60,39 +63,52 @@ const Map = ({
   // };
 
   return (
-    <GoogleMap
-      center={center}
-      zoom={14}
-      mapContainerStyle={mapContainerStyle}
-      options={options}
-      onLoad={(mapLoaded) => setMapLoaded(mapLoaded)}
-      onClick={() => {
-        setModalType("CLOSED");
-      }}
-    >
-      {directionsOutput && (
-        <DirectionsRenderer
-          options={{
-            suppressMarkers: true,
-            suppressInfoWindows: true,
-            polylineOptions: { strokeColor: "#d97706" },
-          }}
-          directions={directionsOutput}
-          routeIndex={selectRouteIndex()}
-        />
-      )}
+    <>
+      {/* <button
+        onClick={() => {
+          mapLoaded.fitBounds(center);
+        }}
+      >
+        hello
+      </button> */}
+      <GoogleMap
+        center={center}
+        zoom={14}
+        mapContainerStyle={mapContainerStyle}
+        options={options}
+        onLoad={(mapLoaded) => setMapLoaded(mapLoaded)}
+        onClick={() => {
+          setModalType("CLOSED");
+        }}
+      >
+        {directionsOutput && (
+          <DirectionsRenderer
+            options={{
+              suppressMarkers: true,
+              suppressInfoWindows: true,
+              polylineOptions: { strokeColor: "#d97706" },
+            }}
+            directions={directionsOutput}
+            routeIndex={selectRouteIndex()}
+          />
+        )}
 
-      {shapes && (
-        <Polyline
-          options={{
-            strokeColor: "#fbbf24",
-            strokeOpacity: 0.8,
-            strokeWeight: 2,
-          }}
-          path={shapes}
-        />
-      )}
-    </GoogleMap>
+        {shapes && (
+          <>
+            <Polyline
+              options={{
+                strokeColor: "#fbbf24",
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+              }}
+              path={shapes}
+            />
+            <Marker position={shapes[0]} />
+            <Marker position={shapes[shapes.length - 1]} />
+          </>
+        )}
+      </GoogleMap>
+    </>
   );
 };
 

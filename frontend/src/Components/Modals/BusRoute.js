@@ -1,7 +1,7 @@
 import React from "react";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
 
-const BusRoute = ({ routeInfo, setShapes }) => {
+const BusRoute = ({ routeInfo, setShapes, setDirectionsOutput, mapLoaded }) => {
   const fetchShapeData = async (id) => {
     const shapeResponse = await fetch(`http://localhost:8000/api/${id}`);
     const shapeData = await shapeResponse.json();
@@ -18,8 +18,16 @@ const BusRoute = ({ routeInfo, setShapes }) => {
       delete item.shape_pt_lat;
       delete item.shape_pt_lon;
     });
-
+    setDirectionsOutput(null);
     setShapes(shapeData);
+
+    // Set bounds for map
+    let bounds = new window.google.maps.LatLngBounds();
+    shapeData.forEach((coord) => {
+      bounds.extend(coord);
+    });
+    console.log(bounds);
+    mapLoaded.fitBounds(bounds);
   };
 
   return (
