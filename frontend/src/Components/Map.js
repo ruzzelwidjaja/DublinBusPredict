@@ -82,7 +82,16 @@ const Map = ({
         />
       )}
 
-      {shapes && <Polyline path={shapes} />}
+      {shapes && (
+        <Polyline
+          options={{
+            strokeColor: "#fbbf24",
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+          }}
+          path={shapes}
+        />
+      )}
     </GoogleMap>
   );
 };
