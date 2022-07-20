@@ -1,5 +1,9 @@
 import React, { useState } from "react";
-import { GoogleMap, DirectionsRenderer } from "@react-google-maps/api";
+import {
+  GoogleMap,
+  DirectionsRenderer,
+  Polyline,
+} from "@react-google-maps/api";
 import MapStyles from "./MapStyles";
 import ReactLoading from "react-loading";
 
@@ -17,6 +21,7 @@ const Map = ({
   directionsOutput,
   isLoaded,
   loadError,
+  shapes,
 }) => {
   const [mapLoaded, setMapLoaded] = useState(null);
 
@@ -76,6 +81,8 @@ const Map = ({
           routeIndex={selectRouteIndex()}
         />
       )}
+
+      {shapes && <Polyline path={shapes} />}
     </GoogleMap>
   );
 };

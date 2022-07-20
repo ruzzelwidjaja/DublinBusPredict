@@ -14,6 +14,7 @@ const Modal = ({
   chosenIndex,
   directionsOutput,
   nameHeadsign,
+  setShapes,
 }) => {
   return (
     <div>
@@ -38,7 +39,7 @@ const Modal = ({
           )}
 
           {modalType === "routes" && (
-            <RoutesModal nameHeadsign={nameHeadsign} />
+            <RoutesModal nameHeadsign={nameHeadsign} setShapes={setShapes} />
           )}
         </div>
       </div>

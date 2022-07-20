@@ -11,10 +11,7 @@ const libraries = ["places"];
 const App = () => {
   // Backend API data
   const [stops, setStops] = useState([]);
-  const [trips, setTrips] = useState([]);
   const [nameHeadsign, setNameHeadsign] = useState([]);
-
-  const [routes, setRoutes] = useState([]);
   const [shapes, setShapes] = useState([]);
 
   // Modal setting
@@ -168,22 +165,14 @@ const App = () => {
     const stopResponse = await fetch("http://localhost:8000/api/stops/");
     const stopData = await stopResponse.json();
 
-    // const tripsResponse = await fetch("http://localhost:8000/api/trips/");
-    // const tripsData = await tripsResponse.json();
-
     const nameHeadsignResponse = await fetch(
       "http://localhost:8000/api/namesandheadsigns/"
     );
     const nameHeadsignData = await nameHeadsignResponse.json();
 
-    // const shapesResponse = await fetch("http://localhost:8000/api/shapes/");
-    // const shapesData = await shapesResponse.json();
-
     // Set relevant data
     setStops(stopData);
-    // setTrips(tripsData);
     setNameHeadsign(nameHeadsignData);
-    // setShapes(shapesData);
   };
 
   // Get API data
@@ -206,6 +195,7 @@ const App = () => {
             chosenIndex={chosenIndex}
             directionsOutput={directionsOutput}
             nameHeadsign={nameHeadsign}
+            setShapes={setShapes}
           />
         )}
         <Map
@@ -214,6 +204,7 @@ const App = () => {
           directionsOutput={directionsOutput}
           isLoaded={isLoaded}
           loadError={loadError}
+          shapes={shapes}
         />
       </div>
       <div id="navbar">
