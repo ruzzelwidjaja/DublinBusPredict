@@ -20,11 +20,13 @@ from dublinbusapp import views
 
 router = routers.DefaultRouter()
 router.register(r'stops', views.StopsView, 'stops')
-# router.register(r'predict', views.predict, 'predict')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
-    path('api/prediction/<str:line_id>/', views.predict)
+    path('api/prediction/<str:line_id>/<int:journey_distance>/', views.predict)
 ]
 
+# extract information from following:
+# line_id: routes > (index) > legs > 0 > steps > (index of steps with transit info) > transit > line > short_name
+# journey_distance: routes > (index) > legs > 0 > steps > (index of steps with transit info) > distance > value
