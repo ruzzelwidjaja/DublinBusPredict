@@ -17,12 +17,14 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 from dublinbusapp import views
-
+from rest_framework_jwt.views import obtain_jwt_token
 router = routers.DefaultRouter()
 router.register(r'stops', views.StopsView, 'stops')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
-    path("accounts/", include("django.contrib.auth.urls")),  # new
+    path("accounts/", include("django.contrib.auth.urls")),
+    path('token-auth/', obtain_jwt_token),
+    path('core/', include('dublinbusapp.urls'))  # new
 ]
