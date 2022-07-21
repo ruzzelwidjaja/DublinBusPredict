@@ -19,7 +19,6 @@ const JourneyPlannerModal = ({
     componentRestrictions: { country: ["ie"] },
   };
   const { getCollapseProps, getToggleProps, isExpanded } = useCollapse();
-  console.log(timeValue);
   return (
     <div>
       <div className="head">
@@ -98,7 +97,6 @@ const JourneyPlannerModal = ({
             getRoutes();
             setModalType("chooseRoutes");
             setShapes(null);
-            console.log(timeValue);
           }}
           className="text-amber-600 focus:outline-none font-medium rounded-lg text-xs md:text-sm w-full px-5 py-2.5 text-center hover:bg-amber-800 focus:ring-amber-800 hover:text-white border border-amber-700"
         >

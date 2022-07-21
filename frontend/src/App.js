@@ -127,7 +127,6 @@ const App = () => {
         cleanObject(results);
         prepareRouteOptions(results.routes);
         setDirectionsOutput(results);
-
         setChosenIndex(0);
       }
     } catch {
