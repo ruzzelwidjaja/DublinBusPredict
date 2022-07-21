@@ -17,6 +17,8 @@ const Modal = ({
   setShapes,
   setDirectionsOutput,
   mapLoaded,
+  timeValue,
+  setTimeValue,
 }) => {
   return (
     <div>
@@ -29,6 +31,8 @@ const Modal = ({
               destinationRef={destinationRef}
               getRoutes={getRoutes}
               setShapes={setShapes}
+              timeValue={timeValue}
+              setTimeValue={setTimeValue}
             />
           )}
           {modalType === "chooseRoutes" && directionsOutput && (

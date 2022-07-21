@@ -28,6 +28,9 @@ const App = () => {
   const originRef = useRef("");
   const destinationRef = useRef("");
 
+  // Time for journey
+  const [timeValue, setTimeValue] = useState(new Date());
+
   // Directions object from request to google maps
   const [directionsOutput, setDirectionsOutput] = useState(null);
 
@@ -97,7 +100,10 @@ const App = () => {
 
       // Specify transit mode and bus as mode of transport
       travelMode: "TRANSIT",
-      transitOptions: { modes: ["BUS"] },
+      transitOptions: {
+        modes: ["BUS"],
+        departureTime: timeValue,
+      },
       provideRouteAlternatives: true,
       // eslint-disable-next-line no-undef
       unitSystem: google.maps.UnitSystem.METRIC,
@@ -200,6 +206,8 @@ const App = () => {
             setShapes={setShapes}
             setDirectionsOutput={setDirectionsOutput}
             mapLoaded={mapLoaded}
+            timeValue={timeValue}
+            setTimeValue={setTimeValue}
           />
         )}
         <Map
