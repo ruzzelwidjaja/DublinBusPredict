@@ -48,7 +48,7 @@ const Modal = ({
           {/* In case of no route options, display error */}
           {modalType === "chooseRoutes" && directionsOutput === null && (
             <div>
-              <p className="text-xs md:text-sm rounded-lg block w-full p-1.5 text-white">
+              <p className="text-xs md:text-base rounded-lg block w-full p-1.5 text-white">
                 Sorry, no routes were found for your journey.
               </p>
             </div>

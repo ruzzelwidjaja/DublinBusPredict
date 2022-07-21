@@ -1,5 +1,5 @@
 import React from "react";
-import { ReactSearchAutocomplete } from "react-search-autocomplete";
+// import { ReactSearchAutocomplete } from "react-search-autocomplete";
 
 const BusRoute = ({ routeInfo, setShapes, setDirectionsOutput, mapLoaded }) => {
   const fetchShapeData = async (id) => {

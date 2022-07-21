@@ -54,21 +54,8 @@ const Map = ({
     return 0;
   };
 
-  // Function to pan the map down below route info
-  // const panDown = (map, directions) => {
-  //   map.panTo(directions);
-  //   map.panBy(0, 20);
-  // };
-
   return (
     <>
-      {/* <button
-        onClick={() => {
-          mapLoaded.fitBounds(center);
-        }}
-      >
-        hello
-      </button> */}
       <GoogleMap
         center={center}
         zoom={14}
