@@ -4,6 +4,7 @@ import "./App.css";
 import Map from "./Components/Map";
 import Navbar from "./Components/Navbar";
 import Modal from "./Components/Modals/Modal";
+import ReactLoading from "react-loading";
 
 // Places lib for maps
 const libraries = ["places"];
@@ -15,6 +16,7 @@ const App = () => {
   // Modal setting
   const [modalType, setModalType] = useState("CLOSED");
 
+  // Options for different routes to destination
   const [routeOptions, setRouteOptions] = useState();
 
   // Route index chosen
@@ -33,6 +35,32 @@ const App = () => {
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries,
   });
+
+  // Error loading Map
+  if (loadError) {
+    return (
+      <div className="h-full w-full bg-zinc-900 absolute text-base font-light	tracking-wider text-slate-100 font-medium py-3 px-7">
+        Google Maps cannot be loaded right now.
+        <br />
+        Please try again later or contact Google and maybe they can solve the
+        issue! :)
+      </div>
+    );
+  }
+
+  // If map has not loaded display loading..
+  if (!isLoaded) {
+    return (
+      <div className="h-full w-full bg-zinc-900 absolute">
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+          <ReactLoading type={"spin"} color="#475569" />
+        </div>
+        <div className="text-center absolute top-2/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+          <p className="text-slate-500">Loading..</p>
+        </div>
+      </div>
+    );
+  }
 
   // Function to take chosen route and set index
   const selectRoute = (selection) => {
@@ -56,15 +84,17 @@ const App = () => {
           let line = step.transit.line;
           let bus_type = line.agencies[0].name;
 
-          // Prepare the result if it is a bus we use
-          if (bus_type === "Go-Ahead" || bus_type === "Dublin Bus") {
-            busesArray.push(line.short_name);
-          }
+          // Prepare the result if it is a bus we use - Don't need this anymore
+          // if (bus_type === "Go-Ahead" || bus_type === "Dublin Bus") {
+          //   busesArray.push(line.short_name);
+          // }
+          busesArray.push(line.short_name);
         }
       });
 
       return {
         id: index,
+        remove: route.contains_non_dublin_bus,
         instructions: instructionsArray,
         buses: busesArray,
         distance: route.legs[0].distance.text,
@@ -127,8 +157,6 @@ const App = () => {
 
   // Function to clean directions object for non Dublin Bus results
   const cleanObject = (response) => {
-    // Array of route indices to remove from directions response
-    let routes_to_remove = [];
     response.routes.forEach((route, index) => {
       // Route index
       let routeIndex = index;
@@ -149,13 +177,10 @@ const App = () => {
             response.routes[routeIndex].contains_non_dublin_bus = "NO";
           } else {
             response.routes[routeIndex].contains_non_dublin_bus = "YES";
-            routes_to_remove.push(routeIndex);
           }
         }
       });
     });
-    // Need to remove these and may also need to get rid of duplicate routes
-    console.log("routes to remove: ", routes_to_remove);
   };
 
   // Function to get data from backend API
