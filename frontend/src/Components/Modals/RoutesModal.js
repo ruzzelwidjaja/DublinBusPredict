@@ -11,7 +11,7 @@ const RoutesModal = ({
     return (
       <div>
         <p className="text-xs md:text-base rounded-lg block w-full p-1.5 text-white">
-          Sorry, no route info could be found.
+          Sorry, no route information could be found.
           <br /> Please try again later.
         </p>
       </div>
