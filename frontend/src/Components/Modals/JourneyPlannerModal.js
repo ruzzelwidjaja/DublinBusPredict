@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { Autocomplete } from "@react-google-maps/api";
+import useCollapse from "react-collapsed";
+import DateTimePicker from "react-datetime-picker";
+import "react-datetime/css/react-datetime.css";
 import "./JourneyPlannerModal.css";
 
 const JourneyPlannerModal = ({
@@ -13,6 +16,8 @@ const JourneyPlannerModal = ({
   const options = {
     componentRestrictions: { country: ["ie"] },
   };
+  const [value, onChange] = useState(new Date());
+  const { getCollapseProps, getToggleProps, isExpanded } = useCollapse();
 
   return (
     <div>
@@ -21,6 +26,7 @@ const JourneyPlannerModal = ({
           Plan Your Journey
         </h5>
       </div>
+
       <div className="form-inputs">
         <div className="flex my-2">
           <label
@@ -61,7 +67,38 @@ const JourneyPlannerModal = ({
             </Autocomplete>
           </div>
         </div>
+
+        <div>
+          <button
+            {...getToggleProps()}
+            className="text-amber-600 focus:outline-none font-xs rounded-lg text-xs md:text-sm w-full text-left pt-2 focus:ring-amber-800 hover:text-amber-400"
+          >
+            Plan for Later? &ensp;
+            {isExpanded ? "-" : "\u23F0"}
+          </button>
+          <section {...getCollapseProps()}>Collapsed content 🙈</section>
+        </div>
+
+        {/* <div className="flex my-2 ">
+          <label
+            htmlFor="stop"
+            className="block py-2 text-left text-xs md:text-sm font-medium text-gray-300 flex-none w-20"
+          >
+            When?
+          </label>
+          <div className="flex-auto">
+            <DateTimePicker
+              onChange={onChange}
+              value={value}
+              disableClock={true}
+              // disableCalendar={true}
+              className="border text-xs md:text-sm rounded-lg block w-full p-1.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-amber-500 focus:border-amber-500"
+              // className="border text-xs md:text-sm rounded-lg block w-full p-1.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-amber-500 focus:border-amber-500"
+            />
+          </div>
+        </div> */}
       </div>
+
       <div className="pt-3 px-2">
         <button
           onClick={() => {
