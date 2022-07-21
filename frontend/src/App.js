@@ -42,7 +42,24 @@ const App = () => {
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries,
   });
+  // Function to get data from backend API
+  const fetchAPIData = async () => {
+    const stopResponse = await fetch("http://localhost:8000/api/stops/");
+    const stopData = await stopResponse.json();
 
+    const nameHeadsignResponse = await fetch(
+      "http://localhost:8000/api/namesandheadsigns/"
+    );
+    const nameHeadsignData = await nameHeadsignResponse.json();
+
+    // Set relevant data
+    setStops(stopData);
+    setNameHeadsign(nameHeadsignData);
+  };
+  // Get API data
+  useEffect(() => {
+    fetchAPIData();
+  }, []);
   // Error loading Map
   if (loadError) {
     return (
@@ -53,10 +70,8 @@ const App = () => {
         issue! :)
       </div>
     );
-  }
-
-  // If map has not loaded display loading..
-  if (!isLoaded) {
+  } else if (!isLoaded) {
+    // If map has not loaded display loading..
     return (
       <div className="h-full w-full bg-zinc-900 absolute">
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
@@ -89,12 +104,6 @@ const App = () => {
         // If the step involves taking the bus
         if (stepTravelMode === "TRANSIT") {
           let line = step.transit.line;
-          let bus_type = line.agencies[0].name;
-
-          // Prepare the result if it is a bus we use - Don't need this anymore
-          // if (bus_type === "Go-Ahead" || bus_type === "Dublin Bus") {
-          //   busesArray.push(line.short_name);
-          // }
           busesArray.push(line.short_name);
         }
       });
@@ -191,26 +200,6 @@ const App = () => {
       });
     });
   };
-
-  // Function to get data from backend API
-  const fetchAPIData = async () => {
-    const stopResponse = await fetch("http://localhost:8000/api/stops/");
-    const stopData = await stopResponse.json();
-
-    const nameHeadsignResponse = await fetch(
-      "http://localhost:8000/api/namesandheadsigns/"
-    );
-    const nameHeadsignData = await nameHeadsignResponse.json();
-
-    // Set relevant data
-    setStops(stopData);
-    setNameHeadsign(nameHeadsignData);
-  };
-
-  // Get API data
-  useEffect(() => {
-    fetchAPIData();
-  }, []);
 
   return (
     <div>
