@@ -39,36 +39,80 @@ const App = () => {
     setChosenIndex(selection);
   };
 
+  // Function to get predicted journey time for bus leg
+  const stepDurationPrediction = (lineID, legDistance) => {
+    return null;
+  }
+
+  // Function to convert duration in seconds to human readable text
+  const secondsToText = (sec) => {
+    let hr = Math.floor(sec/3600);
+    let min = Math.floor(sec%3600 /60);
+    let seconds = Math.floor(sec%3600%60);
+    if (seconds >= 30) {
+      min += 1;
+    }
+    if (hr > 0) {
+      return hr + " hr " + min + " min";
+    } else {
+      return min + " min";
+    }
+  }
+
   // View for route options, will decide how button looks
   const prepareRouteOptions = (option) => {
     const options = option.map((route, index) => {
       // Arrays for instructions and bus numbers
       let instructionsArray = [];
       let busesArray = [];
+      let originalStepDurations = 0; // (total route duration) - sum(original step durations) = (wait time)
+      let predictedStepDurations = 0; // for walking, add duration directly, for transit get predicted duration
 
       // Loop through each step and fill the arrays with instruction and bus info
       route.legs[0].steps.forEach((step) => {
         instructionsArray.push(step.instructions);
         let stepTravelMode = step.travel_mode;
+        originalStepDurations += step.duration.value; // summing original setp durations
+        // predictedStepDurations += step.duration.value;
 
         // If the step involves taking the bus
         if (stepTravelMode === "TRANSIT") {
           let line = step.transit.line;
           let bus_type = line.agencies[0].name;
+          let lineID = line.short_name;
+          let stepDistance = step.distance.value;
 
           // Prepare the result if it is a bus we use
           if (bus_type === "Go-Ahead" || bus_type === "Dublin Bus") {
             busesArray.push(line.short_name);
           }
+
+          // Getting prediction for step
+          let predictedStepDuration = stepDurationPrediction(lineID,stepDistance);
+          if (predictedStepDuration != null) {
+            // if value is returned, use value
+            predictedStepDurations += predictedStepDuration;
+          } else {
+            // if no value is returned, use original step duration
+            predictedStepDurations += step.duration.value;
+          }
+        } else {
+          predictedStepDurations += step.duration.value; // take non-transit values directly
         }
       });
+
+      let waitTime = route.legs[0].duration.value - originalStepDurations;
+      let predictedJourneyTime = predictedStepDurations + waitTime;
+      let durationText = secondsToText(predictedJourneyTime);
+      console.log("predicted: " + durationText);
+      console.log("original: " + route.legs[0].duration.text);
 
       return {
         id: index,
         instructions: instructionsArray,
         buses: busesArray,
         distance: route.legs[0].distance.text,
-        duration: route.legs[0].duration.text,
+        duration: durationText,
         steps: route.legs[0].steps.length,
       };
     });
