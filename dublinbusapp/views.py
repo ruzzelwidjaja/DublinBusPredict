@@ -59,7 +59,7 @@ def predict(request, line_id, journey_distance):
 
         # journey_time = 20 # dummy value
 
-        return JsonResponse({'journey time': journey_time})
+        return JsonResponse({'journey_time': journey_time})
     except:
         # Status 500: "Internal Server Error" (i.e. Server encountered something making it unable to fulfill request)
         # possible exceptions: line id doesn't have relevant random forest model
