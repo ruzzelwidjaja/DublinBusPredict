@@ -10,8 +10,12 @@ import ReactLoading from "react-loading";
 const libraries = ["places"];
 
 const App = () => {
+  const [mapLoaded, setMapLoaded] = useState(null);
+
   // Backend API data
   const [stops, setStops] = useState([]);
+  const [nameHeadsign, setNameHeadsign] = useState([]);
+  const [shapes, setShapes] = useState([]);
 
   // Modal setting
   const [modalType, setModalType] = useState("CLOSED");
@@ -26,6 +30,9 @@ const App = () => {
   const originRef = useRef("");
   const destinationRef = useRef("");
 
+  // Time for journey
+  const [timeValue, setTimeValue] = useState(new Date());
+
   // Directions object from request to google maps
   const [directionsOutput, setDirectionsOutput] = useState(null);
 
@@ -35,7 +42,24 @@ const App = () => {
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries,
   });
+  // Function to get data from backend API
+  const fetchAPIData = async () => {
+    const stopResponse = await fetch("http://localhost:8000/api/stops/");
+    const stopData = await stopResponse.json();
 
+    const nameHeadsignResponse = await fetch(
+      "http://localhost:8000/api/namesandheadsigns/"
+    );
+    const nameHeadsignData = await nameHeadsignResponse.json();
+
+    // Set relevant data
+    setStops(stopData);
+    setNameHeadsign(nameHeadsignData);
+  };
+  // Get API data
+  useEffect(() => {
+    fetchAPIData();
+  }, []);
   // Error loading Map
   if (loadError) {
     return (
@@ -46,10 +70,8 @@ const App = () => {
         issue! :)
       </div>
     );
-  }
-
-  // If map has not loaded display loading..
-  if (!isLoaded) {
+  } else if (!isLoaded) {
+    // If map has not loaded display loading..
     return (
       <div className="h-full w-full bg-zinc-900 absolute">
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
@@ -82,12 +104,6 @@ const App = () => {
         // If the step involves taking the bus
         if (stepTravelMode === "TRANSIT") {
           let line = step.transit.line;
-          let bus_type = line.agencies[0].name;
-
-          // Prepare the result if it is a bus we use - Don't need this anymore
-          // if (bus_type === "Go-Ahead" || bus_type === "Dublin Bus") {
-          //   busesArray.push(line.short_name);
-          // }
           busesArray.push(line.short_name);
         }
       });
@@ -123,7 +139,10 @@ const App = () => {
 
       // Specify transit mode and bus as mode of transport
       travelMode: "TRANSIT",
-      transitOptions: { modes: ["BUS"] },
+      transitOptions: {
+        modes: ["BUS"],
+        departureTime: timeValue,
+      },
       provideRouteAlternatives: true,
       // eslint-disable-next-line no-undef
       unitSystem: google.maps.UnitSystem.METRIC,
@@ -147,7 +166,6 @@ const App = () => {
         cleanObject(results);
         prepareRouteOptions(results.routes);
         setDirectionsOutput(results);
-
         setChosenIndex(0);
       }
     } catch {
@@ -183,20 +201,6 @@ const App = () => {
     });
   };
 
-  // Function to get data from backend API
-  const fetchData = async () => {
-    const response = await fetch("http://localhost:8000/api/stops/");
-    const data = await response.json();
-
-    // Set stop data
-    setStops(data);
-  };
-
-  // Get API data
-  // useEffect(() => {
-  //   fetchData();
-  // }, []);
-
   return (
     <div>
       <div id="mapCanvas">
@@ -211,6 +215,12 @@ const App = () => {
             selectRoute={selectRoute}
             chosenIndex={chosenIndex}
             directionsOutput={directionsOutput}
+            nameHeadsign={nameHeadsign}
+            setShapes={setShapes}
+            setDirectionsOutput={setDirectionsOutput}
+            mapLoaded={mapLoaded}
+            timeValue={timeValue}
+            setTimeValue={setTimeValue}
           />
         )}
         <Map
@@ -219,6 +229,9 @@ const App = () => {
           directionsOutput={directionsOutput}
           isLoaded={isLoaded}
           loadError={loadError}
+          shapes={shapes}
+          mapLoaded={mapLoaded}
+          setMapLoaded={setMapLoaded}
         />
       </div>
       <div id="navbar">

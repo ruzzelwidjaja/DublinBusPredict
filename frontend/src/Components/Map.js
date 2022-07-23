@@ -1,5 +1,10 @@
-import React, { useState } from "react";
-import { GoogleMap, DirectionsRenderer } from "@react-google-maps/api";
+import React from "react";
+import {
+  GoogleMap,
+  DirectionsRenderer,
+  Polyline,
+  Marker,
+} from "@react-google-maps/api";
 import MapStyles from "./MapStyles";
 
 const center = { lat: 53.3434634, lng: -6.2749724 };
@@ -10,9 +15,14 @@ const options = {
   clickableIcons: false,
 };
 
-const Map = ({ setModalType, chosenIndex, directionsOutput }) => {
-  const [mapLoaded, setMapLoaded] = useState(null);
-
+const Map = ({
+  setModalType,
+  chosenIndex,
+  directionsOutput,
+  shapes,
+  mapLoaded,
+  setMapLoaded,
+}) => {
   // Function to select route index
   const selectRouteIndex = () => {
     // Choose 0 unless another index specified
@@ -22,35 +32,47 @@ const Map = ({ setModalType, chosenIndex, directionsOutput }) => {
     return 0;
   };
 
-  // const panToDirections = () => {
-  //   console.log("panning");
-  //   // map.panTo(center);
-  // };
-
   return (
-    <GoogleMap
-      center={center}
-      zoom={14}
-      mapContainerStyle={mapContainerStyle}
-      options={options}
-      onLoad={(mapLoaded) => setMapLoaded(mapLoaded)}
-      onClick={() => {
-        setModalType("CLOSED");
-      }}
-    >
-      {directionsOutput && (
-        <DirectionsRenderer
-          options={{
-            suppressMarkers: true,
-            suppressInfoWindows: true,
-            polylineOptions: { strokeColor: "#d97706" },
-            preserveViewport: false,
-          }}
-          directions={directionsOutput}
-          routeIndex={selectRouteIndex()}
-        />
-      )}
-    </GoogleMap>
+    <>
+      <GoogleMap
+        center={center}
+        zoom={14}
+        mapContainerStyle={mapContainerStyle}
+        options={options}
+        onLoad={(mapLoaded) => setMapLoaded(mapLoaded)}
+        onClick={() => {
+          setModalType("CLOSED");
+        }}
+      >
+        {directionsOutput && (
+          <DirectionsRenderer
+            options={{
+              suppressMarkers: true,
+              suppressInfoWindows: true,
+              polylineOptions: { strokeColor: "#d97706" },
+            }}
+            directions={directionsOutput}
+            routeIndex={selectRouteIndex()}
+          />
+        )}
+
+        {shapes && (
+          <>
+            <Polyline
+              options={{
+                strokeColor: "#fbbf24",
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+              }}
+              path={shapes}
+            />
+            <Marker position={shapes[0]} />
+            <Marker position={shapes[shapes.length - 1]} />
+          </>
+        )}
+      </GoogleMap>
+    </>
+
   );
 };
 
