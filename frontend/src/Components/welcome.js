@@ -7,6 +7,9 @@ import Navbar from "./Navbar";
 import "./Navbar.css";
 // import Home from '../Home';
 import Home from "../Home";
+import WeatherCard from './Weather';
+import ReactWeather from 'react-open-weather';
+
 
 class Welcome extends Component {
   constructor(props) {
@@ -107,6 +110,7 @@ class Welcome extends Component {
           handle_logout={this.handle_logout}
           
         />
+        
         {form}
         <h4 class="text-4xl font-normal leading-normal mt-0 mb-2 text-pink-800 text-center">
           {this.state.logged_in
@@ -138,7 +142,9 @@ class Welcome extends Component {
 }
 function UserGreeting(props) {
     return (
-        <div class="w-1/2 mx-auto">
+        // <div class="w-1/2 mx-auto">
+        <div>
+
         <div class="w-full shadow-2xl subpixel-antialiased rounded h-64 bg-black border-black mx-auto">
           <div class="flex items-center h-6 rounded-t bg-gray-100 border-b border-gray-500 text-center text-black" id="headerTerminal">
             <div class="flex ml-2 items-center text-center border-red-900 bg-red-500  hover:bg-red-400 shadow-inner rounded-full w-3 h-3" id="closebtn">
@@ -157,9 +163,13 @@ function UserGreeting(props) {
             <p class="pb-1">$Dublin Bus APP IN PROGRESS$<input type="text" class="bg-black text-blue-600 focus:border-0 focus:outline-0 ml-1" autofocus/></p>
             <br></br>
             <p>SPOTIFY API HERE</p>
+            
           </div>
-        </div> 
+        </div>
+        <br></br>
+        <WeatherCard/>
       </div>
+      
     )
   }
 export default Welcome;

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useJsApiLoader } from "@react-google-maps/api";
 import "./App.css";
 import Home from "./Home.js";
+import ReactWeather from 'react-open-weather';
 
 import Map from "./Components/Map";
 import Navbar from "./Components/Navbar";
@@ -14,6 +15,7 @@ import { Routes, Route } from "react-router-dom";
 const libraries = ["places","geometry"];
 
 const App = () => {
+  
   // Backend API data
   // const [stops, setStops] = useState([]);
 

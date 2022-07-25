@@ -3,6 +3,7 @@ import "./Navbar.css";
 import dublin_bus_logo from "../Assets/dublin_bus_logo.png";
 import { BrowserRouter, Route, Link, useNavigate } from "react-router-dom";
 import PropTypes from 'prop-types';
+import WeatherCard from "./Weather";
 
 const Navbar = ({ modalType, setModalType },props) => {
   // function HomeButton() {
@@ -107,6 +108,7 @@ const Navbar = ({ modalType, setModalType },props) => {
         <button className="bg-zinc-900 text-md font-light hover:bg-amber-800 text-slate-100 font-medium py-2 px-6 rounded-r-2xl" onClick={handleClick}>
           Sign In
         </button>
+        
       </div>
       <button className="webbutton font-light	tracking-wider text-left text-base webbutton-bottom bg-zinc-900 hover:bg-amber-800 text-slate-100 font-medium py-4 px-7 mb-4" onClick={handleClick}>
         Sign In
