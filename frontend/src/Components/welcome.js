@@ -18,6 +18,8 @@ class Welcome extends Component {
       displayed_form: '',
       logged_in: localStorage.getItem('token') ? true : false,
       username: ''
+      // favorites: '',
+
     };
   }
   
@@ -52,6 +54,7 @@ class Welcome extends Component {
           logged_in: true,
           displayed_form: '',
           username: json.user.username
+          // favorites: json.user.favorites
         });
       });
   };
@@ -72,11 +75,13 @@ class Welcome extends Component {
     })
       .then(res => res.json())
       .then(json => {
+        console.log(json)
         localStorage.setItem('token', json.token);
         this.setState({
           logged_in: true,
           displayed_form: '',
           username: json.username
+          // favorites : json.favorites
         });
       });
   };
