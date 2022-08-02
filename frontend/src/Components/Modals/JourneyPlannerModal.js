@@ -2,7 +2,7 @@ import React from "react";
 import { Autocomplete } from "@react-google-maps/api";
 import useCollapse from "react-collapsed";
 import DateTimePicker from "react-datetime-picker";
-import "react-datetime/css/react-datetime.css";
+// import "react-datetime/css/react-datetime.css";
 import "./JourneyPlannerModal.css";
 
 const JourneyPlannerModal = ({

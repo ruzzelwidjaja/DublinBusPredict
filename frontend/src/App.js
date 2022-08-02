@@ -232,6 +232,7 @@ const App = () => {
           shapes={shapes}
           mapLoaded={mapLoaded}
           setMapLoaded={setMapLoaded}
+          stops={stops}
         />
       </div>
       <div id="navbar">

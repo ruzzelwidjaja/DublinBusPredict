@@ -4,11 +4,17 @@ import {
   DirectionsRenderer,
   Polyline,
   Marker,
-  Geometry
+  InfoWindow,
+  MarkerClusterer,
 } from "@react-google-maps/api";
 import MapStyles from "./MapStyles";
-import { MarkerClusterer } from "@googlemaps/markerclusterer";
+import Switch from "react-switch";
+import location_icon from "../Assets/locationIcon.gif";
+import WeatherIcon from "./weatherIcon";
 
+
+
+<script src="https://maps.googleapis.com/maps/api/js?v=3&sensor=false&libraries=geometry"></script>
 
 
 const center = { lat: 53.3434634, lng: -6.2749724 };
@@ -27,13 +33,58 @@ const Map = ({
   mapLoaded,
   setMapLoaded,
   stops,
+  isLoaded,
+  loadError,
 }) => {
   var markers = [];
   const [map, setMap] = useState(null);  
   const mapRef = React.useRef();
   // const onMapLoad = React.useCallback((map) => {
-  mapRef.current = map;
+  mapRef.current = mapLoaded;
   const google = window.google
+
+
+  // Marker InfoWindow
+  const [activeMarker, setActiveMarker] = useState(null);
+  const handleActiveMarker = (marker) => {
+    if (marker === activeMarker) {
+      return;
+    }
+    setActiveMarker(marker);
+  };
+
+  // console.log("STOPS1:", stops)
+
+  // Dictionary for markers
+
+  const stops2 = stops.map(({ stop_id, stop_name, stop_lat, stop_long }) => (
+    { id: stop_id, 
+      name: stop_name, 
+      lat: stop_lat,
+      lng: stop_long,
+      position: {lat: stop_lat, lng: stop_long}}
+  ))
+  // console.log("STOPS1/2:", stops2)
+    
+  for (var key in stops2) {
+    var location = {lat: parseFloat(stops2[key].lat), lng: parseFloat(stops2[key].lng)}
+    stops2[key].position = new google.maps.LatLng(location)
+  }
+  // console.log("STOPS2:", stops2)
+
+  // Marker Clusterer toggle
+  const [clusterer, setClusterer] = useState(false);
+
+  const clusterToggler = () => {
+    clusterer ? setClusterer(false): setClusterer(true);
+  }
+  
+  // Geolocation Toggle
+  const [geolocatorToggle, setGeolocator] = useState(false);
+
+  const geolocatorToggler = () => {
+    geolocatorToggle ? setGeolocator(false): setGeolocator(true);
+  }
 
   // Function to select route index
   const selectRouteIndex = () => {
@@ -43,122 +94,9 @@ const Map = ({
     }
     return 0;
   };
-const panTo = (lat, lng) => {
-    console.log("lat,lng")
-    // find_closest_marker(lat,lng)
-     
-    lat = 53.339665308
-    lng = -6.23749905
-    console.log('here 2',lat,lng);
-    mapRef.current.panTo({ lat, lng });
-    mapRef.current.setZoom(14);
-    var circle = new google.maps.Circle({
-      strokeColor: 'Blue',
-      strokeOpacity: '0.8',
-      strokeWeight: 0,
-      fillColor: 'Blue',
-      fillOpacity: 0.55,
-      map,
-      radius: 175,
-      clickable: true,
-      center: {
-          lat: lat,
-          lng: lng
-      },
-  })
-  // var point = { lat, lng }
-  var point = new google.maps.LatLng(lat,lng);
-  
-  var marker = new google.maps.Marker({
-    position: point,
-    map: map
-      });
-      setMapOnAll()
-      var html = 'CURRENT LOCATION';
-      var infoWindow = new google.maps.InfoWindow();
-      google.maps.event.addListener(marker, 'click', function() {
-        infoWindow.setContent(html);
-        infoWindow.open(map, marker);
-      })
-
-      var
-  searchArea,
-  searchAreaMarker,
-  searchAreaRadius = 500, // metres
-  startLat = 40.782827,
-  startLng = -73.966167;
-
-      searchArea = new google.maps.Circle({
-        strokeColor: '#FF0000',
-        strokeOpacity: 0.5,
-        strokeWeight: 2,
-        fillColor: '#FF0000',
-        fillOpacity: 0.2,
-        map: map,
-        center: point,
-        radius: searchAreaRadius
-      });
-      console.log(markers)
-      for (var i = 0; i < stops.length; i++) {
-        // console.log('Marker: , position: ' + stops[i].getPosition());
-        // console.log("marker["+i+"] posn="+stops[i].markers.getPosition().toUrlValue(6));
-        // console.log(markers[i].getPosition())
-        // console.log(searchArea.getCenter())
-        
-        var distance
-        var c = 0;
-        while (c < stops.length){
-          var location = stops[c];
-          // console.log(location)
-          var locationlatlng = new google.maps.LatLng(location.stop_lat,location.stop_long);
-          // console.log(location.stop_lat,location.stop_long)
-
-          var _kCord = new google.maps.LatLng(-36.874694, 174.735292);
-          var _pCord = new google.maps.LatLng(-36.858317, 174.782284);
-          // distance = new google.maps.geometry.spherical.computeDistanceBetween(point, locationlatlng);
-          distance = google.maps.geometry.spherical.computeDistanceBetween(point, locationlatlng)
-          
-          if (distance <= searchAreaRadius) {
-            html = location.stop_name;
-            var new_marker = new google.maps.Marker({
-              position: locationlatlng,
-              map: map,
-
-
-              
-            });
-            var infoWindow = new google.maps.InfoWindow();
-            google.maps.event.addListener(new_marker, 'click', function() {
-            infoWindow.setContent(html);
-            infoWindow.open(map, marker);
-      })
-
-          }
 
 
 
-
-
-          // console.log(distance);  // popup box says "[object, Object]"
-          c++;
-      }
-
-        // if (google.maps.geometry.spherical.computeDistanceBetween(markers[i].getPosition(), point) <= searchAreaRadius) {
-        //   console.log('=> is in searchArea');
-        // }
-        // else{
-        //   console.log('Not in')
-        // }
-
-
-
-
-
-
-
-
-  };
-}
   var state = true;
   
   
@@ -168,121 +106,178 @@ const panTo = (lat, lng) => {
     }
     markers = [];
     
-
   }
-  const PanTo1 = () => {
+  
+  function isMarkerInArea(circle, latLngPos){
+    return (circle.getBounds().contains(latLngPos))
+  }
 
-   
+  const panTo = (lat, lng) => {
 
+    mapRef.current.panTo({ lat, lng });
+    mapRef.current.setZoom(16);
+  
+    var stopsInArea = [];
+    var searchAreaRadius = 500; // metres
     
-    console.log('ELSE')
-      // stuff for 'stop' action
-      if (state == false) {
-        // stuff for 'playnow' action
-        setMapOnAll()
-        state = true;
-        return;
+    var location = new google.maps.LatLng(lat,lng);
+    
+    const circle_icon = {
+      url: location_icon, // url
+      scaledSize: new google.maps.Size(50, 50), // scaled size
+      origin: new google.maps.Point(0,0), // origin
+    };
+    
+    var circleArea = new google.maps.Circle({
+          strokeOpacity: 0,
+          strokeWeight: 0,
+          fillOpacity: 0,
+          map: mapLoaded,
+          center: location,
+          radius: searchAreaRadius
+        }); // if overlapping, remove options to make the circle blank
+        
+
+    // Add markers that are in circle area to stopsInArea
+    for (var key in stops2) {
+      if (isMarkerInArea(circleArea, stops2[key].position)) {
+        stopsInArea.push({
+          id: stops2[key].id,
+          name: stops2[key].name,
+          position: stops2[key].position,
+        })
+      }
     }
 
-    else {
-        // stuff for 'stop' action
-
-        
-      
-
-
-
-
-
-
-    var stops1 = stops
-    
-    console.log('here 2',stops);
-    // const [map, setMap] = useState(null);
-    const google = window.google
-    // Code for referencing the map
-    // const mapRef = React.useRef();
-    // // const onMapLoad = React.useCallback((map) => {
-    // mapRef.current = map;
-    // mapRef.current.panTo({ lat, lng });
-    // mapRef.current.setZoom(14);
-    // console.log(stops)
-    
-    for (var key in stops1) {
-      if (stops1.hasOwnProperty(key)) {
-        
-        var stop = stops1[key].stop_name
-        var lat = stops1[key].stop_lat;
-        var log = stops1[key].stop_long;
-        var displayInfo = "<h3>" + stops1[key].stop_name + "</br>" + "</h3>Bikes Available : ";
-        
-
-        // Generate infoWindow
-        
-        // console.log(lat)
-        var location_place = {lat:parseFloat(lat), lng:parseFloat(log)};
-        var infoWindow = new google.maps.InfoWindow();
-        // console.log('Inside the maps')
-      }
-
-      var marker = new google.maps.Marker({
-        position: location_place,
-        map: map,
-          });
-          // markerCluster.addMarker(markerAll);
-          // Ruzzel code, here
-
-
-
-
-      // makeClickable(map, marker, displayInfo);
-      
-      markers.push(marker);
-      
-          var html = stop;
-      
-      google.maps.event.addListener(marker, 'click', function() {
-        infoWindow.setContent(html);
-        map.panTo(this.getPosition());
-        
+    console.log("TEST:", stopsInArea)
+  
+    const loc = new google.maps.Marker({
+      position: location,
+      mapLoaded,
+      icon: circle_icon,
+    });
+  
+    console.log("TESTSTS", loc)
+    // Iterate through stops to create markers & infowindows
+    for (var key in stopsInArea) {
+  
+      const contentString = '<div>' + stopsInArea[key].name + '</div>'
+  
+      const infoWindow = new google.maps.InfoWindow({
+        content: contentString
       })
-      }
-      // var markerClusterer = new MarkerClusterer({map, markers})
-     
-      // var markerCluster = new MarkerClusterer.MarkerClusterer({ map, markers });
-      state = false;
-        return;
-    }   
+  
+      const marker = new google.maps.Marker({
+        position: stopsInArea[key].position,
+        mapLoaded,
+        // icon: red_icon,
+      });
+  
+      marker.addListener("click", () => {
+        infoWindow.open({
+          anchor: marker,
+          mapLoaded,
+          shouldFocus: false,
+        });
+      });
+  
     }
-
-    // function makeClickable(map, markers, info) {
-    //   console.log('In the make clickable')
-    //     var infowindow = new google.maps.InfoWindow({
-    //         content: info
-    //     });
     
-    //     google.maps.event.addListener(marker, 'click', function (ev) {
-    //         infowindow.setPosition();
-    //         infowindow.open(map);
-    //     });
-    // }
+  
+  }
+
     
   return ( 
     <div id='GoogleMap'>
-    <Locate panTo={panTo} />
-    <div>
-    <button onClick={PanTo1} className='search'>Show stop locations</button>
+
+    <WeatherIcon/>
+    
+    <div className="geolocator">
+        <div className="stopsLabel">Geo</div>
+        <Switch
+          checked={geolocatorToggle}
+          onChange={geolocatorToggler}
+          onColor="#86d3ff"
+          onHandleColor="#2693e6"
+          handleDiameter={30}
+          uncheckedIcon={false}
+          checkedIcon={false}
+          boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+          activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
+          height={20}
+          width={48}
+          className="react-switch"
+          id="material-switch"
+        />
     </div>
+
+    <div className="showStops">
+        <div className="stopsLabel">Stops</div>
+        <Switch
+          checked={clusterer}
+          onChange={clusterToggler}
+          onColor="#86d3ff"
+          onHandleColor="#2693e6"
+          handleDiameter={30}
+          uncheckedIcon={false}
+          checkedIcon={false}
+          boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+          activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
+          height={20}
+          width={48}
+          className="react-switch"
+          id="material-switch"
+        />
+    </div>
+
     <GoogleMap
       center={center}
-        zoom={14}
-        mapContainerStyle={mapContainerStyle}
-        options={options}
-        onLoad={(mapLoaded) => setMapLoaded(mapLoaded)}
-        onClick={() => {
-          setModalType("CLOSED");
-        }}
+      zoom={14}
+      mapContainerStyle={mapContainerStyle}
+      options={options}
+      onLoad={(mapLoaded) => setMapLoaded(mapLoaded)}
+
+      onClick={() => {
+        setModalType("CLOSED");
+      }}
     >
+
+      {clusterer && (
+        <MarkerClusterer>
+        {(clusterer) =>
+          stops2.map(({ id, name, position }) => (
+            <Marker
+              key={id}
+              position={position}
+              onClick={() => handleActiveMarker(id)}
+              clusterer={clusterer}
+            >
+              {activeMarker === id ? (
+                <InfoWindow onCloseClick={() => setActiveMarker(null)}>
+                  <div>{name}</div>
+                </InfoWindow>
+              ) : null}
+            </Marker>
+            
+          ))}
+        
+      </MarkerClusterer>
+      )}
+
+      {geolocatorToggle && (  
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            console.log(position.coords)
+            var lat = position.coords.latitude;
+            var lng =  position.coords.longitude;
+            
+            panTo(lat,lng)
+
+          }
+        )
+        
+      )}
+
       {directionsOutput && (
           <DirectionsRenderer
             options={{
@@ -313,31 +308,6 @@ const panTo = (lat, lng) => {
     </div>
   );
 };
-function Locate({ panTo }) {
-  const [lat, setLat] = useState(null);
-  const [lng, setLng] = useState(null);
-  // 
-  return (
-    <button
-      className="locate"
-      onClick={() => {
-        navigator.geolocation.getCurrentPosition(
-          
-          (position) => {
-            console.log(position.coords.latitude)
-            var lat = position.coords.latitude;
-            var lng =  position.coords.longitude
-            panTo(lat,lng);
-            setLat(position.coords.latitude);
-            setLng(position.coords.longitude);
-          },
-          () => null
-        );
-      }}
-    >
-      <img src="/compass.svg" alt="compass" />
-    </button>
-  );
-}
+
 
 export default Map;
