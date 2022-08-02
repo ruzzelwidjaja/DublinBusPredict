@@ -23,3 +23,20 @@ class Account1(models.Model):
 
     def __str__(self):
         return self.user.username, self.Favorites.favorites
+
+class FavoriteStops(models.Model):
+    user_id = models.CharField(max_length=10, blank=True, null=True)
+    stop_id = models.CharField(max_length=30)
+    
+    class Meta:
+        managed = False
+        db_table = 'FavoriteStops'
+
+
+class Todo(models.Model):
+    title = models.CharField(max_length=120)
+    description = models.TextField()
+    completed = models.BooleanField(default=False)
+
+    def _str_(self):
+        return self.title

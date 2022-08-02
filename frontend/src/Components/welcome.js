@@ -9,7 +9,7 @@ import "./Navbar.css";
 import Home from "../Home";
 import WeatherCard from './Weather';
 import ReactWeather from 'react-open-weather';
-
+import Todo from './welcome1';
 
 class Welcome extends Component {
   constructor(props) {
@@ -173,6 +173,8 @@ function UserGreeting(props) {
         </div>
         <br></br>
         <WeatherCard/>
+
+        <Todo/>
       </div>
       
     )

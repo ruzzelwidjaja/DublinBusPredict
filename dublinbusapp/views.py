@@ -1,14 +1,14 @@
 from django.shortcuts import render
-from .serializers import StopsSerializer
+from .serializers import FavoriteStopsSerializer, StopsSerializer
 from rest_framework import viewsets
-from .models import Stops
+from .models import FavoriteStops, Stops, Todo
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
-from rest_framework import permissions, status
+from rest_framework import permissions, status,generics
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .serializers import UserSerializer, UserSerializerWithToken
+from .serializers import UserSerializer, UserSerializerWithToken, TodoSerializer
 
 
 
@@ -46,3 +46,17 @@ class UserList(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class FavoriteStopsView(generics.ListAPIView):
+    permission_classes = (permissions.AllowAny,)
+    serializer_class = FavoriteStopsSerializer
+    def get_queryset(self):
+        user_id = self.kwargs['user_id']
+        return FavoriteStops.objects.filter(user_id=user_id)
+
+class TodoView(viewsets.ModelViewSet):
+    
+    permission_classes = (permissions.AllowAny,)
+
+    serializer_class = TodoSerializer
+    queryset = Todo.objects.all()

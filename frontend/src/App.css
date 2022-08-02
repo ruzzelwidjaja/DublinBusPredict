@@ -1,3 +1,4 @@
+
 #mapCanvas {
   position: absolute;
   width: 100%;
@@ -5,7 +6,33 @@
   text-align: center;
   position: absolute; top: 0; right: 0; bottom: 0; left: 0;
 }
-
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #282c34;
+}
+.todo-title {
+  cursor: pointer;
+}
+.completed-todo {
+  
+}
+.tab-list > span {
+  padding: 5px 8px;
+  border: 1px solid #282c34;
+  border-radius: 10px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+.tab-list > span.active {
+  background-color: #282c34;
+  color: #ffffff;
+}
 #navbar {
   z-index: 1;
   position: absolute;

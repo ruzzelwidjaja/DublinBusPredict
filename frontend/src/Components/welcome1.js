@@ -39,7 +39,7 @@ class Todo extends Component {
             >
               Saved
             </span>
-            
+            <span
               onClick={() => this.displayCompleted(false)}
               className={this.state.viewCompleted ? "" : "active"}
             >
