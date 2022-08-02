@@ -7,7 +7,7 @@ import Modal from "./Components/Modals/Modal";
 import ReactLoading from "react-loading";
 
 // Places lib for maps
-const libraries = ["places"];
+const libraries = ["places","geometry"];
 
 const App = () => {
   const [mapLoaded, setMapLoaded] = useState(null);
