@@ -146,11 +146,6 @@ const panTo = (lat, lng) => {
       })
 
           }
-
-
-
-
-
           // console.log(distance);  // popup box says "[object, Object]"
           c++;
       }
