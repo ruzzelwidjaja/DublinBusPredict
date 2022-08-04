@@ -10,6 +10,8 @@ import Home from "../Home";
 import WeatherCard from './Weather';
 import ReactWeather from 'react-open-weather';
 import Todo from './welcome1';
+import { TwitterTweetEmbed, TwitterTimelineEmbed } from 'react-twitter-embed'
+
 
 class Welcome extends Component {
   constructor(props) {
@@ -173,8 +175,30 @@ function UserGreeting(props) {
         </div>
         <br></br>
         <WeatherCard/>
-
+        
         <Todo/>
+
+        <br></br>
+        <br></br>
+        <hr></hr>
+        <br></br>
+        <h2 style={{textAlign: "center"}}>Twitter feed - Dublin Bus</h2>
+        <div   style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }}>
+        
+        <TwitterTimelineEmbed
+          sourceType="profile"
+          // The preferred screen name goes next: 
+          screenName="dublinbusnews"
+          // Style options goes here:
+          options={{ height: 800, width: 600 }}/>
+
+        </div>
+
+
       </div>
       
     )

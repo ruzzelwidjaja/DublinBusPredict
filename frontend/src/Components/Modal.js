@@ -63,7 +63,7 @@ import React, { Component } from "react";
                       checked={this.state.activeItem.completed}
                       onChange={this.handleChange}
                     />
-                    Saved only
+                    Favorites only
                   </Label>
                 </FormGroup>
               </Form>

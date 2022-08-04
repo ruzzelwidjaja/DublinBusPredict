@@ -813,7 +813,7 @@
   "resolved" "https://registry.npmjs.org/react-display-name/-/react-display-name-0.2.5.tgz"
   "version" "0.2.5"
 
-"react-dom@>=15.0.0", "react-dom@>=16.14.0", "react-dom@>=16.3.0":
+"react-dom@^16.0.0 || ^17.0.0 || ^18.0.0", "react-dom@>=15.0.0", "react-dom@>=16.14.0", "react-dom@>=16.3.0":
   "integrity" "sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g=="
   "resolved" "https://registry.npmjs.org/react-dom/-/react-dom-18.2.0.tgz"
   "version" "18.2.0"
@@ -900,6 +900,13 @@
     "prop-types" "^15.6.2"
     "react-lifecycles-compat" "^3.0.4"
 
+"react-twitter-embed@^4.0.4":
+  "integrity" "sha512-2JIL7qF+U62zRzpsh6SZDXNI3hRNVYf5vOZ1WRcMvwKouw+xC00PuFaD0aEp2wlyGaZ+f4x2VvX+uDadFQ3HVA=="
+  "resolved" "https://registry.npmjs.org/react-twitter-embed/-/react-twitter-embed-4.0.4.tgz"
+  "version" "4.0.4"
+  dependencies:
+    "scriptjs" "^2.5.9"
+
 "react@^15.4.2", "react@~15.4.1":
   "integrity" "sha512-qfWUqdaiZjHlmsWI9Cvw9UvugnxluSsEoSOeykOiB37xQokYpxNqdQizNsAqVQvrNz4I8Pf7wCfB5g+ocvJS8Q=="
   "resolved" "https://registry.npmjs.org/react/-/react-15.4.2.tgz"
@@ -909,7 +916,7 @@
     "loose-envify" "^1.1.0"
     "object-assign" "^4.1.0"
 
-"react@^18.2.0", "react@>=0.14.0", "react@>=15.0.0", "react@>=16.14.0", "react@>=16.3", "react@>=16.3.0", "react@>=16.8.6", "react@0.14.x || ^15.0.0 || ^16.0.0 || ^17.0.0":
+"react@^16.0.0 || ^17.0.0 || ^18.0.0", "react@^18.2.0", "react@>=0.14.0", "react@>=15.0.0", "react@>=16.14.0", "react@>=16.3", "react@>=16.3.0", "react@>=16.8.6", "react@0.14.x || ^15.0.0 || ^16.0.0 || ^17.0.0":
   "integrity" "sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ=="
   "resolved" "https://registry.npmjs.org/react/-/react-18.2.0.tgz"
   "version" "18.2.0"
@@ -1004,6 +1011,11 @@
   "version" "0.23.0"
   dependencies:
     "loose-envify" "^1.1.0"
+
+"scriptjs@^2.5.9":
+  "integrity" "sha512-qGVDoreyYiP1pkQnbnFAUIS5AjenNwwQBdl7zeos9etl+hYKWahjRTfzAZZYBv5xNHx7vNKCmaLDQZ6Fr2AEXg=="
+  "resolved" "https://registry.npmjs.org/scriptjs/-/scriptjs-2.5.9.tgz"
+  "version" "2.5.9"
 
 "semver@^7.3.5":
   "integrity" "sha512-QlYTucUYOews+WeEujDoEGziz4K6c47V/Bd+LjSSYcA94p+DmINdf7ncaUinThfvZyu13lN9OY1XDxt8C0Tw0g=="

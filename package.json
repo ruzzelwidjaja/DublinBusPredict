@@ -5,6 +5,7 @@
     "create-react-app": "^5.0.1",
     "react-open-weather": "^1.2.1",
     "react-open-weather-widget": "^1.1.0",
+    "react-twitter-embed": "^4.0.4",
     "reactstrap": "^8.9.0"
   }
 }

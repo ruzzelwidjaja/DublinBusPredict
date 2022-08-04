@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import Modal from "./Modal";
-import axios from "axios";
+    import Modal from "./Modal";
+    import axios from "axios";
 
-class Todo extends Component {
+    class Todo extends Component {
       constructor(props) {
         super(props);
         this.state = {
@@ -37,13 +37,13 @@ class Todo extends Component {
               onClick={() => this.displayCompleted(true)}
               className={this.state.viewCompleted ? "active" : ""}
             >
-              Saved
+              Favorites
             </span>
             <span
               onClick={() => this.displayCompleted(false)}
               className={this.state.viewCompleted ? "" : "active"}
             >
-              Favorites
+              Saved
             </span>
           </div>
         );
@@ -114,13 +114,13 @@ class Todo extends Component {
       render() {
         return (
           <main className="content">
-            <h1 className="text-white text-uppercase text-center my-4">Todo app</h1>
+            <h1 className="text-white text-uppercase text-center my-4">Favorites</h1>
             <div className="row ">
               <div className="col-md-6 col-sm-10 mx-auto p-0">
                 <div className="card p-3">
                   <div className="">
                     <button onClick={this.createItem} className="btn btn-primary">
-                      Add Favorite Bus stops here
+                      Add Favorites
                     </button>
                   </div>
                   {this.renderTabList()}
