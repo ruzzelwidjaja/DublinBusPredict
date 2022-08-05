@@ -9,6 +9,8 @@ import Modal from "./Components/Modals/Modal";
 const libraries = ["places"];
 
 const App = () => {
+  const [resultsReady, setResultsReady] = useState(false);
+
   // Backend API data
   const [stops, setStops] = useState([]);
 
@@ -40,23 +42,18 @@ const App = () => {
   };
 
   // Function to get predicted journey time for bus leg
-  function getPrediction(id, dist) {
+  async function getPrediction(id, dist) {
     // Either returns a predicted value or a null result on failure
     let base = "http://localhost:8000/api/prediction/";
     let api_url = base + id + "/" + dist + "/";
-    let bad_url = base + "155/6000/"
-    // 
-    // If function is made async, the below code will return console.log the prediction (or null for bad url) but cannot figure out how to get it to synch wiht other code
-    //
-    // const response = await fetch(api_url);
-    // if (response.ok) {
-    //   const data = await response.json();
-    //   const prediction = await data.journey_time;
-    //   console.log(prediction);
-    // } else {
-    //   console.log(null);
-    // }
-    return null;
+    const response = await fetch(api_url);
+    if (response.ok) {
+      const data = await response.json();
+      const prediction = await data.journey_time;
+      return prediction;
+    } else {
+      return null;
+    }
   }
 
   // Function to convert duration (in seconds) to human readable text
@@ -74,65 +71,77 @@ const App = () => {
     }
   }
 
-  // View for route options, will decide how button looks
-  const prepareRouteOptions = (option) => {
-    const options = option.map( (route, index) => {
-      // Arrays for instructions and bus numbers
-      let instructionsArray = [];
-      let busesArray = [];
-      let originalStepDurations = 0; // (total route duration) - sum(original step durations) = (wait time)
-      let predictedStepDurations = 0; // for walking, add duration directly, for transit get predicted duration
+// View for route options, will decide how button looks
+const prepareRouteOptions = async (option) => {
+  setResultsReady(false);
+  let options;
+  options = option.map(async (route, index) => {
+    // Arrays for instructions and bus numbers
+    let instructionsArray = [];
+    let busesArray = [];
+    let originalStepDurations = 0; // (total route duration) - sum(original step durations) = (wait time)
+    let predictedStepDurations = 0; // for walking, add duration directly, for transit get predicted duration
 
-      // Loop through each step and fill the arrays with instruction and bus info
-      route.legs[0].steps.forEach( (step) => {
-        instructionsArray.push(step.instructions);
-        let stepTravelMode = step.travel_mode;
-        originalStepDurations += step.duration.value; // summing original setp durations
-        // predictedStepDurations += step.duration.value;
+    // Loop through each step and fill the arrays with instruction and bus info
+    const promises = route.legs[0].steps.map(async (step) => {
+      let predictedStepDurations = 0;
+      instructionsArray.push(step.instructions);
+      let stepTravelMode = step.travel_mode;
+      originalStepDurations += step.duration.value; // summing original setp durations
+      // predictedStepDurations += step.duration.value;
 
-        // If the step involves taking the bus
-        if (stepTravelMode === "TRANSIT") {
-          let line = step.transit.line;
-          let bus_type = line.agencies[0].name;
-          let lineID = line.short_name;
-          let stepDistance = step.distance.value;
+      // If the step involves taking the bus
+      if (stepTravelMode === "TRANSIT") {
+        let line = step.transit.line;
+        let bus_type = line.agencies[0].name;
+        let lineID = line.short_name;
+        let stepDistance = step.distance.value;
 
-          // Prepare the result if it is a bus we use
-          if (bus_type === "Go-Ahead" || bus_type === "Dublin Bus") {
-            busesArray.push(line.short_name);
-          }
-
-          // Getting prediction for step
-          let predictedStepDuration = getPrediction(lineID,stepDistance);
-          if (predictedStepDuration != null) {
-            // if value is returned, use value
-            predictedStepDurations += predictedStepDuration;
-          } else {
-            // if no value is returned, use original step duration
-            predictedStepDurations += step.duration.value;
-          }
-        } else {
-          predictedStepDurations += step.duration.value; // take non-transit values directly
+        // Prepare the result if it is a bus we use
+        if (bus_type === "Go-Ahead" || bus_type === "Dublin Bus") {
+          busesArray.push(line.short_name);
         }
-      });
 
-      let waitTime = route.legs[0].duration.value - originalStepDurations; // janky solution, could be improved
-      let predictedJourneyTime = predictedStepDurations + waitTime;
-      let durationText = secondsToText(predictedJourneyTime);
-      console.log("predicted: " + durationText);
-      console.log("original: " + route.legs[0].duration.text);
-
-      return {
-        id: index,
-        instructions: instructionsArray,
-        buses: busesArray,
-        distance: route.legs[0].distance.text,
-        duration: durationText,
-        steps: route.legs[0].steps.length,
-      };
+        // Getting prediction for step
+        let predictedStepDuration = await getPrediction(lineID, stepDistance);
+        if (predictedStepDuration != null) {
+          // if value is returned, use value
+          predictedStepDurations += predictedStepDuration;
+        } else {
+          // if no value is returned, use original step duration
+          predictedStepDurations += step.duration.value;
+        }
+      } else {
+        predictedStepDurations += step.duration.value; // take non-transit values directly
+      }
+      return predictedStepDurations;
     });
-    setRouteOptions(options);
-  };
+
+    const promiseFixer = await Promise.all(promises);
+    console.log("promise fixer", promiseFixer);
+    let predictedJourneyTime = 0;
+    for (let i = 0; i < promiseFixer.length; i++) {
+      predictedJourneyTime += promiseFixer[i];
+    }
+    let waitTime = route.legs[0].duration.value - originalStepDurations; // janky solution, could be improved
+    // let predictedJourneyTime = predictedStepDurations + waitTime;
+    let durationText = secondsToText(predictedJourneyTime);
+    console.log("predicted: " + durationText);
+    console.log("original: " + route.legs[0].duration.text);
+
+    return {
+      id: index,
+      instructions: instructionsArray,
+      buses: busesArray,
+      distance: route.legs[0].distance.text,
+      duration: durationText,
+      steps: route.legs[0].steps.length,
+    };
+  // });
+  }).then(setRouteOptions(options)).then(setResultsReady(true));
+  // setRouteOptions(options);
+  // setResultsReady(true);
+};
 
   // Async function to get route based off origin and destination
   const getRoutes = async () => {
@@ -176,7 +185,6 @@ const App = () => {
         cleanObject(results);
         prepareRouteOptions(results.routes);
         setDirectionsOutput(results);
-
         setChosenIndex(0);
       }
     } catch {
@@ -236,6 +244,7 @@ const App = () => {
       <div id="mapCanvas">
         {modalType !== "CLOSED" && (
           <Modal
+            resultsReady={resultsReady}
             modalType={modalType}
             setModalType={setModalType}
             originRef={originRef}

@@ -29,7 +29,7 @@ const Option = ({ option, selectRoute }) => {
           })}
         >
           <div className="flex">
-            {option.instructions.map((instruction) => {
+            {option.instructions.map( (instruction) => {
               if (
                 instruction !==
                 option.instructions[option.instructions.length - 1]

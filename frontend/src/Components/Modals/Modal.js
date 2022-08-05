@@ -4,6 +4,7 @@ import RoutesModal from "./RoutesModal";
 import ChooseRouteModal from "./ChooseRouteModal";
 
 const Modal = ({
+  resultsReady,
   modalType,
   setModalType,
   originRef,
@@ -29,6 +30,7 @@ const Modal = ({
           {modalType === "chooseRoutes" && directionsOutput && (
             <div>
               <ChooseRouteModal
+                resultsReady={resultsReady}
                 chosenIndex={chosenIndex}
                 routeOptions={routeOptions}
                 selectRoute={selectRoute}
