@@ -1,6 +1,6 @@
 import React from "react";
 import "./Navbar.css";
-import dublin_bus_logo from "../Assets/Dublin_Bus_Logo.png";
+import dublin_bus_logo from "../Assets/dublin_bus_logo.png";
 
 const Navbar = ({ modalType, setModalType }) => {
   return (
