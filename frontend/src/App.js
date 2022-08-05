@@ -4,19 +4,27 @@ import "./App.css";
 import Map from "./Components/Map";
 import Navbar from "./Components/Navbar";
 import Modal from "./Components/Modals/Modal";
+import ReactLoading from "react-loading";
 
 // Places lib for maps
-const libraries = ["places"];
+const libraries = ["places","geometry"];
 
 const App = () => {
+
   const [resultsReady, setResultsReady] = useState(false);
+
+  const [mapLoaded, setMapLoaded] = useState(null);
+
 
   // Backend API data
   const [stops, setStops] = useState([]);
+  const [nameHeadsign, setNameHeadsign] = useState([]);
+  const [shapes, setShapes] = useState([]);
 
   // Modal setting
   const [modalType, setModalType] = useState("CLOSED");
 
+  // Options for different routes to destination
   const [routeOptions, setRouteOptions] = useState();
 
   // Route index chosen
@@ -25,6 +33,9 @@ const App = () => {
   // References for origin and destination input
   const originRef = useRef("");
   const destinationRef = useRef("");
+
+  // Time for journey
+  const [timeValue, setTimeValue] = useState(new Date());
 
   // Directions object from request to google maps
   const [directionsOutput, setDirectionsOutput] = useState(null);
@@ -35,6 +46,48 @@ const App = () => {
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries,
   });
+  
+  // Function to get data from backend API
+  const fetchAPIData = async () => {
+    const stopResponse = await fetch("http://localhost:8000/api/stops/");
+    const stopData = await stopResponse.json();
+
+    const nameHeadsignResponse = await fetch(
+      "http://localhost:8000/api/namesandheadsigns/"
+    );
+    const nameHeadsignData = await nameHeadsignResponse.json();
+
+    // Set relevant data
+    setStops(stopData);
+    setNameHeadsign(nameHeadsignData);
+  };
+  // Get API data
+  useEffect(() => {
+    fetchAPIData();
+  }, []);
+  // Error loading Map
+  if (loadError) {
+    return (
+      <div className="h-full w-full bg-zinc-900 absolute text-base font-light	tracking-wider text-slate-100 font-medium py-3 px-7">
+        Google Maps cannot be loaded right now.
+        <br />
+        Please try again later or contact Google and maybe they can solve the
+        issue! :)
+      </div>
+    );
+  } else if (!isLoaded) {
+    // If map has not loaded display loading..
+    return (
+      <div className="h-full w-full bg-zinc-900 absolute">
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+          <ReactLoading type={"spin"} color="#475569" />
+        </div>
+        <div className="text-center absolute top-2/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+          <p className="text-slate-500">Loading..</p>
+        </div>
+      </div>
+    );
+  }
 
   // Function to take chosen route and set index
   const selectRoute = (selection) => {
@@ -113,6 +166,7 @@ const App = () => {
           }
         } else {
           predictedStepDurations += step.duration.value; // take non-transit values directly
+
         }
         return predictedStepDurations;
       });
@@ -131,6 +185,7 @@ const App = () => {
 
       return {
         id: index,
+        remove: route.contains_non_dublin_bus,
         instructions: instructionsArray,
         buses: busesArray,
         distance: route.legs[0].distance.text,
@@ -162,7 +217,10 @@ const App = () => {
 
       // Specify transit mode and bus as mode of transport
       travelMode: "TRANSIT",
-      transitOptions: { modes: ["BUS"] },
+      transitOptions: {
+        modes: ["BUS"],
+        departureTime: timeValue,
+      },
       provideRouteAlternatives: true,
       // eslint-disable-next-line no-undef
       unitSystem: google.maps.UnitSystem.METRIC,
@@ -195,8 +253,6 @@ const App = () => {
 
   // Function to clean directions object for non Dublin Bus results
   const cleanObject = (response) => {
-    // Array of route indices to remove from directions response
-    let routes_to_remove = [];
     response.routes.forEach((route, index) => {
       // Route index
       let routeIndex = index;
@@ -217,28 +273,11 @@ const App = () => {
             response.routes[routeIndex].contains_non_dublin_bus = "NO";
           } else {
             response.routes[routeIndex].contains_non_dublin_bus = "YES";
-            routes_to_remove.push(routeIndex);
           }
         }
       });
     });
-    // Need to remove these and may also need to get rid of duplicate routes
-    console.log("routes to remove: ", routes_to_remove);
   };
-
-  // Function to get data from backend API
-  const fetchData = async () => {
-    const response = await fetch("http://localhost:8000/api/stops/");
-    const data = await response.json();
-
-    // Set stop data
-    setStops(data);
-  };
-
-  // Get API data
-  // useEffect(() => {
-  //   fetchData();
-  // }, []);
 
   return (
     <div>
@@ -255,6 +294,12 @@ const App = () => {
             selectRoute={selectRoute}
             chosenIndex={chosenIndex}
             directionsOutput={directionsOutput}
+            nameHeadsign={nameHeadsign}
+            setShapes={setShapes}
+            setDirectionsOutput={setDirectionsOutput}
+            mapLoaded={mapLoaded}
+            timeValue={timeValue}
+            setTimeValue={setTimeValue}
           />
         )}
         <Map
@@ -263,6 +308,10 @@ const App = () => {
           directionsOutput={directionsOutput}
           isLoaded={isLoaded}
           loadError={loadError}
+          shapes={shapes}
+          mapLoaded={mapLoaded}
+          setMapLoaded={setMapLoaded}
+          stops={stops}
         />
       </div>
       <div id="navbar">

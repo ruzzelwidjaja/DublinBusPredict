@@ -1,14 +1,15 @@
 from time import time
 from django.shortcuts import render
-from .serializers import StopsSerializer
-from rest_framework import viewsets
-from .models import Stops
 from django.http import JsonResponse, HttpResponse
 from sklearn.ensemble import RandomForestRegressor
 from datetime import datetime
 import pandas as pd
 import pickle
 import os
+from .serializers import StopsSerializer, RoutesSerializer, ShapesSerializer, TripsSerializer, NamesAndHeadsignsSerializer
+from rest_framework import viewsets, generics
+from .models import Stops, Trips, Routes, Shapes, NamesAndHeadsigns
+
 
 # Create your views here.
 class StopsView(viewsets.ModelViewSet):
@@ -64,3 +65,34 @@ def predict(request, line_id, journey_distance):
         # Status 500: "Internal Server Error" (i.e. Server encountered something making it unable to fulfill request)
         # possible exceptions: line id doesn't have relevant random forest model
         return HttpResponse(status=500)
+
+class ShapesView(viewsets.ModelViewSet):
+    serializer_class = ShapesSerializer
+    queryset = Shapes.objects.all()
+
+class TripsView(viewsets.ModelViewSet):
+    serializer_class = TripsSerializer
+    queryset = Trips.objects.all()
+
+class RoutesView(viewsets.ModelViewSet):
+    serializer_class = RoutesSerializer
+    queryset = Routes.objects.all()
+
+class NamesAndHeadsignsView(viewsets.ModelViewSet):
+    serializer_class = NamesAndHeadsignsSerializer
+    queryset = NamesAndHeadsigns.objects.all()
+
+# class NamesAndHeadsignsView1(generics.ListAPIView):
+#     queryset = NamesAndHeadsigns.objects.all()
+#     serializer_class = NamesAndHeadsignsSerializer
+
+class NamesAndHeadsignsDetails(generics.RetrieveAPIView):
+    queryset = NamesAndHeadsigns.objects.all()
+    serializer_class = NamesAndHeadsignsSerializer
+
+class ShapeDetails(generics.ListAPIView):
+    serializer_class = ShapesSerializer
+
+    def get_queryset(self):
+        shape_id = self.kwargs['shape_id']
+        return Shapes.objects.filter(shape_id=shape_id)

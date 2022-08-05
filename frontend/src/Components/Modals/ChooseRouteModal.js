@@ -8,14 +8,12 @@ const ChooseRouteModal = ({
   selectRoute,
   resultsReady,
 }) => {
-  // const results = await Promise.all(routeOptions)
-  // console.log(results);
-
   return (
     <>
       {resultsReady && (
         <ul>
           {routeOptions.map((option, index) => {
+          if (option.remove === "NO") {
             return (
               <Option
                 key={index}
@@ -24,6 +22,9 @@ const ChooseRouteModal = ({
                 selectRoute={selectRoute}
               />
             );
+            } else {
+            return <></>;
+            }
           })}
         </ul>
       )}
@@ -36,21 +37,5 @@ const ChooseRouteModal = ({
       )}
     </>
   );
-  // if (resultsReady) {
-  //   routeOptions = Promise.all(routeOptions);
-  //   console.log("route options: " + routeOptions);
-  //   return (
-  //     <ul>
-  //       {routeOptions.map( (option, index) => (
-  //         <Option
-  //           key={index}
-  //           option={option}
-  //           chosenIndex={chosenIndex}
-  //           selectRoute={selectRoute}
-  //         />
-  //       ))}
-  //     </ul>
-  //   );
-  //  }
 };
 export default ChooseRouteModal;
