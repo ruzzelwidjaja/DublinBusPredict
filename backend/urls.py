@@ -29,6 +29,11 @@ router.register(r'namesandheadsigns', views.NamesAndHeadsignsView, 'namesandhead
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
-    path('api/shape<str:pk>/', views.NamesAndHeadsignsDetails.as_view()),
+    path('api/prediction/<str:line_id>/<int:journey_distance>/', views.predict)
     path('api/<str:shape_id>/', views.ShapeDetails.as_view()),
+
 ]
+
+# extract information from following:
+# line_id: routes > (index) > legs > 0 > steps > (index of steps with transit info) > transit > line > short_name
+# journey_distance: routes > (index) > legs > 0 > steps > (index of steps with transit info) > distance > value
