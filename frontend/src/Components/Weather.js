@@ -69,7 +69,7 @@ useEffect(() => {
         </button> */}
       </div>
         
-      <div className="card mt-3 mx-auto" style={{ width: '60vw' }}>
+      <div className="card mt-3 mx-auto">
         {apiData.main ? (
           <div class="card-body text-center">
             <img

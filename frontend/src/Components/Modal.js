@@ -49,6 +49,7 @@ import React, { Component } from "react";
                   <Label for="description">Reason</Label>
                   <Input
                     type="text"
+                    defaultValue="My default value"
                     name="description"
                     value={this.state.activeItem.description}
                     onChange={this.handleChange}
