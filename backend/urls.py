@@ -29,5 +29,11 @@ urlpatterns = [
     path("accounts/", include("django.contrib.auth.urls")),
     path('token-auth/', obtain_jwt_token),
     path('core/', include('dublinbusapp.urls')), # new
-    path('fav_stops/<str:user_id>/',views.FavoriteStopsView.as_view())
+    path('fav_stops/<str:user_id>/',views.FavoriteStopsView.as_view()),
+    path('api/prediction/<str:line_id>/<int:journey_distance>/', views.predict),
+    path('api/<str:shape_id>/', views.ShapeDetails.as_view())
 ]
+
+# extract information from following:
+# line_id: routes > (index) > legs > 0 > steps > (index of steps with transit info) > transit > line > short_name
+# journey_distance: routes > (index) > legs > 0 > steps > (index of steps with transit info) > distance > value

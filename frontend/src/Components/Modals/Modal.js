@@ -4,6 +4,7 @@ import RoutesModal from "./RoutesModal";
 import ChooseRouteModal from "./ChooseRouteModal";
 
 const Modal = ({
+  resultsReady,
   modalType,
   setModalType,
   originRef,
@@ -13,6 +14,12 @@ const Modal = ({
   selectRoute,
   chosenIndex,
   directionsOutput,
+  nameHeadsign,
+  setShapes,
+  setDirectionsOutput,
+  mapLoaded,
+  timeValue,
+  setTimeValue,
 }) => {
   return (
     <div>
@@ -24,11 +31,15 @@ const Modal = ({
               originRef={originRef}
               destinationRef={destinationRef}
               getRoutes={getRoutes}
+              setShapes={setShapes}
+              timeValue={timeValue}
+              setTimeValue={setTimeValue}
             />
           )}
           {modalType === "chooseRoutes" && directionsOutput && (
             <div>
               <ChooseRouteModal
+                resultsReady={resultsReady}
                 chosenIndex={chosenIndex}
                 routeOptions={routeOptions}
                 selectRoute={selectRoute}
@@ -36,7 +47,23 @@ const Modal = ({
             </div>
           )}
 
-          {modalType === "routes" && <RoutesModal />}
+          {/* In case of no route options, display error */}
+          {modalType === "chooseRoutes" && directionsOutput === null && (
+            <div>
+              <p className="text-xs md:text-base rounded-lg block w-full p-1.5 text-white">
+                Sorry, no routes were found for your journey.
+              </p>
+            </div>
+          )}
+
+          {modalType === "routes" && (
+            <RoutesModal
+              nameHeadsign={nameHeadsign}
+              setShapes={setShapes}
+              setDirectionsOutput={setDirectionsOutput}
+              mapLoaded={mapLoaded}
+            />
+          )}
         </div>
       </div>
     </div>

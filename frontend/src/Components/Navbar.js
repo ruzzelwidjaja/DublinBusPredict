@@ -61,7 +61,7 @@ const Navbar = ({ modalType, setModalType },props) => {
           }}
           className="text-left text-base font-light	tracking-wider webbutton bg-zinc-900 hover:bg-amber-800 text-slate-100 font-medium py-3 px-7"
         >
-          Routes
+          Route Information
         </button>
         
       </div>
@@ -98,7 +98,7 @@ const Navbar = ({ modalType, setModalType },props) => {
           }}
           className="bg-zinc-900 text-md font-light hover:bg-amber-800 text-slate-100 font-medium py-2 px-6 border-l border-r border-zinc-500"
         >
-          Routes
+          Route Information
         </button>
         {/* <h3 class="text-4xl font-normal leading-normal mt-0 mb-2 text-pink-800">
           {this.state.logged_in
