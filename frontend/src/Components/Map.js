@@ -35,6 +35,7 @@ const Map = ({
   stops,
   isLoaded,
   loadError,
+  modalType
 }) => {
   var markers = [];
   const [mapLoaded, setMapLoaded] = useState(null);  
@@ -156,6 +157,8 @@ const Map = ({
       mapLoaded,
       icon: circle_icon,
     });
+
+    loc.setMap(mapLoaded)
   
     console.log("TESTSTS", loc)
     // Iterate through stops to create markers & infowindows
@@ -180,12 +183,15 @@ const Map = ({
           shouldFocus: false,
         });
       });
-  
+
+      marker.setMap(mapLoaded)
+      
+
     }
 
-    return (
-      <Marker position={center}/>
-    )
+    // return (
+    //   <Marker position={center}/>
+    // )
     
   
   }
@@ -194,36 +200,43 @@ const Map = ({
   return ( 
     <div id='GoogleMap'>
 
-    <WeatherIcon/>
+    {modalType === "CLOSED" && (
+      <div>
+        <WeatherIcon/>
     
-    <div className="geolocator">
-      <button
-        onClick={() => {
-          geolocatorToggler()
-        }}
-      >
-        <img src="/geo2.png" id="geolocatorIcon" alt="compass" />
-      </button>
-    </div>
+        <div className="geolocator">
+          <button
+            onClick={() => {
+              geolocatorToggler()
+            }}
+          >
+            <img src="/geo2.png" id="geolocatorIcon" alt="compass" />
+          </button>
+        </div>
 
-    <div className="showStops">
-        <div className="stopsLabel">Stops</div>
-        <Switch
-          checked={clusterer}
-          onChange={clusterToggler}
-          onColor="#86d3ff"
-          onHandleColor="#2693e6"
-          handleDiameter={30}
-          uncheckedIcon={false}
-          checkedIcon={false}
-          boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
-          activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
-          height={20}
-          width={48}
-          className="react-switch"
-          id="material-switch"
-        />
-    </div>
+        <div className="showStops">
+            <div className="stopsLabel">Stops</div>
+            <Switch
+              checked={clusterer}
+              onChange={clusterToggler}
+              onColor="#86d3ff"
+              onHandleColor="#2693e6"
+              handleDiameter={30}
+              uncheckedIcon={false}
+              checkedIcon={false}
+              boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+              activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
+              height={20}
+              width={48}
+              className="react-switch"
+              id="material-switch"
+            />
+        </div>
+      </div>
+      
+    )}
+
+    
 
     <GoogleMap
       center={center}

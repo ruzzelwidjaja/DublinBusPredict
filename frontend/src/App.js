@@ -312,6 +312,8 @@ const App = () => {
           mapLoaded={mapLoaded}
           setMapLoaded={setMapLoaded}
           stops={stops}
+          modalType={modalType}
+
         />
       </div>
       <div id="navbar">
