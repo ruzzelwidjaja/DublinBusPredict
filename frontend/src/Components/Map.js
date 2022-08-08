@@ -30,14 +30,14 @@ const Map = ({
   chosenIndex,
   directionsOutput,
   shapes,
-  mapLoaded,
-  setMapLoaded,
+  //mapLoaded,
+  //setMapLoaded,
   stops,
   isLoaded,
   loadError,
 }) => {
   var markers = [];
-  const [map, setMap] = useState(null);  
+  const [mapLoaded, setMapLoaded] = useState(null);  
   const mapRef = React.useRef();
   // const onMapLoad = React.useCallback((map) => {
   mapRef.current = mapLoaded;
@@ -182,6 +182,10 @@ const Map = ({
       });
   
     }
+
+    return (
+      <Marker position={center}/>
+    )
     
   
   }
@@ -193,22 +197,13 @@ const Map = ({
     <WeatherIcon/>
     
     <div className="geolocator">
-        <div className="stopsLabel">Geo</div>
-        <Switch
-          checked={geolocatorToggle}
-          onChange={geolocatorToggler}
-          onColor="#86d3ff"
-          onHandleColor="#2693e6"
-          handleDiameter={30}
-          uncheckedIcon={false}
-          checkedIcon={false}
-          boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
-          activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
-          height={20}
-          width={48}
-          className="react-switch"
-          id="material-switch"
-        />
+      <button
+        onClick={() => {
+          geolocatorToggler()
+        }}
+      >
+        <img src="/geo2.png" id="geolocatorIcon" alt="compass" />
+      </button>
     </div>
 
     <div className="showStops">
@@ -271,8 +266,8 @@ const Map = ({
             var lat = position.coords.latitude;
             var lng =  position.coords.longitude;
             
-            panTo(lat,lng)
 
+            panTo(lat,lng)
           }
         )
         

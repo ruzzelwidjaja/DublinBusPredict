@@ -29,7 +29,7 @@ router.register(r'namesandheadsigns', views.NamesAndHeadsignsView, 'namesandhead
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
-    path('api/prediction/<str:line_id>/<int:journey_distance>/', views.predict)
+    path('api/prediction/<str:line_id>/<int:journey_distance>/', views.predict),
     path('api/<str:shape_id>/', views.ShapeDetails.as_view()),
 
 ]
