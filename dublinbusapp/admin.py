@@ -11,10 +11,6 @@ class StopsAdmin(admin.ModelAdmin):
 class FavoriteStopsAdmin(admin.ModelAdmin):
     list = ('user_id', 'user_id')
 
-
-
-
-
 class AccountInline(admin.StackedInline):
     model = Account1
     can_delete = False
