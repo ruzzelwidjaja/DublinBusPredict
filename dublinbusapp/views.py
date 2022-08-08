@@ -70,10 +70,12 @@ class TodoView(viewsets.ModelViewSet):
     serializer_class = TodoSerializer
     queryset = Todo.objects.all()
 def predict(request, line_id, journey_distance):
+    
     # line_id: the short name of the bus route (e.g. "46A")
     # distance: distance of the bus journey
 
     try:
+        permission_classes = (permissions.AllowAny,)
         # # # STEP ONE: GETTING INITIAL PREDICTION FOR THE COMPLETE JOURNEY FROM START OF LINE TO END OF LINE # # #
         # Load the relevant random forest model
         # TODO figure out loading from folder
@@ -120,18 +122,22 @@ def predict(request, line_id, journey_distance):
         return HttpResponse(status=500)
 
 class ShapesView(viewsets.ModelViewSet):
+    permission_classes = (permissions.AllowAny,)
     serializer_class = ShapesSerializer
     queryset = Shapes.objects.all()
 
 class TripsView(viewsets.ModelViewSet):
+    permission_classes = (permissions.AllowAny,)
     serializer_class = TripsSerializer
     queryset = Trips.objects.all()
 
 class RoutesView(viewsets.ModelViewSet):
+    permission_classes = (permissions.AllowAny,)
     serializer_class = RoutesSerializer
     queryset = Routes.objects.all()
 
 class NamesAndHeadsignsView(viewsets.ModelViewSet):
+    permission_classes = (permissions.AllowAny,)
     serializer_class = NamesAndHeadsignsSerializer
     queryset = NamesAndHeadsigns.objects.all()
 
@@ -140,10 +146,12 @@ class NamesAndHeadsignsView(viewsets.ModelViewSet):
 #     serializer_class = NamesAndHeadsignsSerializer
 
 class NamesAndHeadsignsDetails(generics.RetrieveAPIView):
+    permission_classes = (permissions.AllowAny,)
     queryset = NamesAndHeadsigns.objects.all()
     serializer_class = NamesAndHeadsignsSerializer
 
 class ShapeDetails(generics.ListAPIView):
+    permission_classes = (permissions.AllowAny,)
     serializer_class = ShapesSerializer
 
     def get_queryset(self):

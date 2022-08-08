@@ -1,6 +1,10 @@
 import React, { Component } from "react";
     import Modal from "./Modal";
     import axios from "axios";
+// import 'bootstrap/dist/css/bootstrap.min.css';       // add this
+
+// Ruzzel, here is the bootstrap import code ^^^^^^^
+
 
     class Todo extends Component {
       constructor(props) {

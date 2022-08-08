@@ -22,6 +22,13 @@ from rest_framework_jwt.views import obtain_jwt_token
 router = routers.DefaultRouter()
 router.register(r'stops', views.StopsView, 'stops')
 router.register(r'todos', views.TodoView, 'todo')
+router.register(r'trips', views.TripsView, 'trips')
+router.register(r'routes', views.RoutesView, 'routes')
+router.register(r'shapes', views.ShapesView, 'shapes')
+router.register(r'namesandheadsigns', views.NamesAndHeadsignsView, 'namesandheadsigns')
+
+
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
