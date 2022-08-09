@@ -9,15 +9,17 @@ function WeatherIcon() {
     const [apiData, setApiData] = useState({});
     const [getState, setGetState] = useState('Dublin');
     const [state, setState] = useState('Dublin');
+    const [country, setCountry] = useState('IE')
 
     const apiKey = '3d2cae43935ab6fcf8436e45feb7510e';
-    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${state}&appid=${apiKey}`;
+    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${state},${country}&appid=${apiKey}`;
 
     useEffect(() => {
         fetch(apiUrl)
         .then((res) => res.json())
         .then((data) => setApiData(data));
     }, [apiUrl]);
+    console.log(apiData)
 
     return (
             
