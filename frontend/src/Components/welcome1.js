@@ -34,34 +34,29 @@ import React, { Component } from "react";
       };
       renderTabList = () => {
         return (
-          <div class=''>
-          <div class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded float-left">
+          <div class="flex mx-4 md:mx-1 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 md:py-1 md:px-2 border border-blue-500 hover:border-transparent rounded float-left">
             <button
               onClick={() => this.displayCompleted(true)}
               className={this.state.viewCompleted ? "active" : ""}
             >
-               Favorites 
+              Favorites 
             </button>
-            </div>
-            <div>
-            <br></br>
-            <br></br>
-            <div class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded float-left">
-
-            <button
-              onClick={() => this.displayCompleted(false)}
-              
-              className={this.state.viewCompleted ? "" : "active"}
-            >
-               Saved 
-            </button>
-            </div>
-            <br></br>
-            <br></br>
-            </div>
           </div>
         );
       };
+
+      renderTabList2 = () => {
+        return (
+          <div class="flex bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 md:py-1 md:px-2 border border-blue-500 hover:border-transparent rounded float-left">
+                <button
+                  onClick={() => this.displayCompleted(false)}
+                  className={this.state.viewCompleted ? "" : "active"}
+                >
+                    Saved 
+                </button>
+              </div>
+        )
+      }
       renderItems = () => {
         const { viewCompleted } = this.state;
         const newItems = this.state.todoList.filter(
@@ -135,14 +130,14 @@ import React, { Component } from "react";
             <div className="flex flex-wrap ">
               <div className="md:w-10/12 sm:w-10/12 p-0 mx-auto mb-5">
                 <div className="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300 p-6">
-                  <div className="">
-                    <button onClick={this.createItem} className="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">
+                  <div className="flex mb-2 max-w-full">
+                    <button onClick={this.createItem} className="flex-auto inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">
                       Add Favorites
                     </button>
-                    <br></br>
-                    <br></br>
+                    {this.renderTabList()}
+                    {this.renderTabList2()}
                   </div>
-                  {this.renderTabList()}
+                  
                   <ul className="flex flex-col pl-0 mb-0 border rounded border-gray-300">
                     {this.renderItems()}
                   </ul>

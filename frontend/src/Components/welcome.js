@@ -159,7 +159,7 @@ function UserGreeting(props) {
         <Todo/>
 
         </div>
-        <div className='flex-1 pr-1'>
+        <div className='flex-1 p-6 px-8'>
         <h1 className='text-3xl font-bold content-center text-center pb-5'>Twitter feed - Dublin Bus</h1>
         <div   style={{
         display: 'flex',
