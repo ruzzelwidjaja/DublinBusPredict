@@ -11,7 +11,7 @@ const ChooseRouteModal = ({
   return (
     <>
       {resultsReady && (
-        <ul>
+        <ul className="text-center">
           {routeOptions.map((option, index) => {
           if (option.remove === "NO") {
             return (

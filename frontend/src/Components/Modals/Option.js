@@ -18,7 +18,7 @@ const Option = ({ option, selectRoute }) => {
     <div>
       <li
         key={option.id}
-        className="px-6 py-0.5 text-left text-sm md:text-sm rounded-lg bg-zinc-900 hover:bg-amber-800 text-slate-100  my-4"
+        className="max-w-full px-1 py-0.5 text-center text-sm md:text-sm rounded-lg bg-zinc-900 hover:bg-amber-800 text-slate-100  my-4"
       >
         <button
           className="w-full block"
@@ -81,7 +81,7 @@ const Option = ({ option, selectRoute }) => {
                         className="h-8 flex-1 self-center "
                         alt="Walking Logo"
                       />
-                      <p className="text-right basis-2/12 text-xs md:text-s self-center">
+                      <p className="text-center basis-2/12 text-xs md:text-s self-center">
                         {option.duration}
                       </p>
                     </>
@@ -106,7 +106,7 @@ const Option = ({ option, selectRoute }) => {
                 }
               }
             })}
-            <div className="flex-1 text-right self-center text-lg	">
+            <div className="flex-1 text-center self-center text-lg	">
               {" "}
               {isExpanded ? "-" : "+"}
             </div>
