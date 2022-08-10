@@ -128,14 +128,12 @@ import React, { Component } from "react";
       render() {
         return (
           <main className="content-center">
-            <br></br>
-            <br></br>
             <center>
-            <h1 className="text-3xl font-bold mb-8 content-center">Favorites</h1>
+            <h1 className="text-3xl font-bold content-center pb-5">Favorites</h1>
             </center>
-            <br></br>
+            
             <div className="flex flex-wrap ">
-              <div className="md:w-1/2 pr-4 pl-4 sm:w-4/5 pr-4 pl-4 mx-auto p-0">
+              <div className="md:w-10/12 sm:w-10/12 p-0 mx-auto mb-5">
                 <div className="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300 p-6">
                   <div className="">
                     <button onClick={this.createItem} className="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">

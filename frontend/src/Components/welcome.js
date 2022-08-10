@@ -149,20 +149,18 @@ class Welcome extends Component {
 }
 function UserGreeting(props) {
     return (
-        // <div class="w-1/2 mx-auto">
-        <div>
+        <div className="md:flex">
+        <div className='flex-1'>
 
         
-        <br></br>
-        <WeatherCard/>
+        
+        
         
         <Todo/>
 
-        <br></br>
-        <br></br>
-        <hr></hr>
-        <br></br>
-        <h2 style={{textAlign: "center"}}>Twitter feed - Dublin Bus</h2>
+        </div>
+        <div className='flex-1 pr-1'>
+        <h1 className='text-3xl font-bold content-center text-center pb-5'>Twitter feed - Dublin Bus</h1>
         <div   style={{
         display: 'flex',
         alignItems: 'center',
@@ -174,11 +172,13 @@ function UserGreeting(props) {
           // The preferred screen name goes next: 
           screenName="dublinbusnews"
           // Style options goes here:
-          options={{ height: 800, width: 600 }}/>
+          options={{ height: 800, width: 800 }}/>
 
+        </div>
         </div>
 
 
+      
       </div>
       
     )
