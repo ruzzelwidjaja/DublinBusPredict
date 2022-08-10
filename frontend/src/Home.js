@@ -84,7 +84,9 @@ const Home = () => {
           <ReactLoading type={"spin"} color="#475569" />
         </div>
         <div className="text-center absolute top-2/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-          <p className="text-slate-500">Loading..</p>
+          <p c role='loading-message' className="text-slate-500">
+            Loading..
+          </p>
         </div>
       </div>
     );
@@ -304,6 +306,7 @@ const Home = () => {
           />
         )}
         <Map
+          role='map'
           setModalType={setModalType}
           chosenIndex={chosenIndex}
           directionsOutput={directionsOutput}
@@ -313,10 +316,11 @@ const Home = () => {
           mapLoaded={mapLoaded}
           setMapLoaded={setMapLoaded}
           stops={stops}
+          modalType={modalType}
         />
       </div>
       <div id="navbar">
-        <Navbar modalType={modalType} setModalType={setModalType} />
+        <Navbar modalType={modalType} setModalType={setModalType} role='navbar' />
       </div>
     </div>
   );
