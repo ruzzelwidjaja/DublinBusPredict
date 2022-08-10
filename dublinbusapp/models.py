@@ -12,6 +12,7 @@ class Stops(models.Model):
     class Meta:
         managed = False
         db_table = 'stops'
+        verbose_name_plural = "Stops"
 
 class Account1(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -53,6 +54,7 @@ class Trips(models.Model):
     class Meta:
         managed = False
         db_table = 'trips'
+        verbose_name_plural = "Trips"
 
 class Shapes(models.Model):
     shape_id = models.CharField(primary_key=True, max_length=30)
@@ -65,6 +67,7 @@ class Shapes(models.Model):
         managed = False
         db_table = 'shapes'
         unique_together = (('shape_id', 'shape_pt_sequence'),)
+        verbose_name_plural = "Shapes"
 
 class Routes(models.Model):
     route_id = models.CharField(primary_key=True, max_length=30)
@@ -76,6 +79,7 @@ class Routes(models.Model):
     class Meta:
         managed = False
         db_table = 'routes'
+        verbose_name_plural = "Routes"
 
 class NamesAndHeadsigns(models.Model):
     route_short_name = models.CharField(max_length=10, blank=True, null=True)
@@ -86,3 +90,4 @@ class NamesAndHeadsigns(models.Model):
     class Meta:
         managed = False
         db_table = 'names_and_headsigns'
+        verbose_name_plural = "Names And Headsigns"

@@ -49,15 +49,12 @@ const DirectionsOptions = ({
     setDirections(directionsResponse);
   };
 
-  //   console.log(directions);
   return (
     <div>
       <div>
         <h5 className="text-xl font-medium text-white pb-4">Route Options</h5>
       </div>
       <div className="shadow-md rounded-lg">
-        {/* <table className="text-sm text-left text-white table-fixed">
-          <tbody> */}
         <ul>
           {directionsResponse &&
             directionsResponse.routes.map((route, index) => (
@@ -74,34 +71,3 @@ const DirectionsOptions = ({
 };
 
 export default DirectionsOptions;
-// <tr
-//   key={index}
-//   onClick={() => {
-//     handleOnClick(route.index);
-//   }}
-//   className="text-xs rounded-2xl bg-slate-700 whitespace-pre hover:bg-slate-600"
-// >
-//   {/* Fix this step here */}
-//   <td className="px-6 py-4">
-//     Step 1: {route.legs[0].steps[0].instructions}
-//   </td>
-//   <td className="px-6 py-4">
-//     {route.legs[0].distance.text}
-//   </td>
-//   <td className="px-6 py-4">
-//     {route.legs[0].duration.text}
-//   </td>
-// </tr>
-
-//         } else {
-//           return <></>;
-//         }
-//       })}
-
-//     {directionsResponse === null && (
-//       <tr>
-//         <td>No directions available for that route!</td>
-//       </tr>
-//     )}
-//   </tbody>
-// </table>

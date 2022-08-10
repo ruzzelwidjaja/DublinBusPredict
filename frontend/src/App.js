@@ -12,7 +12,7 @@ import {Outlet} from "react-router-dom";
 import { Routes, Route } from "react-router-dom";
 
 // Places lib for maps
-const libraries = ["places","geometry"];
+const libraries = ["places", "geometry"];
 
 const App = () => {
   
