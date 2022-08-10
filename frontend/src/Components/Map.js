@@ -271,7 +271,7 @@ const Map = ({
             options={{
               suppressMarkers: true,
               suppressInfoWindows: true,
-              polylineOptions: { strokeColor: "#d97706" },
+              polylineOptions: { strokeColor: "#d97706", strokeWeight: 4 },
             }}
             directions={directionsOutput}
             routeIndex={selectRouteIndex()}
