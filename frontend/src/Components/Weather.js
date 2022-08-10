@@ -56,12 +56,12 @@ useEffect(() => {
     </header>
     <div className="container mx-auto sm:px-4">
       <div className="mt-3 flex flex-col justify-center items-center">
-        <div class="col-auto">
-          {/* <label for="location-name" class="col-form-label">
+        <div className="col-auto">
+          {/* <label for="location-name" className="col-form-label">
             Enter Location :
           </label> */}
         </div>
-        <div class="col-auto">
+        <div className="col-auto">
           
         </div>
         {/* <button className="btn btn-primary mt-2" onClick={submitHandler}>
@@ -71,7 +71,7 @@ useEffect(() => {
         
       <div className="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300 mt-3 mx-auto">
         {apiData.main ? (
-          <div class="flex-auto p-6 text-center">
+          <div className="flex-auto p-6 text-center">
             <img
               src={`http://openweathermap.org/img/w/${apiData.weather[0].icon}.png`}
               alt="weather status icon"
@@ -90,7 +90,7 @@ useEffect(() => {
             <div className="flex flex-wrap  mt-4">
               <div className="md:w-1/2 pr-4 pl-4">
                 <p>
-                  <i class="fas fa-temperature-low "></i>{' MIN '}
+                  <i className="fas fa-temperature-low "></i>{' MIN '}
                   <strong>
                     {kelvinToFarenheit(apiData.main.temp_min)}&deg; C
                   </strong>

@@ -10,7 +10,7 @@ import {
 import MapStyles from "./MapStyles";
 import Switch from "react-switch";
 import location_icon from "../Assets/locationIcon.gif";
-import WeatherIcon from "./weatherIcon";
+import WeatherIcon from "./WeatherIcon";
 
 <script src="https://maps.googleapis.com/maps/api/js?v=3&sensor=false&libraries=geometry"></script>;
 

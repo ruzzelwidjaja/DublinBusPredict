@@ -12,25 +12,33 @@ function Nav1(props) {
     function handleClick() {
         navigate("/");
       }
-  const logged_out_nav = (
 
-<ul class="flex">
-  <li class="bg-zinc-900 text-md font-light hover:bg-amber-800 text-slate-100 font-medium py-2 px-6" onClick={() => props.display_form('login')}>login</li>
-  <li class="bg-zinc-900 text-md font-light hover:bg-amber-800 text-slate-100 font-medium py-2 px-6" onClick={() => props.display_form('signup')}>signup</li>
-  <button className="bg-zinc-900 text-md font-light hover:bg-amber-800 text-slate-100 font-medium py-2 px-6" onClick={handleClick}>
+
+  const logged_out_nav = (
+    <ul className="flex mb-4 bg-zinc-900 text-base font-light	tracking-wider  text-slate-100 font-medium">
+      
+      <button className=" text-md font-light hover:bg-amber-800 text-slate-100 font-medium py-6 px-6" onClick={handleClick}>
           Home
-    </button>
-</ul>
-  );
+      </button>
+
+      <button className="ml-auto text-md font-light hover:bg-amber-800 text-slate-100 font-medium py-6 px-6" onClick={() => props.display_form('signup')}>Signup</button>
+      
+      <button className="ml-0 text-md font-light hover:bg-amber-800 text-slate-100 font-medium py-6 px-6" onClick={() => props.display_form('login')}>Login</button>
+
+    </ul>
+  )
 
   const logged_in_nav = (
-    <ul>
-      <li class ='bg-zinc-900 text-md font-light hover:bg-amber-800 text-slate-100 font-medium py-2 px-6' onClick={props.handle_logout}>logout</li>
-      <button className="bg-zinc-900 text-md font-light hover:bg-amber-800 text-slate-100 font-medium py-2 px-6" onClick={handleClick}>
+    <ul className="flex mb-4 bg-zinc-900 text-base font-light	tracking-wider  text-slate-100 font-medium">
+      
+      <button className=" text-md font-light hover:bg-amber-800 text-slate-100 font-medium py-6 px-6" onClick={handleClick}>
           Home
-    </button>
+      </button>
+
+      <button className="ml-auto text-md font-light hover:bg-amber-800 text-slate-100 font-medium py-6 px-6" onClick={props.handle_logout}>Logout</button>
+      
     </ul>
-  );
+  )
   return <div>{props.logged_in ? logged_in_nav : logged_out_nav}</div>;
 }
 

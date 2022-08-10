@@ -26,7 +26,7 @@ function WeatherIcon() {
         <div>
 
             {apiData.main ? (
-            <div class="weatherIconContainer">
+            <div className="weatherIconContainer">
                 <span className='weatherDescription'>
                     {capitalize(apiData.weather[0].description)}
                 </span>

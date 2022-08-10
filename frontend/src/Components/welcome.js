@@ -108,6 +108,11 @@ class Welcome extends Component {
         form = null;
     }
 
+    const getName = (name) => {
+      let username = name.split('@');
+      return username[0]
+    }
+
     return (
       <div className="welcome" style = {{display:'block'}}>
         
@@ -119,18 +124,24 @@ class Welcome extends Component {
         />
         
         {form}
-        <h4 class="text-4xl font-normal leading-normal mt-0 mb-2 text-pink-800 text-center">
+        <h1 className="text-7xl font-normal leading-normal mt-0 mb-2 text-pink-800 text-center">
           {this.state.logged_in
-            ? `Hello, ${this.state.username}`
+            ? `Hello, ${getName(this.state.username)}`
             : '' }
            <br></br>
-        The user is <b>{isLoggedIn ? 'currently' : 'not'}</b> logged in.
 
-        </h4>
+        </h1>
+        
+        <h3 className="text-4xl mb-10 font-normal leading-normal mt-0 mb-2 text-pink-800 text-center"> 
+          {this.state.logged_in
+              ? "Have a great journey!"
+              : '' } 
+        </h3>
+          
+
         {this.state.logged_in
-            ? <div class="static ...">
-            {/* <Home></Home> */}
-            <div class="absolute bottom-0 left-0 ...">
+            ? <div className="static ...">
+            <div className="absolute bottom-0 left-0 ...">
             </div>
           </div>
             
