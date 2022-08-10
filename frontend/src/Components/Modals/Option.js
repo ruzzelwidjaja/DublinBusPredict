@@ -61,7 +61,7 @@ const Option = ({ option, selectRoute }) => {
                         stroke="#ffffff"
                         alt="Bus Logo"
                       />
-                      <p className="basis-1 text-xs self-center py-1">
+                      <p className="basis-1 text-xs self-center py-0.5 px-1 rounded bg-yellow-500 text-slate-50">
                         {option.buses[busIndex]}
                       </p>
                       <DotsLogo
@@ -95,7 +95,7 @@ const Option = ({ option, selectRoute }) => {
                         stroke="#ffffff"
                         alt="Bus Logo"
                       />
-                      <p className="basis-1 text-xs self-center py-1">
+                      <p className="basis-1 text-xs self-center py-0.5 px-1 rounded bg-yellow-500 text-slate-50">
                         {option.buses[option.buses.length - 1]}
                       </p>
                       <p className="text-left basis-2/12 text-xs md:text-s self-center py-1">

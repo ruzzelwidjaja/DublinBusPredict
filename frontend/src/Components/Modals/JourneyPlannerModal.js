@@ -22,7 +22,10 @@ const JourneyPlannerModal = ({
   return (
     <div>
       <div className="head">
-        <h5 className="text-md md:text-xl font-medium text-white pb-2 md:pb-4">
+        <h5
+          role="head"
+          className="text-md md:text-xl font-medium text-white pb-2 md:pb-4"
+        >
           Plan Your Journey
         </h5>
       </div>

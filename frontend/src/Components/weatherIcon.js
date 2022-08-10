@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 function capitalize(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  }
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
 
 function WeatherIcon() {
 
@@ -38,12 +38,10 @@ function WeatherIcon() {
             </div>
 
             ) : (
-            <h1>Loading</h1>
+            <div></div>
             )}
         </div>
-
-    );
-
+  );
 }
 
 export default WeatherIcon;

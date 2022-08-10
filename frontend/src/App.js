@@ -7,14 +7,12 @@ import Modal from "./Components/Modals/Modal";
 import ReactLoading from "react-loading";
 
 // Places lib for maps
-const libraries = ["places","geometry"];
+const libraries = ["places", "geometry"];
 
 const App = () => {
-
   const [resultsReady, setResultsReady] = useState(false);
 
   const [mapLoaded, setMapLoaded] = useState(null);
-
 
   // Backend API data
   const [stops, setStops] = useState([]);
@@ -46,7 +44,7 @@ const App = () => {
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries,
   });
-  
+
   // Function to get data from backend API
   const fetchAPIData = async () => {
     const stopResponse = await fetch("http://localhost:8000/api/stops/");
@@ -83,7 +81,9 @@ const App = () => {
           <ReactLoading type={"spin"} color="#475569" />
         </div>
         <div className="text-center absolute top-2/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-          <p className="text-slate-500">Loading..</p>
+          <p role="loading-message" className="text-slate-500">
+            Loading..
+          </p>
         </div>
       </div>
     );
@@ -166,7 +166,6 @@ const App = () => {
           }
         } else {
           predictedStepDurations += step.duration.value; // take non-transit values directly
-
         }
         return predictedStepDurations;
       });
@@ -303,6 +302,7 @@ const App = () => {
           />
         )}
         <Map
+          role="map"
           setModalType={setModalType}
           chosenIndex={chosenIndex}
           directionsOutput={directionsOutput}
@@ -313,11 +313,14 @@ const App = () => {
           setMapLoaded={setMapLoaded}
           stops={stops}
           modalType={modalType}
-
         />
       </div>
       <div id="navbar">
-        <Navbar modalType={modalType} setModalType={setModalType} />
+        <Navbar
+          role="navbar"
+          modalType={modalType}
+          setModalType={setModalType}
+        />
       </div>
     </div>
   );
