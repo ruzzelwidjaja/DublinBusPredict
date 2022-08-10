@@ -51,11 +51,11 @@ useEffect(() => {
 
   return (
     <div className="App">
-    <header className="d-flex justify-content-center align-items-center">
-      <h2>Current weather in Dublin</h2>
+    <header className="flex justify-center items-center">
+      <h2 className='text-3xl font-bold mb-8'>Current weather in Dublin</h2>
     </header>
-    <div className="container">
-      <div className="mt-3 d-flex flex-column justify-content-center align-items-center">
+    <div className="container mx-auto sm:px-4">
+      <div className="mt-3 flex flex-col justify-center items-center">
         <div class="col-auto">
           {/* <label for="location-name" class="col-form-label">
             Enter Location :
@@ -69,9 +69,9 @@ useEffect(() => {
         </button> */}
       </div>
         
-      <div className="card mt-3 mx-auto">
+      <div className="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300 mt-3 mx-auto">
         {apiData.main ? (
-          <div class="card-body text-center">
+          <div class="flex-auto p-6 text-center">
             <img
               src={`http://openweathermap.org/img/w/${apiData.weather[0].icon}.png`}
               alt="weather status icon"
@@ -87,8 +87,8 @@ useEffect(() => {
               <strong>{apiData.name}</strong>
             </p>
 
-            <div className="row mt-4">
-              <div className="col-md-6">
+            <div className="flex flex-wrap  mt-4">
+              <div className="md:w-1/2 pr-4 pl-4">
                 <p>
                   <i class="fas fa-temperature-low "></i>{' MIN '}
                   <strong>
@@ -102,7 +102,7 @@ useEffect(() => {
                   </strong>
                 </p>
               </div>
-              <div className="col-md-6">
+              <div className="md:w-1/2 pr-4 pl-4">
                 <p>
                   {'  '}
                   <strong>{apiData.weather[0].main}</strong>

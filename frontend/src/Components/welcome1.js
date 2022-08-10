@@ -3,8 +3,6 @@ import React, { Component } from "react";
     import axios from "axios";
 // import 'bootstrap/dist/css/bootstrap.min.css';       // add this
 
-// Ruzzel, here is the bootstrap import code ^^^^^^^
-
 
     class Todo extends Component {
       constructor(props) {
@@ -36,19 +34,31 @@ import React, { Component } from "react";
       };
       renderTabList = () => {
         return (
-          <div className="my-5 tab-list">
-            <span
+          <div class=''>
+          <div class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded float-left">
+            <button
               onClick={() => this.displayCompleted(true)}
               className={this.state.viewCompleted ? "active" : ""}
             >
-              Favorites
-            </span>
-            <span
+               Favorites 
+            </button>
+            </div>
+            <div>
+            <br></br>
+            <br></br>
+            <div class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded float-left">
+
+            <button
               onClick={() => this.displayCompleted(false)}
+              
               className={this.state.viewCompleted ? "" : "active"}
             >
-              Saved
-            </span>
+               Saved 
+            </button>
+            </div>
+            <br></br>
+            <br></br>
+            </div>
           </div>
         );
       };
@@ -60,7 +70,7 @@ import React, { Component } from "react";
         return newItems.map(item => (
           <li
             key={item.id}
-            className="list-group-item d-flex justify-content-between align-items-center"
+            className="relative block py-3 px-6 -mb-px border border-r-0 border-l-0 border-gray-300 no-underline flex justify-between items-center"
           >
             <span
               className={`todo-title mr-2 ${
@@ -73,14 +83,14 @@ import React, { Component } from "react";
             <span>
               <button
                 onClick={() => this.editItem(item)}
-                className="btn btn-secondary mr-2"
+                className="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-gray-600 text-white hover:bg-gray-700 mr-2"
               >
                 {" "}
                 Edit{" "}
               </button>
               <button
                 onClick={() => this.handleDelete(item)}
-                className="btn btn-danger"
+                className="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-red-600 text-white hover:bg-red-700"
               >
                 Delete{" "}
               </button>
@@ -117,18 +127,25 @@ import React, { Component } from "react";
       };
       render() {
         return (
-          <main className="content">
-            <h1 className="text-white text-uppercase text-center my-4">Favorites</h1>
-            <div className="row ">
-              <div className="col-md-6 col-sm-10 mx-auto p-0">
-                <div className="card p-3">
+          <main className="content-center">
+            <br></br>
+            <br></br>
+            <center>
+            <h1 className="text-3xl font-bold mb-8 content-center">Favorites</h1>
+            </center>
+            <br></br>
+            <div className="flex flex-wrap ">
+              <div className="md:w-1/2 pr-4 pl-4 sm:w-4/5 pr-4 pl-4 mx-auto p-0">
+                <div className="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300 p-6">
                   <div className="">
-                    <button onClick={this.createItem} className="btn btn-primary">
+                    <button onClick={this.createItem} className="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">
                       Add Favorites
                     </button>
+                    <br></br>
+                    <br></br>
                   </div>
                   {this.renderTabList()}
-                  <ul className="list-group list-group-flush">
+                  <ul className="flex flex-col pl-0 mb-0 border rounded border-gray-300">
                     {this.renderItems()}
                   </ul>
                 </div>
