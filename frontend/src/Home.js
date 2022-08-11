@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from "react";
 import { useJsApiLoader } from "@react-google-maps/api";
 import "./App.css";
@@ -8,14 +7,15 @@ import Modal from "./Components/Modals/Modal";
 import ReactLoading from "react-loading";
 
 // Places lib for maps
-const libraries = ["places","geometry"];
+const libraries = ["places", "geometry"];
 
 const Home = () => {
+  // Weather api data
+  const [apiData, setApiData] = useState({});
 
   const [resultsReady, setResultsReady] = useState(false);
 
   const [mapLoaded, setMapLoaded] = useState(null);
-
 
   // Backend API data
   const [stops, setStops] = useState([]);
@@ -47,7 +47,7 @@ const Home = () => {
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries,
   });
-  
+
   // Function to get data from backend API
   const fetchAPIData = async () => {
     const stopResponse = await fetch("http://localhost:8000/api/stops/");
@@ -84,7 +84,7 @@ const Home = () => {
           <ReactLoading type={"spin"} color="#475569" />
         </div>
         <div className="text-center absolute top-2/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-          <p c role='loading-message' className="text-slate-500">
+          <p role="loading-message" className="text-slate-500">
             Loading..
           </p>
         </div>
@@ -169,7 +169,6 @@ const Home = () => {
           }
         } else {
           predictedStepDurations += step.duration.value; // take non-transit values directly
-
         }
         return predictedStepDurations;
       });
@@ -282,6 +281,7 @@ const Home = () => {
     });
   };
 
+  console.log("Weather:", apiData);
   return (
     <div>
       <div id="mapCanvas">
@@ -306,7 +306,7 @@ const Home = () => {
           />
         )}
         <Map
-          role='map'
+          role="map"
           setModalType={setModalType}
           chosenIndex={chosenIndex}
           directionsOutput={directionsOutput}
@@ -317,10 +317,16 @@ const Home = () => {
           setMapLoaded={setMapLoaded}
           stops={stops}
           modalType={modalType}
+          apiData={apiData}
+          setApiData={setApiData}
         />
       </div>
       <div id="navbar">
-        <Navbar modalType={modalType} setModalType={setModalType} role='navbar' />
+        <Navbar
+          modalType={modalType}
+          setModalType={setModalType}
+          role="navbar"
+        />
       </div>
     </div>
   );

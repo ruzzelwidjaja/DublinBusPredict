@@ -23,6 +23,8 @@ const options = {
 };
 
 const Map = ({
+  apiData,
+  setApiData,
   setModalType,
   chosenIndex,
   directionsOutput,
@@ -96,18 +98,12 @@ const Map = ({
     return 0;
   };
 
-        // if (google.maps.geometry.spherical.computeDistanceBetween(markers[i].getPosition(), point) <= searchAreaRadius) {
-        //   console.log('=> is in searchArea');
-        // }
-        // else{
-        //   console.log('Not in')
-        // }
-
-
-
-
-
-
+  // if (google.maps.geometry.spherical.computeDistanceBetween(markers[i].getPosition(), point) <= searchAreaRadius) {
+  //   console.log('=> is in searchArea');
+  // }
+  // else{
+  //   console.log('Not in')
+  // }
 
   var state = true;
 
@@ -205,7 +201,7 @@ const Map = ({
     <div id="GoogleMap" role="map-container">
       {modalType === "CLOSED" && (
         <div>
-          <WeatherIcon />
+          <WeatherIcon apiData={apiData} setApiData={setApiData} />
 
           <div className="geolocator">
             <button
