@@ -11,7 +11,7 @@ import React, { Component } from "react";
           viewCompleted: false,
           activeItem: {
             title: "",
-            description: "",
+            description: "WHY",
             completed: false
           },
           todoList: []
@@ -22,7 +22,7 @@ import React, { Component } from "react";
       }
       refreshList = () => {
         axios
-          .get("http://localhost:8000/api/todos/")
+          .get("http://34.242.238.95/api/todos/")
           .then(res => this.setState({ todoList: res.data }))
           .catch(err => console.log(err));
       };
@@ -100,17 +100,18 @@ import React, { Component } from "react";
         this.toggle();
         if (item.id) {
           axios
-            .put(`http://localhost:8000/api/todos/${item.id}/`, item)
+            .put(`http://34.242.238.95/api/todos/${item.id}/`, item)
             .then(res => this.refreshList());
           return;
         }
         axios
-          .post("http://localhost:8000/api/todos/", item)
+          .post("http://34.242.238.95/api/todos/", item)
           .then(res => this.refreshList());
       };
       handleDelete = item => {
         axios
-          .delete(`http://localhost:8000/api/todos/${item.id}`)
+        
+          .delete(`http://34.242.238.95/api/todos/${item.id}`)
           .then(res => this.refreshList());
       };
       createItem = () => {
