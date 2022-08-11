@@ -34,9 +34,9 @@ function Nav1(props) {
       <button className=" text-md font-light hover:bg-amber-800 text-slate-100 font-medium py-6 px-6" onClick={handleClick}>
           Home
       </button>
-
+      <Link to="/" className="ml-auto text-md font-light hover:bg-amber-800 text-slate-100 font-medium py-6 px-6">
       <button className="ml-auto text-md font-light hover:bg-amber-800 text-slate-100 font-medium py-6 px-6" onClick={props.handle_logout}>Logout</button>
-      
+      </Link>
     </ul>
   )
   return <div>{props.logged_in ? logged_in_nav : logged_out_nav}</div>;

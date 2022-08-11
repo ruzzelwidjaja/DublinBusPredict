@@ -11,6 +11,7 @@ import WeatherCard from "./Weather";
 import ReactWeather from "react-open-weather";
 import Todo from "./welcome1";
 import { TwitterTweetEmbed, TwitterTimelineEmbed } from "react-twitter-embed";
+import { Routes, Route } from "react-router-dom";
 
 class Welcome extends Component {
   constructor(props) {
@@ -18,15 +19,15 @@ class Welcome extends Component {
     this.state = {
       displayed_form: "",
       logged_in: localStorage.getItem("token") ? true : false,
-      username: "",
+      username: "Undefined",
       // favorites: '',
     };
   }
 
   componentDidMount() {
     if (this.state.logged_in) {
-      //fetch("http://34.242.238.95/core/current_user/"
-      fetch("http://localhost:8000/core/current_user/", {
+      //fetch(""
+      fetch("http://34.242.238.95/core/current_user/", {
         headers: {
           Authorization: `JWT ${localStorage.getItem("token")}`,
         },
@@ -40,8 +41,8 @@ class Welcome extends Component {
 
   handle_login = (e, data) => {
     e.preventDefault();
-    //fetch("http://34.242.238.95/token-auth/"
-    fetch("http://localhost:8000/token-auth/", {
+    //fetch(""
+    fetch("http://34.242.238.95/token-auth/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -63,12 +64,14 @@ class Welcome extends Component {
   handle_logout = () => {
     localStorage.removeItem("token");
     this.setState({ logged_in: false, username: "" });
+    <Route path='/' element={<Home/>} />
+    
   };
 
   handle_signup = (e, data) => {
     e.preventDefault();
-    //fetch("http://34.242.238.95/core/users/"
-    fetch("http://localhost:8000/core/users/", {
+    fetch("http://34.242.238.95/core/users/",
+    {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -81,7 +84,7 @@ class Welcome extends Component {
         localStorage.setItem("token", json.token);
         this.setState({
           logged_in: true,
-          displayed_form: "",
+          displayed_form: "off",
           username: json.username,
           // favorites : json.favorites
         });
@@ -97,6 +100,7 @@ class Welcome extends Component {
   render() {
     let form;
     const isLoggedIn = this.state.logged_in;
+    console.log(this.state.logged_in)
     switch (this.state.displayed_form) {
       case "login":
         form = <LoginForm handle_login={this.handle_login} />;
@@ -104,14 +108,39 @@ class Welcome extends Component {
       case "signup":
         form = <SignupForm handle_signup={this.handle_signup} />;
         break;
-      default:
+      case 'off':
+        form = null;
+        break;
+        default:
+        form = <SignupForm handle_signup={this.handle_signup} />;
+    }
+
+   if (isLoggedIn == true) {
         form = null;
     }
 
-    const getName = (name) => {
-      let username = name.split("@");
-      return username[0];
-    };
+
+    // const getName = (email) => {
+
+    //   if (typeof email === "undefined" || email === null) {
+    //     email = 'true'
+    // }
+    //   else{
+    //   let username = email.split('@')[0]
+    //   let domain = email.split('@')[1]
+
+    //   return username;
+    //   }
+    //   // s = name
+    //   // index = s.index("@")
+
+    //   // s_id = s[:index]
+
+
+    //   // return s_id;
+     
+      
+    // };
 
     return (
       <div className="welcome" style={{ display: "block" }}>
@@ -123,7 +152,9 @@ class Welcome extends Component {
 
         {form}
         <h1 className="text-7xl font-normal leading-normal mt-0 mb-2 text-pink-800 text-center">
-          {this.state.logged_in ? `Hello, ${getName(this.state.username)}` : ""}
+        {this.state.logged_in
+            ? `Hello, ${this.state.username},`
+            : '' }
           <br></br>
         </h1>
 
