@@ -22,7 +22,7 @@ import React, { Component } from "react";
       }
       refreshList = () => {
         axios
-          .get("http://34.242.238.95/api/todos/")
+          .get("http://localhost:8000/api/todos/")
           .then(res => this.setState({ todoList: res.data }))
           .catch(err => console.log(err));
       };
@@ -100,18 +100,18 @@ import React, { Component } from "react";
         this.toggle();
         if (item.id) {
           axios
-            .put(`http://34.242.238.95/api/todos/${item.id}/`, item)
+            .put(`http://localhost:8000/api/todos/${item.id}/`, item)
             .then(res => this.refreshList());
           return;
         }
         axios
-          .post("http://34.242.238.95/api/todos/", item)
+          .post("http://localhost:8000/api/todos/", item)
           .then(res => this.refreshList());
       };
       handleDelete = item => {
         axios
         
-          .delete(`http://34.242.238.95/api/todos/${item.id}`)
+          .delete(`http://localhost:8000/api/todos/${item.id}`)
           .then(res => this.refreshList());
       };
       createItem = () => {

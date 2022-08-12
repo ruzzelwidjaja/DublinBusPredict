@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Nav from "./Nav1";
+import Nav1 from "./Nav1";
 import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm";
 // import '/App.css';
@@ -17,7 +17,7 @@ class Welcome extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      displayed_form: "",
+      displayed_form: "off",
       logged_in: localStorage.getItem("token") ? true : false,
       username: "Undefined",
       // favorites: '',
@@ -27,7 +27,7 @@ class Welcome extends Component {
   componentDidMount() {
     if (this.state.logged_in) {
       //fetch(""
-      fetch("http://34.242.238.95/core/current_user/", {
+      fetch("http://localhost:8000/core/current_user/", {
         headers: {
           Authorization: `JWT ${localStorage.getItem("token")}`,
         },
@@ -42,7 +42,7 @@ class Welcome extends Component {
   handle_login = (e, data) => {
     e.preventDefault();
     //fetch(""
-    fetch("http://34.242.238.95/token-auth/", {
+    fetch("http://localhost:8000/token-auth/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -51,10 +51,11 @@ class Welcome extends Component {
     })
       .then((res) => res.json())
       .then((json) => {
+        console.log(json);
         localStorage.setItem("token", json.token);
         this.setState({
           logged_in: true,
-          displayed_form: "",
+          displayed_form: "off",
           username: json.user.username,
           // favorites: json.user.favorites
         });
@@ -70,7 +71,7 @@ class Welcome extends Component {
 
   handle_signup = (e, data) => {
     e.preventDefault();
-    fetch("http://34.242.238.95/core/users/",
+    fetch("http://localhost:8000/core/users/",
     {
       method: "POST",
       headers: {
@@ -144,21 +145,21 @@ class Welcome extends Component {
 
     return (
       <div className="welcome" style={{ display: "block" }}>
-        <Nav
+        <Nav1
           logged_in={this.state.logged_in}
           display_form={this.display_form}
           handle_logout={this.handle_logout}
         />
 
         {form}
-        <h1 className="text-7xl font-normal leading-normal mt-0 mb-2 text-pink-800 text-center">
+        <h1 className="text-3xl md:text-7xl font-normal leading-normal mt-0 mb-2 text-pink-800 text-center ">
         {this.state.logged_in
             ? `Hello, ${this.state.username},`
             : '' }
           <br></br>
         </h1>
 
-        <h3 className="text-4xl mb-10 font-normal leading-normal mt-0 mb-2 text-pink-800 text-center">
+        <h3 className="text-2xl md:text-4xl mb-10 font-normal leading-normal mt-0 mb-2 text-pink-800 text-center">
           {this.state.logged_in ? "Have a great journey!" : ""}
         </h3>
 
