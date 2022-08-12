@@ -50,11 +50,11 @@ const Home = () => {
 
   // Function to get data from backend API
   const fetchAPIData = async () => {
-    const stopResponse = await fetch("http://34.242.238.95/api/stops/");
+    const stopResponse = await fetch("http://34.245.60.119/api/stops/");
     const stopData = await stopResponse.json();
 
     const nameHeadsignResponse = await fetch(
-      "http://34.242.238.95/api/namesandheadsigns/"
+      "http://34.245.60.119/api/namesandheadsigns/"
     );
     const nameHeadsignData = await nameHeadsignResponse.json();
 
@@ -100,7 +100,7 @@ const Home = () => {
   // Function to get predicted journey time for bus leg
   async function getPrediction(id, dist) {
     // Either returns a predicted value or a null result on failure
-    let base = "http://34.242.238.95/api/prediction/";
+    let base = "http://34.245.60.119/api/prediction/";
     let api_url = base + id + "/" + dist + "/";
     const response = await fetch(api_url);
     if (response.ok) {

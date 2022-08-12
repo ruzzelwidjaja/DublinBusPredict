@@ -3,7 +3,7 @@ import React from "react";
 
 const BusRoute = ({ routeInfo, setShapes, setDirectionsOutput, mapLoaded }) => {
   const fetchShapeData = async (id) => {
-    const shapeResponse = await fetch(`http://localhost:8000/api/${id}`);
+    const shapeResponse = await fetch(`http://34.245.60.119/api/${id}`);
     const shapeData = await shapeResponse.json();
 
     // Clean the data

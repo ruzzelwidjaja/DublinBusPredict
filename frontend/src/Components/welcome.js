@@ -17,7 +17,7 @@ class Welcome extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      displayed_form: "off",
+      displayed_form: "",
       logged_in: localStorage.getItem("token") ? true : false,
       username: "Undefined",
       // favorites: '',
@@ -55,7 +55,7 @@ class Welcome extends Component {
         localStorage.setItem("token", json.token);
         this.setState({
           logged_in: true,
-          displayed_form: "off",
+          displayed_form: "",
           username: json.user.username,
           // favorites: json.user.favorites
         });
@@ -85,7 +85,7 @@ class Welcome extends Component {
         localStorage.setItem("token", json.token);
         this.setState({
           logged_in: true,
-          displayed_form: "off",
+          displayed_form: "",
           username: json.username,
           // favorites : json.favorites
         });

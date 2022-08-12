@@ -29,15 +29,15 @@ const Map = ({
   chosenIndex,
   directionsOutput,
   shapes,
-  //mapLoaded,
-  //setMapLoaded,
+  mapLoaded,
+  setMapLoaded,
   stops,
   isLoaded,
   loadError,
   modalType,
 }) => {
   var markers = [];
-  const [mapLoaded, setMapLoaded] = useState(null);
+  // const [mapLoaded, setMapLoaded] = useState(null);
   const mapRef = React.useRef();
   // const onMapLoad = React.useCallback((map) => {
   mapRef.current = mapLoaded;
