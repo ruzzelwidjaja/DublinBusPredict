@@ -1,0 +1,43 @@
+.header,
+.webbuttons,
+.webbutton-bottom {
+  display: none;
+}
+.weather-icon {
+  width: 100px;
+}
+/* For larger screens */
+@media only screen and (min-width: 768px) {
+  .header {
+    display: block;
+  }
+
+  .webbuttons {
+    display: block;
+  }
+
+  .webbutton {
+    display: block;
+    width: 100%;
+  }
+
+  .webbutton-bottom {
+    position: absolute;
+    bottom: 0;
+  }
+  .phonebuttons {
+    display: none;
+  }
+}
+/* ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+} */
+
+li {
+  float: left;
+  color: black;
+}
