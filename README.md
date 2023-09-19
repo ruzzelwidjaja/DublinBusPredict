@@ -1,6 +1,6 @@
 # Dublin Bus Journey Planner
 
-![Dublin Bus Journey Planner](screenshots/your_screenshot.png)
+![Web](screenshots/web.png) ![Mobile](screenshots/mobile.png)
 
 ## Table of Contents
 
@@ -29,6 +29,9 @@ The application is designed to predict journey times accurately for Dublin Bus t
 
 The journey planner is the heart of the application. Users can enter their starting location and desired destination, and the app will provide them with a route, instructions, and estimated trip duration. It utilizes the Google Places API for location input and the Google Maps API for route presentation.
 
+<img src="screenshots/journeyplanner_1.png" alt="Journey Planner 1" width="300"/> <img src="screenshots/journeyplanner_2.png" alt="Journey Planner 2" width="300"/>
+
+
 ### Routes
 
 This feature allows users to look up specific bus routes and view the shape of the route the bus will follow. It also displays information about each stop along the route.
@@ -37,9 +40,13 @@ This feature allows users to look up specific bus routes and view the shape of t
 
 The application offers geolocation, providing users with information about nearby bus stops within a 500-meter radius. Users can enable this feature after granting location permission.
 
+<img src="screenshots/geolocation.png" alt="Geolocation" width="800"/>
+
 ### User Authentication / User Accounts
 
 Users can create accounts, enabling a personalized experience. Secure user data storage is handled by Django.
+
+<img src="screenshots/signin.png" alt="Signin" width="800"/>
 
 ### Weather
 
@@ -49,17 +56,16 @@ Live weather information for Dublin is displayed on the home page, including cur
 
 Users can toggle the display of all Dublin bus stops on the map. Stops are clustered for a smoother experience, with individual markers appearing upon zooming in.
 
-### Favorites
+### Favorites & Twitter Feed
 
 Logged-in users can save their favorite routes and stops, enhancing their user experience.
+Integrating the Dublin Bus news feed from Twitter provides real-time updates on bus schedules, route changes, or delays, keeping users informed.
+
+<img src="screenshots/favorites.png" alt="Favorites & Twitter Feed" width="800"/>
 
 ### Mobile Friendly
 
 The application follows a "mobile-first" approach, making it accessible and user-friendly on both mobile devices and larger screens.
-
-### Twitter Feed
-
-Integrating the Dublin Bus news feed from Twitter provides real-time updates on bus schedules, route changes, or delays, keeping users informed.
 
 ### Machine Learning Innovations
 
